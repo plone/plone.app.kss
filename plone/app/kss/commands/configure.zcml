@@ -1,0 +1,45 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:kss="http://namespaces.zope.org/kss"
+    >
+
+    <adapter 
+      for="plone.app.kss.interfaces.IPloneAzaxView"
+      provides=".interfaces.IRefreshPortletCommand"
+      factory=".refreshportlet.RefreshPortletCommand"
+      />
+
+    <kss:registerCommandSet
+        name="refreshportlet"
+        provides=".interfaces.IRefreshPortletCommand"
+        />
+
+    <adapter 
+      for="plone.app.kss.interfaces.IPloneAzaxView"
+      provides=".interfaces.IIssuePortalMessageCommand"
+      factory=".issueportalmessage.IssuePortalMessageCommand"
+      />
+
+    <adapter 
+         for="kss.core.interfaces.IAzaxView"
+         provides=".interfaces.IKSSPlonePortletCommands"
+         factory=".portlets.KSSPortletCommands"
+         />
+
+    <kss:registerCommandSet name="plone-portlets"
+          provides=".interfaces.IKSSPlonePortletCommands"/>
+
+    <kss:registerCommandSet
+        name="portalmessage"
+        provides=".interfaces.IIssuePortalMessageCommand"
+        />
+
+    <!--kss:registerCommandSet
+        name="portalmessage"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        provides=".interfaces.IIssuePortalMessageCommand"
+        factory=".issueportalmessage.IssuePortalMessageCommand"
+        /-->
+
+</configure>

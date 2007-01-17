@@ -1,0 +1,19 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+     xmlns:browser="http://namespaces.zope.org/browser"
+     xmlns:kss="http://namespaces.zope.org/kss"
+     >
+     
+    
+    <!-- reload plugin for content menus -->
+
+    <kss:registerAction
+        name="bindActionMenus"
+        jsfile="reload/bindmenus.js"
+        />
+
+    <kss:registerAction
+        name="initializeCollapsible"
+        jsfile="reload/initializeCollapsible.js"
+        />
+
+</configure>

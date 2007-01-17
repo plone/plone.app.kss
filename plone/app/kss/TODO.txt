@@ -1,0 +1,2 @@
+
+- It should be replaceNode and not setHtmlContent, but it happens to work on Mozilla

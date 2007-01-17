@@ -1,0 +1,33 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+     xmlns:browser="http://namespaces.zope.org/browser"
+     xmlns:kss="http://namespaces.zope.org/kss"
+     >
+     
+    
+    <!-- plugin registration -->    
+    
+    <kss:registerAction
+        name="plone-initKupu"
+        command_factory="selector"
+        jsfile="plugin.js"
+        />
+
+    <kss:registerAction
+        name="plone-followLink"
+        command_factory="selector"
+        jsfile="plugin.js"
+        />
+
+    <kss:registerAction
+        name="plone-submitCurrentForm"
+        command_factory="selector"
+        jsfile="plugin.js"
+        />
+
+    <kss:registerAction
+        name="plone-initFormTabs"
+        command_factory="selector"
+        jsfile="plugin.js"
+        />
+
+</configure>
