@@ -25,11 +25,8 @@ from kss.core.tests.base import AzaxViewTestCase
 PloneTestCase.setupPloneSite()
 
 from plone.app.kss import content_replacer
-from plone.app.kss.tests.layer import PloneKSS
 
 class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
-
-    layer = PloneKSS
 
     def afterSetUp(self):
         PloneTestCase.PloneTestCase.afterSetUp(self)
@@ -110,6 +107,13 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         resh = req.RESPONSE.headers
         self.assertEqual(resh['status'], '200 OK')
         self.failUnless(req.RESPONSE.cookies.has_key('__cp'), 'no copy cookies')
+
+    def beforeTearDown(self):
+        # Overwrite AzaxViewTestCase's method as it tears down the CA manually
+        # and doesn't use layers yet, which doesn't play nicely with layer
+        # enabled tests.
+        pass
+
 
 def test_suite():
     return unittest.TestSuite((

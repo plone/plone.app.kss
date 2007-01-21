@@ -8,7 +8,6 @@ import plone
 from plone.app.kss.azaxview import AzaxBaseView
 from plone.app.kss.interfaces import IPortalObject
 from plone.app.kss.portlets import navigation_portlet_reloader
-from plone.app.kss.tests.layer import PloneKSS
 
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope import lifecycleevent
@@ -28,8 +27,6 @@ class SampleView(AzaxBaseView):
 
 
 class TestPortletReloading(PloneTestCase.PloneTestCase, AzaxViewTestCase):
-
-    layer = PloneKSS
 
     def afterSetUp(self):
         PloneTestCase.PloneTestCase.afterSetUp(self)
@@ -63,6 +60,12 @@ class TestPortletReloading(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         result = self.view.render()
 
         self.assertEqual(result[0]['selector'], '#portlet-navigation-tree')
+
+    def beforeTearDown(self):
+        # Overwrite AzaxViewTestCase's method as it tears down the CA manually
+        # and doesn't use layers yet, which doesn't play nicely with layer
+        # enabled tests.
+        pass
 
 
 def test_suite():
