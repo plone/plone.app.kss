@@ -8,9 +8,9 @@ from azaxview import AzaxBaseView
 
 __all__ = ('AzaxBaseView', 'force_unicode')
 
-
 # Allow to build views from restricted code
-from AccessControl import allow_class
+from AccessControl import allow_class, allow_module
+allow_module('plone.app.kss')
 allow_class(AzaxBaseView)
 
 def initialize(context):
