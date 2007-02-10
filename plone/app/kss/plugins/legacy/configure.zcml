@@ -6,12 +6,12 @@
     
     <!-- reload plugin for content menus -->
 
-    <kss:registerAction
+    <kss:action
         name="bindActionMenus"
         jsfile="reload/bindmenus.js"
         />
 
-    <kss:registerAction
+    <kss:action
         name="initializeCollapsible"
         jsfile="reload/initializeCollapsible.js"
         />

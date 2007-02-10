@@ -4,42 +4,26 @@
     xmlns:kss="http://namespaces.zope.org/kss"
     >
 
-    <adapter 
-      for="plone.app.kss.interfaces.IPloneAzaxView"
-      provides=".interfaces.IRefreshPortletCommand"
-      factory=".refreshportlet.RefreshPortletCommand"
-      />
-
-    <kss:registerCommandSet
+    <kss:commandset
         name="refreshportlet"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        class=".refreshportlet.RefreshPortletCommand"
         provides=".interfaces.IRefreshPortletCommand"
         />
 
-    <adapter 
-      for="plone.app.kss.interfaces.IPloneAzaxView"
-      provides=".interfaces.IIssuePortalMessageCommand"
-      factory=".issueportalmessage.IssuePortalMessageCommand"
-      />
+    <kss:commandset 
+        name="plone-portlets"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        class=".portlets.KSSPortletCommands"
+        provides=".interfaces.IKSSPlonePortletCommands"
+        />
 
-    <adapter 
-         for="kss.core.interfaces.IAzaxView"
-         provides=".interfaces.IKSSPlonePortletCommands"
-         factory=".portlets.KSSPortletCommands"
-         />
-
-    <kss:registerCommandSet name="plone-portlets"
-          provides=".interfaces.IKSSPlonePortletCommands"/>
-
-    <kss:registerCommandSet
+    <kss:commandset
         name="portalmessage"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        class=".issueportalmessage.IssuePortalMessageCommand"
         provides=".interfaces.IIssuePortalMessageCommand"
         />
 
-    <!--kss:registerCommandSet
-        name="portalmessage"
-        for="plone.app.kss.interfaces.IPloneAzaxView"
-        provides=".interfaces.IIssuePortalMessageCommand"
-        factory=".issueportalmessage.IssuePortalMessageCommand"
-        /-->
 
 </configure>

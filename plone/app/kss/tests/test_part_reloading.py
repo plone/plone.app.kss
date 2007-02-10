@@ -1,7 +1,5 @@
 import unittest
 from Products.PloneTestCase import PloneTestCase
-
-from kss.core.events import AzaxEvent
 from kss.core.tests.base import AzaxViewTestCase
 
 import plone
@@ -47,16 +45,14 @@ class TestPortletReloading(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         # nothing should happen still because we must change the title or the
         # description
         modified_event = ObjectEditedEvent(self.folder)
-        azax_event = AzaxEvent(self.view, modified_event)
-        navigation_portlet_reloader(azax_event)
+        navigation_portlet_reloader(self.folder, self.view, modified_event)
         result = self.view.render()
         self.assertEqual(result, [])
 
     def test_update_of_nav_portlet(self):
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
         modified_event = ObjectEditedEvent(self.folder, descriptor)
-        azax_event = AzaxEvent(self.view, modified_event)
-        navigation_portlet_reloader(azax_event)
+        navigation_portlet_reloader(self.folder, self.view, modified_event)
         result = self.view.render()
 
         self.assertEqual(result[0]['selector'], '#portlet-navigation-tree')

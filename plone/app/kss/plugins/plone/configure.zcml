@@ -6,25 +6,25 @@
     
     <!-- plugin registration -->    
     
-    <kss:registerAction
+    <kss:action
         name="plone-initKupu"
         command_factory="selector"
         jsfile="plugin.js"
         />
 
-    <kss:registerAction
+    <kss:action
         name="plone-followLink"
         command_factory="selector"
         jsfile="plugin.js"
         />
 
-    <kss:registerAction
+    <kss:action
         name="plone-submitCurrentForm"
         command_factory="selector"
         jsfile="plugin.js"
         />
 
-    <kss:registerAction
+    <kss:action
         name="plone-initFormTabs"
         command_factory="selector"
         jsfile="plugin.js"

@@ -68,8 +68,6 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         req = self.portal.REQUEST
         view = content_replacer.ContentView(self.fpage, req)
         result = view.cutObject()
-        # disable all event hooks
-        view.stopEventListening()
 
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
@@ -89,8 +87,6 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
     def testKukitCopyObject(self):
         req = self.portal.REQUEST
         view = content_replacer.ContentView(self.fpage, req)
-        # disable all event hooks
-        view.stopEventListening()
 
         result = view.copyObject()
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
