@@ -2,7 +2,7 @@
 // bind collapsible sections on load
 
 
-kukit.ar.actionRegistry.register("initializeCollapsible", function (oper) {
+kukit.actionsGlobalRegistry.register("initializeCollapsible", function (oper) {
         activateCollapsibles();
     });
 

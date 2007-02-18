@@ -2,7 +2,7 @@
 // bind action menus on load
 
 
-kukit.ar.actionRegistry.register("bindActionMenus", function (oper) {
+kukit.actionsGlobalRegistry.register("bindActionMenus", function (oper) {
         initializeMenus();
         kukit.logDebug('Plone menus initialized');
     });

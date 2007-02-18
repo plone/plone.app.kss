@@ -15,7 +15,7 @@ kukit.plone = {};
 if (typeof(addDOMLoadEvent) != 'undefined') {
     var f = function() {
         kukit.log('Init triggered by the DOMLoad event of KSS for Plone');
-        kukit.initializeRules();
+        kukit.bootstrap();
     };
     addDOMLoadEvent(f);
     kukit.log('Installed DOMLoad event for KSS for Plone.');
@@ -25,7 +25,7 @@ if (typeof(addDOMLoadEvent) != 'undefined') {
 
 /* Base kukit plugins for Plone*/
 
-kukit.ar.actionRegistry.register("plone-initKupu", function(oper) {
+kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
     oper.completeParms([], {}, 'plone-initKupu action');
     // we start from the iframe node...
     if (oper.node.tagName.toLowerCase() != 'iframe') {
@@ -87,9 +87,9 @@ kukit.ar.actionRegistry.register("plone-initKupu", function(oper) {
         }
     }
 });
-kukit.cr.commandRegistry.registerFromAction('plone-initKupu', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initKupu', kukit.cr.makeSelectorCommand);
 
-kukit.ar.actionRegistry.register("plone-followLink", function(oper) {
+kukit.actionsGlobalRegistry.register("plone-followLink", function(oper) {
     oper.completeParms([], {}, 'plone-followLink action');
     var url = oper.node.href;
     if (url.substr(0, 7) == "http://") {
@@ -100,16 +100,16 @@ kukit.ar.actionRegistry.register("plone-followLink", function(oper) {
         eval(url.substr(13));
     }
 });
-kukit.cr.commandRegistry.registerFromAction('plone-followLink', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-followLink', kukit.cr.makeSelectorCommand);
 
-kukit.ar.actionRegistry.register("plone-submitCurrentForm", function (oper) {
+kukit.actionsGlobalRegistry.register("plone-submitCurrentForm", function (oper) {
     oper.completeParms([], {}, 'plone-submitCurrentForm action');
     var form = kukit.fo.getCurrentForm(oper.node);
     form.submit();
 });
-kukit.cr.commandRegistry.registerFromAction('plone-submitCurrentForm', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-submitCurrentForm', kukit.cr.makeSelectorCommand);
 
-kukit.ar.actionRegistry.register("plone-initFormTabs", function(oper) {
+kukit.actionsGlobalRegistry.register("plone-initFormTabs", function(oper) {
     oper.completeParms([], {}, 'plone-initFormTabs action');
     if (oper.node.tagName.toLowerCase() != 'form') {
         throw 'The plone-initFormTabs action can only execute on a form node as a target.';
@@ -117,7 +117,7 @@ kukit.ar.actionRegistry.register("plone-initFormTabs", function(oper) {
     var form = oper.node;  
     ploneFormTabbing.initializeForm(form);
 });
-kukit.cr.commandRegistry.registerFromAction('plone-initFormTabs', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initFormTabs', kukit.cr.makeSelectorCommand);
  
 
 kukit.actionsGlobalRegistry.register("toggleClassOnParent", function (oper) {
