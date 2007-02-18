@@ -36,17 +36,19 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
     if (! id) {
         throw 'The plone-initKupu action did not find the editor id from the iframe node.';
     }
-    window.kupu = initPloneKupu(id);
+ 
     //
     // Register the editor to ourselves
     // This makes possible to execute update on the field
     //
     var prefix = '#'+id+' ';
-    //var iframe = getFromSelector(prefix+'iframe.kupu-editor-iframe');
     var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
     kukit.fo.fieldUpdateRegistry.register(textarea,
-            {editor: window.kupu,
+            {editor: null,
              node: textarea,
+             doInit: function() {
+                this.editor = initPloneKupu(id);
+                },
              doUpdate: function() {
                 this.editor.saveDataToField(this.node.form, this.node);
                 // set back _initialized
@@ -54,38 +56,6 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
                 this.editor._initialized = true;
                 }
              });
-    // Finish setup
-    window.kupuui = window.kupu.getTool('ui');
-    window.drawertool = window.kupu.getTool('drawertool');
-    window.kupu.initialize();
-    //
-    // We do some correction here. Problem: the kupu editor
-    // initialization trasforms the original AT widget. It cannot
-    // be called twice. If this happens, on IE a second hidden input
-    // field for the text format qill appear and this will destruct
-    // the traditional (non-ajax) form submit. Solution:
-    //
-    //  - we should not have a duplicate call of the editor init (we
-    //    need to, currently, because the original inline init does not
-    //    register the editor.
-    //
-    //  - in addition the initialize should not add the node for a second
-    //    time, once added
-    //
-    var form = textarea.form;
-    var elements = form.elements;
-    var fmtname = textarea.name + '_text_format';
-    var hiddencnt = 0;
-    for (var y=0; y<elements.length; y++) {
-        var element = elements[y];
-        if (element.tagName.toLowerCase() == 'input' && element.name == fmtname) {
-            if (hiddencnt > 0) {
-                // delete all further duplicates
-                element.parentNode.removeChild(element);
-            }
-            hiddencnt += 1;
-        }
-    }
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initKupu', kukit.cr.makeSelectorCommand);
 
