@@ -88,36 +88,3 @@ kukit.actionsGlobalRegistry.register("plone-initFormTabs", function(oper) {
     ploneFormTabbing.initializeForm(form);
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initFormTabs', kukit.cr.makeSelectorCommand);
- 
-
-kukit.actionsGlobalRegistry.register("toggleClassOnParent", function (oper) {
-    oper.completeParms(['parenttype', 'value'], {}, 'toggleClassOnParent action');
-
-    var node = oper.node;
-
-    var parenttype = oper.parms.parenttype.toUpperCase();
-    var value = oper.parms.value;
-
-    var parentnode = node.parentNode;
-    while(parentnode.parentNode) {
-        if(parentnode.nodeName.toUpperCase()==parenttype){
-            break;
-        }
-        parentnode = parentnode.parentNode;
-    }
-    var nodeclass = kukit.dom.getAttribute(parentnode, 'class');
-    var foundclassatindex = -1;
-    var parts = nodeclass.split(' ');
-    for(var i=0; i<parts.length; i++){
-        if(parts[i]==value){
-            foundclassatindex = i;
-        }
-    }
-    if(foundclassatindex==-1){
-        parts.push(value);
-    } else {
-        parts.splice(foundclassatindex, 1);
-    }
-    kukit.dom.setAttribute(parentnode, 'class', parts.join(' '));
-});
-kukit.commandsGlobalRegistry.registerFromAction('toggleClassOnParent', kukit.cr.makeGlobalCommand);
