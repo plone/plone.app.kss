@@ -116,3 +116,26 @@ kukit.actionsGlobalRegistry.register("plone-initFormProtection", function(oper) 
     tool.addForm(form);
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initFormProtection', kukit.cr.makeSelectorCommand);
+
+kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", function(oper) {
+    oper.completeParms([], {}, 'plone-formProtectionCheck action');
+    // Find the binderinstance of the switcher.
+    // (since we are in an action and not in the event, we don't have it at hand.
+    // Note that we would not necessarily need the singleton)
+    var binderinfo = kukit.engine.binderInfoRegistry.getSingletonBinderInfoByName('plone', 'formProtectionChecked');
+    var binderinstance = binderinfo.getBinderInstance();
+    if (true) {
+        // Continue with the real action.
+        binderinstance.__continue_event__('formProtectionChecked', oper.node, {});
+    } else {
+        binderinstance.__continue_event__('formProtectionFailed', oper.node, {});
+    }
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-formProtectionCheck', kukit.cr.makeSelectorCommand);
+
+kukit.plone.FormProtectionCheckedEvents = function() {
+};
+kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked', kukit.plone.FormProtectionCheckedEvents, null, null);
+kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed', kukit.plone.FormProtectionCheckedEvents, null, null);
+
+

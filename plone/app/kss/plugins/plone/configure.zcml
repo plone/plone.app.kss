@@ -31,8 +31,13 @@
         />
 
     <kss:action
-        name="plone-initFormProtection"
+        name="plone-formProtectionCheck"
         command_factory="selector"
+        jsfile="plugin.js"
+        />
+
+    <kss:eventtype
+        name="plone-formProtectionChecked"
         jsfile="plugin.js"
         />
 
