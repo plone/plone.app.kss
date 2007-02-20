@@ -97,6 +97,14 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for=".interfaces.IContentish"
+        attribute="save"
+        class=".kupu.KupuSaveView"
+        name="savekupu"
+        permission="cmf.ModifyPortalContent"
+        />
+
 	<!-- deprecate this -->
     <browser:page
         for=".interfaces.IPortalObject"
