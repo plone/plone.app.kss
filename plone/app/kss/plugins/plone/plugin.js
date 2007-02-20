@@ -74,6 +74,9 @@ kukit.commandsGlobalRegistry.registerFromAction('plone-followLink', kukit.cr.mak
 
 kukit.actionsGlobalRegistry.register("plone-submitCurrentForm", function (oper) {
     oper.completeParms([], {}, 'plone-submitCurrentForm action');
+    // disable the onbeforeunload event since we want to submit now.
+    window.onbeforeunload = null;
+    //
     var form = kukit.fo.getCurrentForm(oper.node);
     form.submit();
 });
