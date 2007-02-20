@@ -50,7 +50,7 @@ class ContentView(Implicit, AzaxBaseView):
     _filter_action = staticmethod(_filter_action)    # for zope 2.8 / python 2.3
 
     @kssaction
-    def replaceContentRegion(self, tabid, url):
+    def replaceContentRegion(self, url, tabid=''):
         '''Replace content region by tab id
 
         Usage::
