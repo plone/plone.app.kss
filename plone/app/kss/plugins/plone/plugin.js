@@ -124,10 +124,24 @@ kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", function(oper)
     // Note that we would not necessarily need the singleton)
     var binderinfo = kukit.engine.binderInfoRegistry.getSingletonBinderInfoByName('plone', 'formProtectionChecked');
     var binderinstance = binderinfo.getBinderInstance();
-    if (true) {
+    // check if the form has change
+    var message;
+    if ( window.onbeforeunload) {
+        var tool = window.onbeforeunload.tool;
+        message = tool.execute();
+    }
+    // Do we need the popup?
+    var result = false;
+    if (message) {
+        result = confirm('Are you sure you want to navigate away from this page?\n\n' + message + 
+            '\n\nPress OK to countinue, or Cancel to stay on the current page.');
+    }
+    // arrange the continuation events
+    if (result) {
         // Continue with the real action.
         binderinstance.__continue_event__('formProtectionChecked', oper.node, {});
     } else {
+        // Continue with the cancel action.
         binderinstance.__continue_event__('formProtectionFailed', oper.node, {});
     }
 });
@@ -135,7 +149,9 @@ kukit.commandsGlobalRegistry.registerFromAction('plone-formProtectionCheck', kuk
 
 kukit.plone.FormProtectionCheckedEvents = function() {
 };
+kukit.plone.FormProtectionCheckedEvents.prototype.__default_failed__ = function(name, oper) {
+};
 kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked', kukit.plone.FormProtectionCheckedEvents, null, null);
-kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed', kukit.plone.FormProtectionCheckedEvents, null, null);
+kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed', kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
 
 
