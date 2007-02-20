@@ -13,23 +13,25 @@
 kukit.plone = {};
 
 if (typeof(addDOMLoadEvent) != 'undefined') {
+
     var f = function() {
-        kukit.log('Init triggered by the DOMLoad event of KSS for Plone');
-        kukit.bootstrap();
+        kukit.log('KSS initialized by Plone DOMLoad event.');
+        kukit.bootstrapFromDOMLoad();
     };
     addDOMLoadEvent(f);
-    kukit.log('Installed DOMLoad event for KSS for Plone.');
+    kukit.log('Installed KSS bootstrap in Plone DOMLoad event.');
 } else {
-    kukit.logWarning('addDOMLoadEvent is not found in KSS for Plone, skipping DOMLoad activation (add event-registration.js to ResourceRegistries?)');
+    kukit.logWarning('Plone addDOMLoadEvent not found by KSS, DOMLoad activation skipped (you might want to add event-registration.js to ResourceRegistries)');
 }
 
 /* Base kukit plugins for Plone*/
 
 kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
+    kukit.logDebug('Enter plone-initKupu');
     oper.completeParms([], {}, 'plone-initKupu action');
     // we start from the iframe node...
     if (oper.node.tagName.toLowerCase() != 'iframe') {
-        throw 'The plone-initKupu action can only execute on the iframe node as a target.';
+        throw 'The plone-initKupu action can only be setup on an iframe node.';
     }
     var divnode = oper.node.parentNode.parentNode.parentNode.parentNode;
     var id = divnode.id;
@@ -38,8 +40,8 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
     }
  
     //
-    // Register the editor to ourselves
-    // This makes possible to execute update on the field
+    // Register the kupu editor in KSS
+    // This enables KSS to update the textarea explicitely. 
     //
     var prefix = '#'+id+' ';
     var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
@@ -47,7 +49,14 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
             {editor: null,
              node: textarea,
              doInit: function() {
+                kukit.log('Setup Kupu initialization on load event');
+                var self = this;
+                initKupuOnLoad = function() {
+                    kukit.log('Initialize Kupu from onload event');
+                    self.editor = initPloneKupu(id);
+                };
                 this.editor = initPloneKupu(id);
+                registerEventListener(window, "load", initKupuOnLoad);
                 },
              doUpdate: function() {
                 this.editor.saveDataToField(this.node.form, this.node);
@@ -56,6 +65,7 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
                 this.editor._initialized = true;
                 }
              });
+    kukit.logDebug('plone-initKupu action done.');
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initKupu', kukit.cr.makeSelectorCommand);
 
