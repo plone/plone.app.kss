@@ -91,3 +91,18 @@ kukit.actionsGlobalRegistry.register("plone-initFormTabs", function(oper) {
     ploneFormTabbing.initializeForm(form);
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initFormTabs', kukit.cr.makeSelectorCommand);
+
+kukit.actionsGlobalRegistry.register("plone-initFormProtection", function(oper) {
+    oper.completeParms([], {}, 'plone-initFormProtection action');
+    if (oper.node.tagName.toLowerCase() != 'form') {
+        throw 'The plone-initFormProtection action can only execute on a form node as a target.';
+    }
+    var form = oper.node;  
+    if (! window.onbeforeunload) {
+        window.onbeforeunload = new BeforeUnloadHandler().execute;
+    }
+    var tool = window.onbeforeunload.tool;
+    // We add the new tool to the 
+    tool.addForm(form);
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-initFormProtection', kukit.cr.makeSelectorCommand);
