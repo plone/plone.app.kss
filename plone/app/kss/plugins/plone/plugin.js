@@ -131,7 +131,7 @@ kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", function(oper)
         message = tool.execute();
     }
     // Do we need the popup?
-    var result = false;
+    var result = true;
     if (message) {
         result = confirm('Are you sure you want to navigate away from this page?\n\n' + message + 
             '\n\nPress OK to countinue, or Cancel to stay on the current page.');
