@@ -155,3 +155,68 @@ kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked', kukit.plon
 kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed', kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
 
 
+// Folder contents shift click selection
+
+// Shift selection
+
+var shiftdown = false;
+
+document.onkeydown = function(e) {
+    var evt = e || window.event;
+    if(evt.keyCode == 16){
+        shiftdown = true;
+    }
+}
+
+document.onkeyup = function(e) {
+    var evt = e || window.event;
+    if(evt.keyCode == 16){
+        shiftdown = false;
+    }
+}
+
+var firstcheckitem = null;
+var firstitemstate = null;
+kukit.actionsGlobalRegistry.register("plone-createCheckBoxSelection", function(oper) {
+    oper.completeParms(['group'], {}, 'plone-createCheckBoxSelection action');
+
+    var node = oper.node;
+    if(firstcheckitem && shiftdown){
+        var group = oper.parms.group;
+        var allnodes = kukit.dom.cssQuery(group)
+        var start = null;
+        var end = null;
+        for(var i=0; i < allnodes.length; i++){
+            if(allnodes[i] == firstcheckitem){
+                start = i;
+            }
+            else if(allnodes[i] == node){
+                end = i;
+            }
+        }
+        if(start>end){
+            var temp = start;
+            start = end;
+            end = temp;
+        }
+
+        for(var i=start; i <= end; i++){
+            allnodes[i].checked = firstitemstate;
+        }
+    }
+    else {
+        firstcheckitem = node;
+        firstitemstate = node.checked;
+    }
+        
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-createCheckBoxSelection', kukit.cr.makeSelectorCommand);
+
+
+kukit.plone.CheckboxSelectionEvents = function() {
+};
+kukit.plone.CheckboxSelectionEvents.prototype.__default_failed__ = function(name, oper) {
+};
+kukit.eventsGlobalRegistry.register('plone', 'firstCheckboxSelected', kukit.plone.CheckboxSelectionEvents, null, null);
+kukit.eventsGlobalRegistry.register('plone', 'selectLastCheckBox', kukit.plone.CheckboxSelectionEvents, null, '__default_failed__');
+kukit.eventsGlobalRegistry.register('plone', 'selectionCompleted', kukit.plone.CheckboxSelectionEvents, null, '__default_failed__');
