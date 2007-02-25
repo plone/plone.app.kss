@@ -13,7 +13,7 @@ class PortletView(AzaxBaseView):
 
     implements(IPloneAzaxView)
     
-    def refreshPortlet(self, name, nodeid=None):
+    def refreshPortlet(self, portlethash, nodeid=None):
         'Refresh portlet by name.'
-        self.getCommandSet('refreshportlet').refreshPortlet(name, nodeid)
+        self.getCommandSet('refreshportlet').refreshPortlet(portlethash)
         return self.render()

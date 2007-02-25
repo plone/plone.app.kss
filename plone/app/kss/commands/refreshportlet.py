@@ -3,6 +3,7 @@ from kss.core import CommandSet
 from plone.app.portlets.utils import assignment_from_key
 from plone.portlets.utils import unhashPortletInfo
 from plone.portlets.interfaces import IPortletManager, IPortletRenderer
+from plone.app.portlets.interfaces import IDeferredPortletRenderer
 from zope.component import getMultiAdapter, getUtility
 
 class RefreshPortletCommand(CommandSet):
@@ -43,6 +44,9 @@ class RefreshPortletCommand(CommandSet):
             )
         renderer = renderer.__of__(self.context)
         renderer.update()
+        if IDeferredPortletRenderer.providedBy(renderer):
+            # if this is a deferred load, prepare now the data
+            renderer.deferred_update()
         result = renderer.render()
         # Revert the original request
         self.request.form = orig_form
