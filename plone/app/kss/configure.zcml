@@ -155,4 +155,13 @@
     <subscriber handler=".globalui.portal_tabs_reloader"/>
     <subscriber handler=".globalui.portal_breadcrumb_reloader"/>
 
+    <!-- proper base url in header -->
+    <browser:viewlet
+        name="plone.htmlhead.kss-base-rul"
+        manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+        class=".headerviewlet.KssBaseUrlViewlet"
+        permission="zope2.View" 
+        />
+        
+
 </configure>
