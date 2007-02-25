@@ -4,8 +4,6 @@ from zope.interface import implements
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
-from Products.CMFPlone.i18nl10n import utranslate
-
 from Products.statusmessages import STATUSMESSAGEKEY
 from Products.statusmessages.adapter import _decodeCookieValue
 
@@ -44,9 +42,6 @@ class AzaxBaseView(base):
         content = force_unicode(content, 'utf')
         return content
 
-    def translateMessage(self, message):
-        return utranslate(None, message, context=self.context)
-
     def issueAllPortalMessages(self):
         if hasattr(self.request.RESPONSE, 'cookies'):
             cookie = self.request.RESPONSE.cookies.get(STATUSMESSAGEKEY)
@@ -56,5 +51,5 @@ class AzaxBaseView(base):
             else:
                 statusmessages = []
             for msg in statusmessages:
-                self.getCommandSet('portalmessage').issuePortalMessage(msg.message)
-                self.request.RESPONSE.expireCookie(STATUSMESSAGEKEY, path='/')
+                self.getCommandSet('portalmessage').issuePortalMessage(msg)
+            self.request.RESPONSE.expireCookie(STATUSMESSAGEKEY, path='/')

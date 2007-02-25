@@ -1,23 +1,34 @@
-from kss.core import force_unicode
 from kss.core.azaxview import AzaxViewAdapter
 
+from Products.statusmessages.message import Message
+
+type_css_map = {'info' : 'portalMessage',
+                'warn' : 'portalWarningMessage',
+                'error' : 'portalErrorMessage'}
+
+
 class IssuePortalMessageCommand(AzaxViewAdapter):
+
     __allow_access_to_unprotected_subobjects__ = 1
-    
-    def issuePortalMessage(self, message):
+
+    def issuePortalMessage(self, message, msgtype='portalMessage'):
         'Issue this portal message'
-        if message:
-            message = self.view.translateMessage(message)
-            message = force_unicode(message, 'utf')
-        else:
+        if message is None:
             # allow message = None.
             message = ''
-        # XXX David: The macro has to take in account that there might be more
-        # than one status message.
-        # XXX David: The macro does not take in account the type of the portal message
+
+        if isinstance(message, Message):
+            msgtype = message.type
+            if type_css_map.has_key(msgtype):
+                msgtype = type_css_map[msgtype]
+            message = message.message
+
+        # XXX The macro has to take in account that there might be more than
+        # one status message.
         ksscore = self.getCommandSet('core')
-        ksscore.replaceInnerHTML(ksscore.getHtmlIdSelector('kssPortalMessage'), message) 
+        selector = ksscore.getHtmlIdSelector('kssPortalMessage')
         # Now there is always a portal message but it has to be
         # rendered visible or invisible, accordingly
-        ksscore.setStyle(ksscore.getHtmlIdSelector('kssPortalMessage'), 
-            'display', message and 'block' or 'none') 
+        ksscore.replaceInnerHTML(selector, message) 
+        ksscore.setAttribute(selector, 'class', msgtype)
+        ksscore.setStyle(selector, 'display', message and 'block' or 'none') 
