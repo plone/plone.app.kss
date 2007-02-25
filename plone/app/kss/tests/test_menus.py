@@ -72,6 +72,7 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
                           ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+                          ('setAttribute', 'kssPortalMessage', 'htmlid'),
                           ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
@@ -92,6 +93,7 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
                           ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+                          ('setAttribute', 'kssPortalMessage', 'htmlid'),
                           ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
