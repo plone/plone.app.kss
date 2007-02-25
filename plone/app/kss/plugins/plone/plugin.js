@@ -165,14 +165,14 @@ kukit.actionsGlobalRegistry.register("plone-initShiftDetection", function(oper) 
         if(evt.keyCode == 16){
             kukit.engine.statevars['plone-shiftdown'] = true;
         }
-    }
+    };
 
     document.onkeyup = function(e) {
         var evt = e || window.event;
         if(evt.keyCode == 16){
             kukit.engine.statevars['plone-shiftdown'] = false;
         }
-    }
+    };
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initShiftDetection', kukit.cr.makeSelectorCommand);
 
@@ -191,7 +191,7 @@ kukit.actionsGlobalRegistry.register("plone-createCheckBoxSelection", function(o
     var firstitem = kukit.engine.statevars['plone-foldercontents-firstcheckeditem'];
     if(firstitem && kukit.engine.statevars['plone-shiftdown']) {
         var group = oper.parms.group;
-        var allnodes = kukit.dom.cssQuery(group)
+        var allnodes = kukit.dom.cssQuery(group);
         var start = null;
         var end = null;
         for(var i=0; i < allnodes.length; i++){
