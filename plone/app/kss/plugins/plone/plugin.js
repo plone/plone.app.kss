@@ -155,3 +155,87 @@ kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked', kukit.plon
 kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed', kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
 
 
+// Folder contents shift click selection
+kukit.actionsGlobalRegistry.register("plone-initShiftDetection", function(oper) {
+    oper.completeParms([], {}, 'plone-initShiftDetection action');
+
+    kukit.engine.statevars['plone-shiftdown'] = false;
+    document.onkeydown = function(e) {
+        var evt = e || window.event;
+        if(evt.keyCode == 16){
+            kukit.engine.statevars['plone-shiftdown'] = true;
+        }
+    }
+
+    document.onkeyup = function(e) {
+        var evt = e || window.event;
+        if(evt.keyCode == 16){
+            kukit.engine.statevars['plone-shiftdown'] = false;
+        }
+    }
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-initShiftDetection', kukit.cr.makeSelectorCommand);
+
+
+kukit.actionsGlobalRegistry.register("plone-initCheckBoxSelection", function(oper) {
+    oper.completeParms([], {}, 'plone-initCheckBoxSelection action');
+    kukit.engine.statevars['plone-foldercontents-firstcheckeditem'] = null;
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-initCheckBoxSelection', kukit.cr.makeSelectorCommand);
+
+
+kukit.actionsGlobalRegistry.register("plone-createCheckBoxSelection", function(oper) {
+    oper.completeParms(['group'], {}, 'plone-createCheckBoxSelection action');
+
+    var node = oper.node;
+    var firstitem = kukit.engine.statevars['plone-foldercontents-firstcheckeditem'];
+    if(firstitem && kukit.engine.statevars['plone-shiftdown']) {
+        var group = oper.parms.group;
+        var allnodes = kukit.dom.cssQuery(group)
+        var start = null;
+        var end = null;
+        for(var i=0; i < allnodes.length; i++){
+            if(allnodes[i] == firstitem){
+                start = i;
+            }
+            else if(allnodes[i] == node){
+                end = i;
+            }
+        }
+        if(start>end){
+            var temp = start;
+            start = end;
+            end = temp;
+        }
+
+        for(var i=start; i <= end; i++){
+            allnodes[i].checked = firstitem.checked;
+        }
+    }
+    else {
+        kukit.engine.statevars['plone-foldercontents-firstcheckeditem'] = node;
+    }
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-createCheckBoxSelection', kukit.cr.makeSelectorCommand);
+
+
+kukit.actionsGlobalRegistry.register("plone-initDragAndDrop", function(oper) {
+    oper.completeParms(['table'], {}, 'plone-initDragAndDrop action');
+
+    var table = oper.parms.table;
+    ploneDnDReorder.table = cssQuery(table)[0];
+    if (!ploneDnDReorder.table)
+        return;
+    ploneDnDReorder.rows = cssQuery(table + " > tr," +
+                                    table + " > tbody > tr");
+    var targets = cssQuery(table + " > tr > td," +
+                           table + " > tbody > tr > td");
+    for (var i=0; i<targets.length; i++) {
+        if (hasClassName(targets[i], 'notDraggable'))
+            continue;
+        targets[i].onmousedown=ploneDnDReorder.doDown;
+        targets[i].onmouseup=ploneDnDReorder.doUp;
+        addClassName(targets[i], "draggingHook");
+    }
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-initDragAndDrop', kukit.cr.makeSelectorCommand);
