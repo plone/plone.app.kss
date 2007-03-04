@@ -43,7 +43,7 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
     def testReplaceContentRegion(self):
         req = self.portal.REQUEST
         view = content_replacer.ContentView(self.fpage, req)
-        result = view.replaceContentRegion('contentview-edit', self.fpage.absolute_url())
+        result = view.replaceContentRegion(self.fpage.absolute_url(), tabid='contentview-edit')
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
             [('replaceHTML', 'region-content', 'htmlid'),
             ('setAttribute', 'ul.contentViews li', 'css'),
