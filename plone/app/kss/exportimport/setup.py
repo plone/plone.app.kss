@@ -1,16 +1,19 @@
 '''\
 Procedural methods of site setup
-
-To replace code that used to be in Extensions/Install
 '''
 
-from Products.CMFCore.utils import getToolByName
+from zope.component import getUtility
+
+from Products.MimetypesRegistry.interfaces import IMimetypesRegistryTool
 
 def setupMimetype(context):
     '''This setup step is needed after Archetypes has been installed.
     '''
     site = context.getSite()
+    # Only run step if a flag file is present (e.g. not an extension profile)
+    if context.readDataFile('plone-app-kss.txt') is None:
+        return
     # register mimetype
-    mt = getToolByName(site, 'mimetypes_registry')
+    mt = getUtility(IMimetypesRegistryTool)
     mt.manage_addMimeType('KSS (Kinetic Style Sheet)', ('text/kss', ), ('kss', ), 'text.png',
                        binary=0, globs=('*.kss', ))
