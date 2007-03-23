@@ -6,6 +6,21 @@ plone.app.kss - 1.2dev Unreleased
 
     - ...
 
+plone.app.kss - 1.2-beta1.2 Released 2007-03-23
+
+    - Add monkeypatch to offer a temporary workaround to
+      five.localsitemanager. This is actually not a kss issue,
+      but the problem manifests when any other non-five site manager
+      (like kss's one) is used together fith five's one. The
+      result is, acquisition wrapping is not added in this case, and
+      tools in Plone are returned without a parent. The current patch
+      relocates the adding of the acquisition wrapping from the
+      localsitemanager of five to the level of zope3. Thus acquisition
+      will always be added.
+      This is actually not a proper solution and is added from the wrong
+      place at the moment.
+	  [ree]
+
 plone.app.kss - 1.2-beta1 Released 2007-03-04
 
     - prepare for release

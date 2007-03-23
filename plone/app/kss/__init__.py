@@ -13,6 +13,9 @@ from AccessControl import allow_class, allow_module
 allow_module('plone.app.kss')
 allow_class(AzaxBaseView)
 
+# XXX Patch zope's and five's site manager machinery
+import five_lsm_patch
+
 def initialize(context):
 
     # register directory views
