@@ -1,0 +1,15 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:kss="http://namespaces.zope.org/kss"
+           >
+           
+     <browser:page
+         for="plone.app.kss.interfaces.IPloneSiteRoot"
+         attribute="createSite"
+         class=".site_creation_view.SiteCreationView"
+         name="kss_test_create_site"
+         permission="zope2.View"
+         />
+         
+</configure>
