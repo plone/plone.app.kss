@@ -226,8 +226,6 @@ class ContentView(Implicit, AzaxBaseView):
         context = self.context
         context.content_status_modify(action)
         self.replaceMenu()
-        # XXX This updating has to go away, DCWorkflow has to take care of this
-        self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
         self.issueAllPortalMessages()
         self.cancelRedirect()
 
