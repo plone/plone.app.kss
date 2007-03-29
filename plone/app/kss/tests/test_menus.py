@@ -46,8 +46,10 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         result = view.replaceContentRegion(self.fpage.absolute_url(), tabid='contentview-edit')
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
             [('replaceHTML', 'region-content', 'htmlid'),
-            ('setAttribute', 'ul.contentViews li', 'css'),
-            ('setAttribute', 'contentview-edit', 'htmlid')]
+	     ('setAttribute', 'ul.contentViews li', 'css'),
+	     ('setAttribute', 'contentview-edit', 'htmlid'),
+	     ('replaceHTML', 'div#content div.contentActions', 'css')]
+	    
             )
 
     def testChangeViewTemplate(self):
@@ -55,7 +57,7 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         # should set default layout of portal
         req = self.portal.REQUEST
         self.assertEqual(self.portal.getLayout(), 'folder_listing')
-        view = content_replacer.ContentView(self.fpage, req)
+        view = content_replacer.ContentMenuView(self.fpage, req)
         url = self.fpage.absolute_url() + '?templateId=atct_album_view'
         result = view.changeViewTemplate(url)
         self.assertEqual(self.portal.getLayout(), 'atct_album_view')
@@ -66,20 +68,20 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
 
     def testKukitCutObject(self):
         req = self.portal.REQUEST
-        view = content_replacer.ContentView(self.fpage, req)
+        view = content_replacer.ContentMenuView(self.fpage, req)
         result = view.cutObject()
 
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
-                          ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
-                          ('setAttribute', 'kssPortalMessage', 'htmlid'),
-                          ('setStyle', 'kssPortalMessage', 'htmlid')]
+			  ('setStyle', '.portalMessage', 'css'),
+			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+			  ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
     def testCutObject(self):
         req = self.portal.REQUEST
         self.failIf(req.RESPONSE.cookies.has_key('__cp'), 'has cut cookie')
-        view = content_replacer.ContentView(self.fpage, req)
+        view = content_replacer.ContentMenuView(self.fpage, req)
         result = view.cutObject()
         resh = req.RESPONSE.headers
         self.assertEqual(resh['status'], '200 OK')
@@ -87,20 +89,20 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         
     def testKukitCopyObject(self):
         req = self.portal.REQUEST
-        view = content_replacer.ContentView(self.fpage, req)
+        view = content_replacer.ContentMenuView(self.fpage, req)
 
         result = view.copyObject()
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
-                          ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
-                          ('setAttribute', 'kssPortalMessage', 'htmlid'),
-                          ('setStyle', 'kssPortalMessage', 'htmlid')]
+			  ('setStyle', '.portalMessage', 'css'),
+			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+			  ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
     def testCopyObject(self):
         req = self.portal.REQUEST
         self.failIf(req.RESPONSE.cookies.has_key('__cp'), 'has copy cookie')
-        view = content_replacer.ContentView(self.fpage, req)
+        view = content_replacer.ContentMenuView(self.fpage, req)
         result = view.copyObject()
         resh = req.RESPONSE.headers
         self.assertEqual(resh['status'], '200 OK')

@@ -117,7 +117,7 @@
     <browser:page
         for="Products.CMFDynamicViewFTI.interface.ISelectableBrowserDefault"
         attribute="changeViewTemplate"
-        class=".content_replacer.ContentView"
+        class=".content_replacer.ContentMenuView"
         name="changeViewTemplate"
         permission="cmf.ModifyPortalContent"
         />
@@ -125,7 +125,7 @@
     <browser:page
         for=".interfaces.IPortalObject"
         attribute="cutObject"
-        class=".content_replacer.ContentView"
+        class=".content_replacer.ContentMenuView"
         name="cutObject"
         permission="zope2.CopyOrMove"
         />
@@ -133,7 +133,7 @@
     <browser:page
         for=".interfaces.IPortalObject"
         attribute="copyObject"
-        class=".content_replacer.ContentView"
+        class=".content_replacer.ContentMenuView"
         name="copyObject"
         permission="zope2.CopyOrMove"
         />
@@ -142,7 +142,7 @@
     <browser:page
         for=".interfaces.IPortalObject"
         attribute="changeWorkflowState"
-        class=".content_replacer.ContentView"
+        class=".content_replacer.ContentMenuView"
         name="changeWorkflowState"
         permission="cmf.ModifyPortalContent"
         />
@@ -163,5 +163,13 @@
         permission="zope2.View" 
         />
         
+
+    <!-- try to emulate the "view" -->
+<!--    <adapter factory="plone.app.contentmenu.view.ContentMenuProvider"
+           name="plone.contentmenu"
+           for="zope.interface.Interface
+                zope.publisher.interfaces.browser.IDefaultBrowserLayer
+		kss.core.interfaces.IKSSView"
+           provides="zope.contentprovider.interfaces.IContentProvider"/>-->
 
 </configure>

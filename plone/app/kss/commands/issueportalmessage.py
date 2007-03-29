@@ -27,8 +27,15 @@ class IssuePortalMessageCommand(AzaxViewAdapter):
         # one status message.
         ksscore = self.getCommandSet('core')
         selector = ksscore.getHtmlIdSelector('kssPortalMessage')
+	
+	# We hide the standard Plone Portal Message
+	standar_portal_message_selector = ksscore.getCssSelector('.portalMessage')
+	ksscore.setStyle(standar_portal_message_selector, 'display','none')
+	
         # Now there is always a portal message but it has to be
         # rendered visible or invisible, accordingly
         ksscore.replaceInnerHTML(selector, message) 
-        ksscore.setAttribute(selector, 'class', msgtype)
+        #ksscore.setAttribute(selector, 'class', msgtype)
         ksscore.setStyle(selector, 'display', message and 'block' or 'none') 
+	
+	

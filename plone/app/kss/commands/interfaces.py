@@ -12,3 +12,9 @@ class IKSSPlonePortletCommands(Interface):
     def reload_classic_portlet(css_selector, column,
                                template, portlet_macro='portlet'):
         '''Reload an old-school portlet'''
+
+class IReplaceContentMenuCommand(Interface):
+    '''effects commands'''
+    
+    def replacemenu(self):
+	    '''replace the content menu'''

@@ -9,6 +9,9 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from azaxview import AzaxBaseView
 from kss.core import kssaction, KssExplicitError
 from interfaces import IPloneAzaxView
+from zope.interface import alsoProvides
+from plone.app.layout.globals.interfaces import IViewView
+
 
 class Acquirer(Implicit):
     # XXX the next should be best to avoid - but I don't know how!
@@ -148,7 +151,48 @@ class ContentView(Implicit, AzaxBaseView):
         ksscore.setAttribute(ksscore.getCssSelector("ul.contentViews li"), name='class', value='plain');
         # ... and put the highlight to the newly selected tab
         ksscore.setAttribute(ksscore.getHtmlIdSelector(tabid), name='class', value='selected');
+	# Update the content menu to show them only in the "view"
+	if tabid.endswith('view'):
+		alsoProvides(self, IViewView)
+	#self.replaceMenu()
+	self.getCommandSet('replacecontentmenu').replaceMenu()
 
+    #@kssaction
+    #def changeWorkflowState(self, url):
+        #(proto, host, path, query, anchor) = urlsplit(url)
+        #if not path.endswith('content_status_modify'):
+            #raise KssExplicitError, 'content_status_modify is not handled'
+        #action = query.split("workflow_action=")[-1].split('&')[0]
+        #context = self.context
+        #context.content_status_modify(action)
+        #self.replaceMenu()
+        ## XXX This updating has to go away, DCWorkflow has to take care of this
+        #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
+        #self.issueAllPortalMessages()
+        #self.cancelRedirect()
+
+class ContentMenuView(Implicit, AzaxBaseView):
+
+    implements(IPloneAzaxView, IViewView)
+    
+    @kssaction
+    def cutObject(self):
+        context = getCurrentContext(self.context)
+        context.object_cut()
+	self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.issueAllPortalMessages()
+        self.cancelRedirect()
+	
+
+    @kssaction
+    def copyObject(self):
+        context = getCurrentContext(self.context)
+        context.object_copy()
+	self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.issueAllPortalMessages()
+        self.cancelRedirect()
+
+    @kssaction
     def changeViewTemplate(self, url):
         '''Replace content region after selecting template from drop-down.
         
@@ -194,28 +238,13 @@ class ContentView(Implicit, AzaxBaseView):
         ksscore = self.getCommandSet('core')
         ksscore.replaceHTML(ksscore.getHtmlIdSelector(replace_id), result)
 
+	self.getCommandSet('replacecontentmenu').replaceMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
         # XXX We need to take care of the URL history here,
         # For instance if we come from the edit page and change the view we
         # stay on the edit URL but with a view page
-        return self.render()
 
-    def cutObject(self):
-        context = getCurrentContext(self.context)
-        context.object_cut()
-        self.replaceMenu()
-        self.issueAllPortalMessages()
-        self.cancelRedirect()
-        return self.render()
-
-    def copyObject(self):
-        context = getCurrentContext(self.context)
-        context.object_copy()
-        self.replaceMenu()
-        self.issueAllPortalMessages()
-        self.cancelRedirect()
-        return self.render()
 
     @kssaction
     def changeWorkflowState(self, url):
@@ -228,18 +257,4 @@ class ContentView(Implicit, AzaxBaseView):
         self.replaceMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
-
-    def replaceMenu(self):
-        # render it
-        menu_body = self.macroContent('global_contentviews/macros/content_actions')
-        # Good. Now, unfortunately we don't have any marker on the outside div.
-        # So we just select the <dl> for insertion.
-        # This could be spared with smarter templating.
-        # XXX Has to go into a macro in global_contentmenu
-        # the the line with replaceInnerHTML should be used again (see below).
-        result = unicode(menu_body)
-        # Command the replacement
-        ksscore = self.getCommandSet('core')
-        # ksscore.replaceInnerHTML(ksscore.getCssSelector('div#content div.contentActions'), result)
-        ksscore.replaceHTML(ksscore.getCssSelector('div#content div.contentActions'), result)
 

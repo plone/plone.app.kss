@@ -25,5 +25,11 @@
         provides=".interfaces.IIssuePortalMessageCommand"
         />
 
+    <kss:commandset
+        name="replacecontentmenu"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        class=".replacecontentmenu.ReplaceContentMenuCommand"
+        provides=".interfaces.IReplaceContentMenuCommand"
+        />
 
 </configure>
