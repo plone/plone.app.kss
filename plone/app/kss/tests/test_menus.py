@@ -108,6 +108,20 @@ class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         self.assertEqual(resh['status'], '200 OK')
         self.failUnless(req.RESPONSE.cookies.has_key('__cp'), 'no copy cookies')
 
+    def testChangeWorkflowState(self):
+	# change the state of the front-page to published
+	# I suppose to have the publish transition available
+	req = self.portal.REQUEST
+	view = content_replacer.ContentMenuView(self.fpage, req)
+	url = self.fpage.absolute_url() + '/content_status_modify?workflow_action=publish'
+	result = view.changeWorkflowState(url)
+	self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
+                         [('replaceHTML', 'div#content div.contentActions', 'css'),
+			  ('setStyle', '.portalMessage', 'css'),
+			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+			  ('setStyle', 'kssPortalMessage', 'htmlid')]
+            )
+
     def beforeTearDown(self):
         # Overwrite AzaxViewTestCase's method as it tears down the CA manually
         # and doesn't use layers yet, which doesn't play nicely with layer
