@@ -123,7 +123,6 @@ class TestContentsTabs:
           True
 	"""
 
-class TestContentViews:
     def test_ul_id():
         """
         We actually authenticate and we'll doing some tests about ul id (which it should be present)
@@ -147,6 +146,11 @@ class TestContentViews:
           >>> [li.get('id') for li in content_ul_tag.findAll('li')]
           [u'contentview-view', u'contentview-edit', u'contentview-local_roles', u'contentview-history']
 
+	"""
+	
+class TestContentMenu:
+    def test_menu_presence():
+	"""
 	"""
 
 def test_suite():
