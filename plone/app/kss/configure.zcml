@@ -7,9 +7,6 @@
     <!-- Include command macro definitions -->
     <include package=".commands"/> 
     <include package=".plugins"/>
-    
-    <!-- this is  only necessary for test-->
-    <include package=".tests"/>  
 
     <!-- Bind interfaces a'la 2.5 -->
 
