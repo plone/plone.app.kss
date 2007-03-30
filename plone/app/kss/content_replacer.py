@@ -3,6 +3,7 @@
 from urlparse import urlsplit
 from kss.core.BeautifulSoup import BeautifulSoup
 from zope.interface import implements
+from zope.component import getMultiAdapter
 from Acquisition import Implicit
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -82,6 +83,10 @@ class ContentView(Implicit, AzaxBaseView):
         # XXX The next checks could be left out - but we won't be able to change the tabs.
         # This could be solved with not using the tabs or doing server side quirks.
         # This affect management screens, for example, that are not real actions.
+        # and unlock XXX
+        lock = getMultiAdapter((self.context,self.request), name='plone_lock_operations')
+        lock.safe_unlock()
+
         if not tabid or tabid == 'content':
             raise KssExplicitError, 'No tabid on the tab'
         if not tabid.startswith('contentview-'):

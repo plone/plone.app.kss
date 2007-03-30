@@ -154,6 +154,28 @@ kukit.plone.FormProtectionCheckedEvents.prototype.__default_failed__ = function(
 kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked', kukit.plone.FormProtectionCheckedEvents, null, null);
 kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed', kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
 
+// Form Locking
+
+kukit.actionsGlobalRegistry.register("plone-initLockingProtection", function(oper) {
+    oper.completeParms([], {}, 'plone-initLockingProtection action');
+    if (oper.node.tagName.toLowerCase() != 'form') {
+        throw 'The plone-initLockingProtection action can only execute on a form node as a target.';
+    }
+    if (! window.onunload) {
+        var handler = new plone.UnlockHandler().execute;
+        window.onunload = handler;
+    }
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-initLockingProtection', kukit.cr.makeSelectorCommand);
+
+
+kukit.actionsGlobalRegistry.register("plone-removeLockProtection", function(oper) {
+    oper.completeParms([], {}, 'plone-removeLockProtection action');
+    if ( window.onunload) {
+        window.onunload = null;
+    }
+});
+kukit.commandsGlobalRegistry.registerFromAction('plone-removeLockProtection', kukit.cr.makeGlobalCommand);
 
 // Folder contents shift click selection
 kukit.actionsGlobalRegistry.register("plone-initShiftDetection", function(oper) {
