@@ -8,16 +8,20 @@
 <thead>
 <tr><td rowspan="1" colspan="3">contentmenu_presence</td></tr>
 </thead><tbody>
+<!--This test checks the coerence of the "content menu" managed by kss with the normal Plone behaviour-->
+<!--It goes in the root of the portal-->
 <tr>
 	<td>open</td>
 	<td>/portal</td>
 	<td></td>
 </tr>
+<!--verifies the presence of the content menu-->
 <tr>
 	<td>assertElementPresent</td>
 	<td>contentActionMenus</td>
 	<td></td>
 </tr>
+<!--it goes to "edit"-->
 <tr>
 	<td>clickAt</td>
 	<td>css=li#contentview-edit a</td>
@@ -28,6 +32,7 @@
 	<td>1000</td>
 	<td></td>
 </tr>
+<!--it verifies the absemce of the menu-->
 <tr>
 	<td>waitForElementNotPresent</td>
 	<td>contentActionMenus</td>
@@ -38,6 +43,7 @@
 	<td>contentActionMenus</td>
 	<td></td>
 </tr>
+<!--it moves back to the "view"-->
 <tr>
 	<td>clickAt</td>
 	<td>css=li#contentview-view a</td>
@@ -48,6 +54,7 @@
 	<td>1000</td>
 	<td></td>
 </tr>
+<!--it verifies if the menu is again in its place-->
 <tr>
 	<td>waitForElementPresent</td>
 	<td>contentActionMenus</td>
