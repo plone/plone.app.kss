@@ -1,11 +1,11 @@
 import unittest
 from Products.PloneTestCase import PloneTestCase
-from kss.core.tests.base import AzaxViewTestCase
 
 import plone
 from plone.app.kss.azaxview import AzaxBaseView
 from plone.app.kss.interfaces import IPortalObject
 from plone.app.kss.portlets import navigation_portlet_reloader
+from plone.app.kss.tests import KSSAndPloneTestCase
 
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope import lifecycleevent
@@ -15,7 +15,6 @@ from Products.Five.zcml import load_config
 
 PloneTestCase.setupPloneSite()
 
-
 class SampleView(AzaxBaseView):
 
     def change_title(self, title):
@@ -24,16 +23,20 @@ class SampleView(AzaxBaseView):
         return self.render()
 
 
-class TestPortletReloading(PloneTestCase.PloneTestCase, AzaxViewTestCase):
+class TestPortletReloading(KSSAndPloneTestCase):
+    class layer(KSSAndPloneTestCase.layer):
+        @classmethod
+        def setUp(cls):
+            load_config('configure-part_reloading.zcml',
+                        package=plone.app.kss.tests)            
 
     def afterSetUp(self):
         PloneTestCase.PloneTestCase.afterSetUp(self)
-        self.loadCoreConfig(kss_core=False)
         self.setDebugRequest()
         self.loginAsPortalOwner()
         self.setRoles(['Manager',])
         # register the sample view
-        load_config('configure-part_reloading.zcml', package=plone.app.kss.tests)
+
         self.view = self.portal.restrictedTraverse('@@change_title')
 
     def test_no_update_of_nav_portlet_when_unhooked(self):
@@ -56,13 +59,6 @@ class TestPortletReloading(PloneTestCase.PloneTestCase, AzaxViewTestCase):
         result = self.view.render()
 
         self.assertEqual(result[0]['selector'], '#portlet-navigation-tree')
-
-    def beforeTearDown(self):
-        # Overwrite AzaxViewTestCase's method as it tears down the CA manually
-        # and doesn't use layers yet, which doesn't play nicely with layer
-        # enabled tests.
-        pass
-
 
 def test_suite():
     suites = []

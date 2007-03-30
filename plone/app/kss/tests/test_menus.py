@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # Copyright (c) 2006
 # Authors:
 #   David '/dev/null' Convent  <davconvent@gmail.com>
@@ -20,13 +19,13 @@
 
 import unittest
 from Products.PloneTestCase import PloneTestCase
-from kss.core.tests.base import AzaxViewTestCase
+from plone.app.kss.tests import KSSAndPloneTestCase
 
 PloneTestCase.setupPloneSite()
 
 from plone.app.kss import content_replacer
 
-class ContentActionMenusTestCase(PloneTestCase.PloneTestCase, AzaxViewTestCase):
+class ContentActionMenusTestCase(KSSAndPloneTestCase):
 
     def afterSetUp(self):
         PloneTestCase.PloneTestCase.afterSetUp(self)
