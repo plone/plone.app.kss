@@ -43,6 +43,8 @@ class TestForKSSInlineEditing:
           False
           >>> 'kssattr-macro-' in title['class']
           False
+          >>> 'inlineEditable' in title['class']
+          False
         """
 
     def test_logged():
@@ -65,6 +67,8 @@ class TestForKSSInlineEditing:
         We check everything is in now, especially that
         ``kssattr-fieldname-`` matched the right field, and is not
         only there, but actually makes some sense
+        Also, we check that the class is ``inlineEditable`` because our KSS
+        hooks there (look at at.kss for details)
         
           >>> 'kssattr-atfieldname-title' in title['class']
           True
@@ -72,7 +76,9 @@ class TestForKSSInlineEditing:
           True
           >>> 'kssattr-macro-' in title['class']
           True
-        
+          >>> 'inlineEditable' in title['class']
+          True
+
         Rerun, description now! (which is not a Francis Ford Coppola's
         movie)
         
@@ -86,6 +92,8 @@ class TestForKSSInlineEditing:
           True
           >>> 'kssattr-macro-' in description['class']
           True
+          >>> 'inlineEditable' in description['class']
+          True
         
         Now, time for the text
         
@@ -97,6 +105,8 @@ class TestForKSSInlineEditing:
           >>> 'kssattr-templateId-' in text['class']
           True
           >>> 'kssattr-macro-' in text['class']
+          True
+          >>> 'inlineEditable' in text['class']
           True
         """
 
