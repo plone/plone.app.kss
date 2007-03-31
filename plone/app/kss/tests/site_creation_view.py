@@ -9,7 +9,12 @@ class SiteCreationView(BrowserView):
       context.invokeFactory('Folder', id='folderitem', title='KssFolder', description='Folder for KSS contents')
       folder = getattr(context, 'folderitem')
 
-      document_body = 'KSS is a javascript framework that aims to allow Ajax development without javascript. It uses stylesheets with CSS-compliant syntax to setup behaviours in the client and a set of well-defined commands that are marshalled back from the server to manipulate the DOM.'
+      document_body = """KSS is a javascript framework that aims to allow Ajax development without javascript. 
+                         It uses stylesheets with CSS-compliant syntax to setup behaviours in the client and a set of 
+                         well-defined commands that are marshalled back from the server to manipulate the DOM.
+                         We'll also add an external link also (<a href="http://www.plone.org">[bug #6343] click here 
+                         to test if the external link works!</a>).
+                         """
       document_description ='KSS is a javascript framework that aims to allow Ajax development without javascript.'
 
       folder.invokeFactory('Document', id='documentitem', title='Kss', description=document_description, text=document_body)
