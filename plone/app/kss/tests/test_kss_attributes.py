@@ -161,6 +161,46 @@ class TestContentsTabs:
 class TestContentMenu:
     def test_menu_presence():
 	"""
+	We must authenticate because content menu is only present for logged in users
+	
+	  >>> self.browser.addHeader(
+          ...    'Authorization', 'Basic %s:%s' % (self.user, self.password))
+          >>> self.browser.open(self.page.absolute_url())
+          >>> soup = self.BeautifulSoup(self.browser.contents)
+	  
+	We are in a page so we must have the "change workflow" menu.
+	
+	  >>> contentmenu_dl_tag = soup.find('dl', {'id':'plone-contentmenu-workflow'})
+	  >>> contentmenu_dl_tag is not None
+	  True
+	  
+	  >>> contentmenu_dl_tag.find('dd',{'class':'actionMenuContent'}) is not None
+	  True  
+	  
+	  
+	  
+	Then you must have the copy and cut links
+	
+	>>> soup.find('a', {'class':'actionicon-object_buttons-cut'}) is not None
+	True
+	
+	>>> soup.find('a', {'class':'actionicon-object_buttons-copy'}) is not None
+	True
+	
+
+	  
+	Now we go to the folder, so we must have the "change view" menu.
+          >>> self.browser.open(self.folder.absolute_url())
+          >>> soup = self.BeautifulSoup(self.browser.contents)	
+	  >>> contentmenu_dl_tag = soup.find('dl', {'id':'plone-contentmenu-display'})
+	  >>> contentmenu_dl_tag is not None
+	  True
+	  
+	  >>> contentmenu_dl_tag.find('dd',{'class':'actionMenuContent'}) is not None
+	  True
+	  
+	  
+	  
 	"""
 
 def test_suite():
