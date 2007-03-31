@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>make-visible</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">make-visible</td></tr>
+</thead><tbody>
+<!--From visible state to private and back to visible. It tests that the kss EventRule for the changeWorkflowState.-->
+<tr>
+	<td>open</td>
+	<td>/portal/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>css=#plone-contentmenu-workflow dt a span.arrowDownAlternative</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForVisible</td>
+	<td>css=dd.actionMenuContent</td>
+	<td></td>
+</tr>
+<!--it changes the status to private-->
+<tr>
+	<td>clickAt</td>
+	<td>css=dl#plone-contentmenu-workflow dd.actionMenuContent a#workflow-transition-hide</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForVisible</td>
+	<td>kssPortalMessage</td>
+	<td></td>
+</tr>
+<!--the kssPortalMessage must appear and the status have to be private-->
+<tr>
+	<td>assertVisible</td>
+	<td>kssPortalMessage</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>kssPortalMessage</td>
+	<td>""</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=#plone-contentmenu-workflow dt a span.state-private</td>
+	<td></td>
+</tr>
+<!--it changes the status to visible-->
+<tr>
+	<td>clickAt</td>
+	<td>css=#plone-contentmenu-workflow dt a span.arrowDownAlternative</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForVisible</td>
+	<td>css=dd.actionMenuContent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>css=dl#plone-contentmenu-workflow dd.actionMenuContent a#workflow-transition-show</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForVisible</td>
+	<td>kssPortalMessage</td>
+	<td></td>
+</tr>
+<!--the kssPortalMessage must appear and the status have to be visible-->
+<tr>
+	<td>assertVisible</td>
+	<td>kssPortalMessage</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>kssPortalMessage</td>
+	<td>""</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=#plone-contentmenu-workflow dt a span.state-visible</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
