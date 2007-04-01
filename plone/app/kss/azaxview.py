@@ -36,7 +36,7 @@ class AzaxBaseView(base):
         #  
         # put parameters on the request, by saving the original context
         self.request.form, orig_form = kw, self.request.form
-        content = self.header_macros(the_macro=the_macro)
+        content = self.header_macros.__of__(macroobj.aq_parent)(the_macro=the_macro)
         self.request.form = orig_form
         # Always encoded as utf-8
         content = force_unicode(content, 'utf')
