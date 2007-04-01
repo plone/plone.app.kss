@@ -254,7 +254,7 @@ class ContentMenuView(Implicit, AzaxBaseView):
         action = query.split("workflow_action=")[-1].split('&')[0]
         context = self.context
         context.content_status_modify(action)
-	self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('replacecontentmenu').replaceMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
 

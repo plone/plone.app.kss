@@ -1,17 +1,19 @@
 from zope import component
-from kss.core.interfaces import IKSSView
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from plone.app.portlets.portlets.navigation import INavigationPortlet
+from plone.app.portlets.portlets.recent import IRecentPortlet
+from plone.portlets.interfaces import IPortletManager
 
-@component.adapter(None, IKSSView, IObjectModifiedEvent)
+def generic_portlet_reloader(obj, view, event, interface):
+    for manager in component.getAllUtilitiesRegisteredFor(IPortletManager):
+        managerRenderer = manager(view.context, view.request, view)
+        if not managerRenderer.visible:
+            continue
+        for p in managerRenderer.portletsToShow():
+            if interface.providedBy(p['assignment']):
+                view.getCommandSet('refreshportlet').refreshPortlet(p['hash'])
+
 def navigation_portlet_reloader(obj, view, event):
-    attrs_that_need_updates = ('title', 'description')
-    for description in event.descriptions:
-        for attr in attrs_that_need_updates:
-            if attr in description.attributes:
-                view.getCommandSet('plone-portlets').reload_classic_portlet(
-                    '#portlet-navigation-tree', 'plone.leftcolumn', 'portlet_navigation')
+    generic_portlet_reloader(obj, view, event, INavigationPortlet)
 
-@component.adapter(None, IKSSView, IObjectModifiedEvent)
 def recent_portlet_reloader(obj, view, event):
-    view.getCommandSet('plone-portlets').reload_classic_portlet(
-        '#portlet-recent', 'plone.leftcolumn', 'portlet_recent')
+    generic_portlet_reloader(obj, view, event, IRecentPortlet)

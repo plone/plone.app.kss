@@ -152,8 +152,26 @@
     <!-- stylesheet registration -->    
 
     <!-- portlet event hookup -->
-    <subscriber handler=".portlets.navigation_portlet_reloader"/>
-    <subscriber handler=".portlets.recent_portlet_reloader"/>
+    <subscriber for="None
+                     kss.core.interfaces.IKSSView
+                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+                handler=".portlets.navigation_portlet_reloader"/>
+
+    <subscriber for="None
+                     kss.core.interfaces.IKSSView
+                     Products.DCWorkflow.interfaces.ITransitionEvent"
+                handler=".portlets.navigation_portlet_reloader"/>
+    
+    <subscriber for="None
+                     kss.core.interfaces.IKSSView
+                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+                handler=".portlets.recent_portlet_reloader"/>
+
+    <subscriber for="None
+                     kss.core.interfaces.IKSSView
+                     Products.DCWorkflow.interfaces.ITransitionEvent"
+                handler=".portlets.recent_portlet_reloader"/>
+    
     <subscriber handler=".globalui.portal_tabs_reloader"/>
     <subscriber handler=".globalui.portal_breadcrumb_reloader"/>
 
