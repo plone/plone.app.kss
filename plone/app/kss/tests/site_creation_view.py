@@ -1,5 +1,7 @@
 from Products.Five import BrowserView
 import logging
+from Products.Archetypes.utils import addStatusMessage
+
 logger=logging.getLogger('kss')
 
 # objects_tree defines the tree of kss contents used in our tests
@@ -73,5 +75,10 @@ class SiteCreationView(BrowserView):
           objects used by """
       context = self.context
       self.createNodes(context, objects_tree)
-      logger.info('Site created for Selenium Test')
-      return('OK: Site created for Selenium Test')
+
+      status_message='Selenium Test Site has been created'
+      logger.info(status_message)
+
+      url = context.absolute_url()
+      addStatusMessage(context.REQUEST, status_message)
+      context.request.RESPONSE.redirect(url)
