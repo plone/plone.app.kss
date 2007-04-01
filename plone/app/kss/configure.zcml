@@ -105,6 +105,15 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for=".interfaces.IContentish"
+        attribute="contentMenuRefresh"
+        class=".refresh_content_menu.ContentMenuView"
+        name="contentmenurefresh"
+        permission="cmf.ModifyPortalContent"
+        />
+
+
 	<!-- deprecate this -->
     <browser:page
         for=".interfaces.IPortalObject"

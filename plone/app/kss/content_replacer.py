@@ -4,12 +4,14 @@ from urlparse import urlsplit
 from kss.core.BeautifulSoup import BeautifulSoup
 from zope.interface import implements
 from zope.component import getMultiAdapter
+from zope.viewlet.interfaces import IViewletManager
 from Acquisition import Implicit
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from azaxview import AzaxBaseView
 from kss.core import kssaction, KssExplicitError
 from interfaces import IPloneAzaxView
+from plone.locking.interfaces import ILockable
 
 class Acquirer(Implicit):
     # XXX the next should be best to avoid - but I don't know how!
@@ -224,6 +226,18 @@ class ContentView(Implicit, AzaxBaseView):
 
     @kssaction
     def changeWorkflowState(self, url):
+        locking = ILockable(self.context)
+        if locking and not locking.can_safely_unlock():
+            manager = getMultiAdapter((self.context, self.request, self),
+                                      IViewletManager,
+                                      name='plone.abovecontent')
+            self.getCommandSet('refreshviewlet').refreshViewlet('viewlet-above-content',
+                                                                manager,
+                                                                'plone.lockinfo')
+            self.getCommandSet('contentmenu').refreshContentMenu(id='contentActionMenus', 
+                                                                 name='plone.contentmenu')
+            
+            return self.render()
         (proto, host, path, query, anchor) = urlsplit(url)
         if not path.endswith('content_status_modify'):
             raise KssExplicitError, 'content_status_modify is not handled'
@@ -232,7 +246,7 @@ class ContentView(Implicit, AzaxBaseView):
         context.content_status_modify(action)
         self.replaceMenu()
         # XXX This updating has to go away, DCWorkflow has to take care of this
-        self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
+        #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
         self.issueAllPortalMessages()
         self.cancelRedirect()
 

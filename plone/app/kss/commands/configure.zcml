@@ -11,6 +11,13 @@
         provides=".interfaces.IRefreshPortletCommand"
         />
 
+    <kss:commandset
+        name="refreshviewlet"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        class=".refreshViewlet.KSSRefreshViewlet"
+        provides=".interfaces.IKSSRefreshViewlet"
+        />
+
     <kss:commandset 
         name="plone-portlets"
         for="plone.app.kss.interfaces.IPloneAzaxView"
@@ -25,5 +32,11 @@
         provides=".interfaces.IIssuePortalMessageCommand"
         />
 
+    <kss:commandset
+        name="contentmenu"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        class=".refreshContentMenu.KSSRefreshContentMenu"
+        provides=".interfaces.IKSSRefreshContentMenu"
+        />
 
 </configure>
