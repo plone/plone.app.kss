@@ -11,7 +11,7 @@ class IssuePortalMessageCommand(AzaxViewAdapter):
 
     __allow_access_to_unprotected_subobjects__ = 1
 
-    def issuePortalMessage(self, message, msgtype='portalMessage'):
+    def issuePortalMessage(self, message, msgtype='info'):
         'Issue this portal message'
         if message is None:
             # allow message = None.
@@ -34,6 +34,7 @@ class IssuePortalMessageCommand(AzaxViewAdapter):
 
         # Now there is always a portal message but it has to be
         # rendered visible or invisible, accordingly
-        ksscore.replaceInnerHTML(selector, message) 
-        #ksscore.setAttribute(selector, 'class', msgtype)
-        ksscore.setStyle(selector, 'display', message and 'block' or 'none') 
+        html = '<dt>%s</dt><dd>%s</dd>' % (msgtype, message)
+        ksscore.replaceInnerHTML(selector, html)
+        ksscore.setAttribute(selector, 'class', "portalMessage %s" % msgtype)
+        ksscore.setStyle(selector, 'display', message and 'block' or 'none')

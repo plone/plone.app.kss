@@ -73,6 +73,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
 			  ('setStyle', '.portalMessage', 'css'),
 			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
 			  ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
@@ -94,6 +95,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
 			  ('setStyle', '.portalMessage', 'css'),
 			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
 			  ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
@@ -117,6 +119,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
                          [('replaceHTML', 'div#content div.contentActions', 'css'),
 			  ('setStyle', '.portalMessage', 'css'),
 			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
 			  ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
