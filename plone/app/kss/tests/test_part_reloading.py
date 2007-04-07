@@ -5,7 +5,7 @@ import plone
 from plone.app.kss.azaxview import AzaxBaseView
 from plone.app.kss.interfaces import IPortalObject
 from plone.app.kss.portlets import navigation_portlet_reloader
-from plone.app.kss.tests import KSSAndPloneTestCase
+from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase
 
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope import lifecycleevent

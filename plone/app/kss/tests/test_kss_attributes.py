@@ -3,7 +3,10 @@ from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import PloneSite
 from kss.core.BeautifulSoup import BeautifulSoup
 from Products.Five.testbrowser import Browser
+from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase
 
+# XXX should not this be like this?
+#class TestKSSAttributes(KSSAndPloneTestCase, ptc.FunctionalTestCase):
 class TestKSSAttributes(ptc.FunctionalTestCase):
     
     BeautifulSoup = BeautifulSoup

@@ -19,11 +19,10 @@
 
 import unittest
 from Products.PloneTestCase import PloneTestCase
-from plone.app.kss.tests import KSSAndPloneTestCase
+from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase
+from plone.app.kss import content_replacer
 
 PloneTestCase.setupPloneSite()
-
-from plone.app.kss import content_replacer
 
 class ContentActionMenusTestCase(KSSAndPloneTestCase):
 
