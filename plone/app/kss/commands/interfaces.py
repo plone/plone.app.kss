@@ -13,8 +13,15 @@ class IKSSPlonePortletCommands(Interface):
                                template, portlet_macro='portlet'):
         '''Reload an old-school portlet'''
 
+class IRefreshProviderCommand(Interface):
+    '''effects commands'''
+    
+    def refreshProvider(self, name, selector):
+	    '''refreshes a generic IContentProvider named <name> and
+        located (in the HTML) at <selector> (css selector)'''
+
 class IReplaceContentMenuCommand(Interface):
     '''effects commands'''
     
-    def replacemenu(self):
+    def replaceMenu(self):
 	    '''replace the content menu'''

@@ -32,4 +32,12 @@
         provides=".interfaces.IReplaceContentMenuCommand"
         />
 
+    <kss:commandset
+        name="refreshprovider"
+        for="plone.app.kss.interfaces.IPloneAzaxView"
+        class=".refreshprovider.RefreshProviderCommand"
+        provides=".interfaces.IRefreshProviderCommand"
+        />
+
+
 </configure>

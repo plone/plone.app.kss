@@ -202,8 +202,28 @@ class TestContentMenu:
 	  >>> contentmenu_dl_tag.find('dd',{'class':'actionMenuContent'}) is not None
 	  True
 	  
-	  
-	  
+	A couple of things again, basically the stuff we hook on with kss, which are, the 
+    external div and the inner ul (one is used for content replacement through innerHTML,
+    the other used to hook events on load)
+        
+        >>> self.browser.open(self.folder.absolute_url())
+        >>> soup = self.BeautifulSoup(self.browser.contents)
+        
+    Ok let's see if we have the hook to replace the content
+        
+        >>> content_div = soup.find('div', {'id': 'content'})
+        >>> content_div is not None
+        True
+        >>> content_actions = content_div.find('div', {'class': 'contentActions'})
+        >>> content_actions is not None
+        True
+        
+    This is great, now let's check if we have the bind load stuff in place too
+        
+        >>> content_actions_ul = content_actions.find('ul', {'id': 'contentActionMenus'})
+        >>> content_actions_ul is not None
+        True
+
 	"""
 
 def test_suite():

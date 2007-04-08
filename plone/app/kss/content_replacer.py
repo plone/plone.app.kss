@@ -179,7 +179,7 @@ class ContentMenuView(Implicit, AzaxBaseView):
     def cutObject(self):
         context = getCurrentContext(self.context)
         context.object_cut()
-	self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('replacecontentmenu').replaceMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
 	
@@ -188,7 +188,7 @@ class ContentMenuView(Implicit, AzaxBaseView):
     def copyObject(self):
         context = getCurrentContext(self.context)
         context.object_copy()
-	self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('replacecontentmenu').replaceMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
 
@@ -238,7 +238,7 @@ class ContentMenuView(Implicit, AzaxBaseView):
         ksscore = self.getCommandSet('core')
         ksscore.replaceHTML(ksscore.getHtmlIdSelector(replace_id), result)
 
-	self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('replacecontentmenu').replaceMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
         # XXX We need to take care of the URL history here,
