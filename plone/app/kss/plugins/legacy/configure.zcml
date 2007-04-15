@@ -12,6 +12,11 @@
         />
 
     <kss:action
+        name="bindExternalLinks"
+        jsfile="reload/bindextlinks.js"
+        />
+
+    <kss:action
         name="initializeCollapsible"
         jsfile="reload/initializeCollapsible.js"
         />
