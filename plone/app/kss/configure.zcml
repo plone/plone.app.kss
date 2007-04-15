@@ -150,17 +150,17 @@
     <!-- stylesheet registration -->    
 
     <!-- portlet event hookup -->
-    <subscriber for="None
+    <subscriber for="*
                      kss.core.interfaces.IKSSView
                      zope.lifecycleevent.interfaces.IObjectModifiedEvent"
                 handler=".portlets.navigation_portlet_reloader"/>
 
-    <subscriber for="None
+    <subscriber for="*
                      kss.core.interfaces.IKSSView
-                     Products.DCWorkflow.interfaces.ITransitionEvent"
+                     Products.CMFCore.interfaces.IActionSucceededEvent"
                 handler=".portlets.navigation_portlet_reloader"/>
     
-    <subscriber for="None
+    <subscriber for="*
                      kss.core.interfaces.IKSSView
                      zope.lifecycleevent.interfaces.IObjectModifiedEvent"
                 handler=".portlets.recent_portlet_reloader"/>
