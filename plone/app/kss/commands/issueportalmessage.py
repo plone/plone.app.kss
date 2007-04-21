@@ -2,11 +2,6 @@ from kss.core.azaxview import AzaxViewAdapter
 
 from Products.statusmessages.message import Message
 
-type_css_map = {'info' : 'portalMessage',
-                'warn' : 'portalWarningMessage',
-                'error' : 'portalErrorMessage'}
-
-
 class IssuePortalMessageCommand(AzaxViewAdapter):
 
     __allow_access_to_unprotected_subobjects__ = 1
@@ -19,8 +14,6 @@ class IssuePortalMessageCommand(AzaxViewAdapter):
 
         if isinstance(message, Message):
             msgtype = message.type
-            if type_css_map.has_key(msgtype):
-                msgtype = type_css_map[msgtype]
             message = message.message
 
         # XXX The macro has to take in account that there might be more than
