@@ -4,7 +4,8 @@ from Products.PloneTestCase import PloneTestCase
 import plone
 from plone.app.kss.azaxview import AzaxBaseView
 from plone.app.kss.interfaces import IPortalObject
-from plone.app.kss.portlets import navigation_portlet_reloader
+from plone.app.kss.portlets import attributesTriggerNavigationPortletReload
+from plone.app.kss.portlets import attributesTriggerRecentPortletReload
 from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase
 
 from zope.lifecycleevent import ObjectModifiedEvent
@@ -48,17 +49,45 @@ class TestPortletReloading(KSSAndPloneTestCase):
         # nothing should happen still because we must change the title or the
         # description
         modified_event = ObjectEditedEvent(self.folder)
-        navigation_portlet_reloader(self.folder, self.view, modified_event)
+        attributesTriggerNavigationPortletReload(self.folder, self.view, modified_event)
         result = self.view.render()
         self.assertEqual(result, [])
 
     def test_update_of_nav_portlet(self):
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
         modified_event = ObjectEditedEvent(self.folder, descriptor)
-        navigation_portlet_reloader(self.folder, self.view, modified_event)
+        attributesTriggerNavigationPortletReload(self.folder, self.view, modified_event)
         result = self.view.render()
+        command = result[0]
+        self.failUnless(command.has_key('selector'))
+        self.failUnless(command['selector'].startswith('portletwrapper'))
+        self.failUnless(command.has_key('name'))
+        self.assertEqual(command['name'], 'replaceInnerHTML')
+        self.failUnless(command.has_key('params'))
+        params = result[0]['params']
+        self.failUnless(params.has_key('html'))
+        html = params['html']
+        self.failUnless('portletNavigationTree' in html)
+        self.failUnless(command.has_key('selectorType'))
+        self.assertEqual(command['selectorType'], 'htmlid')
 
-        self.assertEqual(result[0]['selector'], '#portlet-navigation-tree')
+    def test_update_of_recent_portlet(self):
+        descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
+        modified_event = ObjectEditedEvent(self.folder, descriptor)
+        attributesTriggerRecentPortletReload(self.folder, self.view, modified_event)
+        result = self.view.render()
+        command = result[0]
+        self.failUnless(command.has_key('selector'))
+        self.failUnless(command['selector'].startswith('portletwrapper'))
+        self.failUnless(command.has_key('name'))
+        self.assertEqual(command['name'], 'replaceInnerHTML')
+        self.failUnless(command.has_key('params'))
+        params = result[0]['params']
+        self.failUnless(params.has_key('html'))
+        html = params['html']
+        self.failUnless('portletRecent' in html)
+        self.failUnless(command.has_key('selectorType'))
+        self.assertEqual(command['selectorType'], 'htmlid')
 
 def test_suite():
     suites = []

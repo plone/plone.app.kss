@@ -149,29 +149,14 @@
 
     <!-- stylesheet registration -->    
 
-    <!-- portlet event hookup -->
-    <subscriber for="*
-                     kss.core.interfaces.IKSSView
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler=".portlets.navigation_portlet_reloader"/>
-
-    <subscriber for="*
-                     kss.core.interfaces.IKSSView
-                     Products.CMFCore.interfaces.IActionSucceededEvent"
-                handler=".portlets.navigation_portlet_reloader"/>
-    
-    <subscriber for="*
-                     kss.core.interfaces.IKSSView
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler=".portlets.recent_portlet_reloader"/>
-
-    <subscriber for="None
-                     kss.core.interfaces.IKSSView
-                     Products.DCWorkflow.interfaces.ITransitionEvent"
-                handler=".portlets.recent_portlet_reloader"/>
-    
-    <subscriber handler=".globalui.portal_tabs_reloader"/>
-    <subscriber handler=".globalui.portal_breadcrumb_reloader"/>
+    <!-- reload parts of page event hookup -->
+    <subscriber handler=".portlets.attributesTriggerNavigationPortletReload"/>
+    <subscriber handler=".portlets.attributesTriggerRecentPortletReload"/>
+    <subscriber handler=".globalui.attributesTriggerPortalTabsReload"/>
+    <subscriber handler=".globalui.attributesTriggerBreadcrumbsReload"/>
+    <subscriber handler=".globalui.attributesTriggerHeadTitleReload"/>
+    <subscriber handler=".portlets.workflowTriggersNavigationPortletReload"/>
+    <subscriber handler=".portlets.workflowTriggersRecentPortletReload"/>
 
     <!-- proper base url in header -->
     <browser:viewlet
@@ -180,14 +165,5 @@
         class=".headerviewlet.KssBaseUrlViewlet"
         permission="zope2.View" 
         />
-        
-
-    <!-- try to emulate the "view" -->
-<!--    <adapter factory="plone.app.contentmenu.view.ContentMenuProvider"
-           name="plone.contentmenu"
-           for="zope.interface.Interface
-                zope.publisher.interfaces.browser.IDefaultBrowserLayer
-		kss.core.interfaces.IKSSView"
-           provides="zope.contentprovider.interfaces.IContentProvider"/>-->
 
 </configure>
