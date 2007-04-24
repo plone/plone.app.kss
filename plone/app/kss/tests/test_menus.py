@@ -44,10 +44,10 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         result = view.replaceContentRegion(self.fpage.absolute_url(), tabid='contentview-edit')
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
             [('replaceHTML', 'region-content', 'htmlid'),
-	     ('setAttribute', 'ul.contentViews li', 'css'),
-	     ('setAttribute', 'contentview-edit', 'htmlid'),
-	     ('replaceInnerHTML', '#portal-column-content div.contentActions', 'css')]
-	    
+         ('setAttribute', 'ul.contentViews li', 'css'),
+         ('setAttribute', 'contentview-edit', 'htmlid'),
+         ('replaceInnerHTML', '#portal-column-content div.contentActions', 'css')]
+        
             )
 
     def testChangeViewTemplate(self):
@@ -71,10 +71,10 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
 
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
-			  ('setStyle', '.portalMessage', 'css'),
-			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
-			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
-			  ('setStyle', 'kssPortalMessage', 'htmlid')]
+              ('setStyle', '.portalMessage', 'css'),
+              ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+              ('setAttribute', 'kssPortalMessage', 'htmlid'),
+              ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
     def testCutObject(self):
@@ -93,10 +93,10 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         result = view.copyObject()
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
-			  ('setStyle', '.portalMessage', 'css'),
-			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
-			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
-			  ('setStyle', 'kssPortalMessage', 'htmlid')]
+              ('setStyle', '.portalMessage', 'css'),
+              ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+              ('setAttribute', 'kssPortalMessage', 'htmlid'),
+              ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
     def testCopyObject(self):
@@ -109,18 +109,18 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         self.failUnless(req.RESPONSE.cookies.has_key('__cp'), 'no copy cookies')
 
     def testChangeWorkflowState(self):
-	# change the state of the front-page to published
-	# I suppose to have the publish transition available
-	req = self.portal.REQUEST
-	view = content_replacer.ContentMenuView(self.fpage, req)
-	url = self.fpage.absolute_url() + '/content_status_modify?workflow_action=publish'
-	result = view.changeWorkflowState(url)
-	self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
+    # change the state of the front-page to published
+    # I suppose to have the publish transition available
+    req = self.portal.REQUEST
+    view = content_replacer.ContentMenuView(self.fpage, req)
+    url = self.fpage.absolute_url() + '/content_status_modify?workflow_action=publish'
+    result = view.changeWorkflowState(url)
+    self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
-			  ('setStyle', '.portalMessage', 'css'),
-			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
-			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
-			  ('setStyle', 'kssPortalMessage', 'htmlid')]
+              ('setStyle', '.portalMessage', 'css'),
+              ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
+              ('setAttribute', 'kssPortalMessage', 'htmlid'),
+              ('setStyle', 'kssPortalMessage', 'htmlid')]
             )
 
     def beforeTearDown(self):
