@@ -46,7 +46,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
             [('replaceHTML', 'region-content', 'htmlid'),
 	     ('setAttribute', 'ul.contentViews li', 'css'),
 	     ('setAttribute', 'contentview-edit', 'htmlid'),
-	     ('replaceInnerHTML', '#content div.contentActions', 'css')]
+	     ('replaceInnerHTML', '#portal-column-content div.contentActions', 'css')]
 	    
             )
 
@@ -70,7 +70,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         result = view.cutObject()
 
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
-                         [('replaceInnerHTML', '#content div.contentActions', 'css'),
+                         [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
 			  ('setStyle', '.portalMessage', 'css'),
 			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
 			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
@@ -92,7 +92,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
 
         result = view.copyObject()
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
-                         [('replaceInnerHTML', '#content div.contentActions', 'css'),
+                         [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
 			  ('setStyle', '.portalMessage', 'css'),
 			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
 			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
@@ -116,7 +116,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
 	url = self.fpage.absolute_url() + '/content_status_modify?workflow_action=publish'
 	result = view.changeWorkflowState(url)
 	self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
-                         [('replaceInnerHTML', '#content div.contentActions', 'css'),
+                         [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
 			  ('setStyle', '.portalMessage', 'css'),
 			  ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
 			  ('setAttribute', 'kssPortalMessage', 'htmlid'),
