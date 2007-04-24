@@ -4,4 +4,4 @@ class ReplaceContentMenuCommand(AzaxViewAdapter):
     """Mainly exists for backward compatibility with old hooks
     """
     def replaceMenu(self):
-        self.getCommandSet('refreshprovider').refreshProvider('plone.contentmenu', '#content div.contentActions')
+        self.getCommandSet('refreshprovider').refreshProvider('plone.contentmenu', '#portal-column-content div.contentActions')

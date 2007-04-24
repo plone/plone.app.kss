@@ -144,32 +144,16 @@ class ContentView(Implicit, AzaxBaseView):
             raise RuntimeError, 'Result content did not contain <div id="%s">' % replace_id
         # now we send it back to the client
         result = unicode(tag)
-        ##result = unicode(content, 'utf')
         ksscore = self.getCommandSet('core')
         ksscore.replaceHTML(ksscore.getHtmlIdSelector(replace_id), result)
         # to remove old tab highlight,...
         ksscore.setAttribute(ksscore.getCssSelector("ul.contentViews li"), name='class', value='plain');
         # ... and put the highlight to the newly selected tab
         ksscore.setAttribute(ksscore.getHtmlIdSelector(tabid), name='class', value='selected');
-	# Update the content menu to show them only in the "view"
-	if tabid.endswith('view'):
-		alsoProvides(self, IViewView)
-	#self.replaceMenu()
-	self.getCommandSet('replacecontentmenu').replaceMenu()
-
-    #@kssaction
-    #def changeWorkflowState(self, url):
-        #(proto, host, path, query, anchor) = urlsplit(url)
-        #if not path.endswith('content_status_modify'):
-            #raise KssExplicitError, 'content_status_modify is not handled'
-        #action = query.split("workflow_action=")[-1].split('&')[0]
-        #context = self.context
-        #context.content_status_modify(action)
-        #self.replaceMenu()
-        ## XXX This updating has to go away, DCWorkflow has to take care of this
-        #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
-        #self.issueAllPortalMessages()
-        #self.cancelRedirect()
+        # Update the content menu to show them only in the "view"
+        if tabid.endswith('view'):
+            alsoProvides(self, IViewView)
+        self.getCommandSet('replacecontentmenu').replaceMenu()
 
 class ContentMenuView(Implicit, AzaxBaseView):
 
@@ -234,7 +218,6 @@ class ContentMenuView(Implicit, AzaxBaseView):
             raise RuntimeError, 'Result content did not contain <div id="%s">' % replace_id
         # now we send it back to the client
         result = unicode(tag)
-        ##result = unicode(content, 'utf')
         ksscore = self.getCommandSet('core')
         ksscore.replaceHTML(ksscore.getHtmlIdSelector(replace_id), result)
 
