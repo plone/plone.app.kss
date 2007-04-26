@@ -212,7 +212,7 @@ class ContentMenuView(Implicit, AzaxBaseView):
         # the *whole* html which is wrong.
 
         soup = BeautifulSoup(content)
-        replace_id = 'content'
+        replace_id = 'region-content'
         tag = soup.find('div', id=replace_id)
         if tag is None:
             raise RuntimeError, 'Result content did not contain <div id="%s">' % replace_id
