@@ -32,6 +32,7 @@ def attributesTriggerHeadTitleReload(obj, view, event):
     if attributesModified(triggeringAttributes, event):
         htmlhead = getMultiAdapter((obj, view.request, view), name=u'plone.htmlhead')
         headtitle = getMultiAdapter((obj, view.request, view, htmlhead), name=u'plone.htmlhead.title')
+        headtitle.update()
         ksscore = view.getCommandSet('core')
         ksscore.replaceHTML(
             'head title',
