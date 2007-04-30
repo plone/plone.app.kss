@@ -17,7 +17,8 @@ Features implemented
 --------------------
 
 - Content tab replacer. This works with all the content (aka. "green") tabs
-  including the non-action tabs in the setup screens.
+  including the non-action tabs in the setup screens. (put to experimental
+  rules, by default off)
 
   As we have no way to identify a macro for the content-region in the current
   templating system of Plone, we render down the whole template. As a speedup,
@@ -27,13 +28,7 @@ Features implemented
 
   Missing/TODOS:
 
-     - The popups for leaving the edit region are not hooked in. (Needs
-       javascript which is avoided in the first round.)
-
-     - The loading of the kupu editor is done with a simple hack, it seems to
-       be no clean way in javascript to find when the iframe has been loaded,
-       some more complex hack is needed for this that works on all browsers
-       and is reliable in all the cases.
+  - ...
 
 - Portlet refresher
 
