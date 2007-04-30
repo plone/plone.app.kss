@@ -25,13 +25,20 @@ class TestForKSSInlineEditing:
       
     def test_notLogged():
         r"""
-        
-        We call the page
+       
+        We publish the page.
+
+            >>> self.portal.portal_workflow.doActionFor(self.page, 'submit')
+            >>> self.loginAsPortalOwner()
+            >>> self.portal.portal_workflow.doActionFor(self.page, 'publish')
+            >>> self.logout()
+
+        We call it.
         
             >>> self.browser.open(self.page.absolute_url())
             >>> soup = self.BeautifulSoup(self.browser.contents)
         
-        We find the title tag
+        We find the title tag.
         
             >>> title = soup.find('h1', attrs=dict(id='parent-fieldname-title'))
             >>> title is not None
