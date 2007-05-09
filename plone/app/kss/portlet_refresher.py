@@ -2,16 +2,16 @@
 
 from zope.interface import implements
 
-from azaxview import AzaxBaseView
-from interfaces import IPloneAzaxView
+from azaxview import PloneKSSView
+from interfaces import IPloneKSSView
 
-class PortletView(AzaxBaseView):
+class PortletView(PloneKSSView):
 
     # --
     # Portlet refresher actions
     # --
 
-    implements(IPloneAzaxView)
+    implements(IPloneKSSView)
     
     def refreshPortlet(self, portlethash, nodeid=None):
         'Refresh portlet by name.'

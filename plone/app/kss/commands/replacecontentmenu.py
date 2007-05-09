@@ -1,6 +1,6 @@
-from kss.core.azaxview import AzaxViewAdapter
+from kss.core.kssview import CommandSet
 
-class ReplaceContentMenuCommand(AzaxViewAdapter):
+class ReplaceContentMenuCommand(CommandSet):
     """Mainly exists for backward compatibility with old hooks
     """
     def replaceMenu(self):

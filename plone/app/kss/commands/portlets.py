@@ -4,10 +4,10 @@ from plone.app.portlets.portlets.classic import Assignment
 from plone.portlets.interfaces import IPortletRenderer
 from zope import component
 
-from kss.core.azaxview import AzaxViewAdapter
+from kss.core.kssview import CommandSet
 from zope.interface import implements
 
-class KSSPortletCommands(AzaxViewAdapter):
+class KSSPortletCommands(CommandSet):
     implements(IKSSPlonePortletCommands)
 
     def reload_classic_portlet(self, css_selector, column,

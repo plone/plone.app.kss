@@ -2,7 +2,7 @@ import unittest
 from Products.PloneTestCase import PloneTestCase
 
 import plone
-from plone.app.kss.azaxview import AzaxBaseView
+from plone.app.kss.azaxview import PloneKSSView
 from plone.app.kss.interfaces import IPortalObject
 from plone.app.kss.portlets import attributesTriggerNavigationPortletReload
 from plone.app.kss.portlets import attributesTriggerRecentPortletReload
@@ -16,7 +16,7 @@ from Products.Five.zcml import load_config
 
 PloneTestCase.setupPloneSite()
 
-class SampleView(AzaxBaseView):
+class SampleView(PloneKSSView):
 
     def change_title(self, title):
         # normally you would change the zope database here

@@ -1,6 +1,6 @@
 
 from zope.interface import Interface
-from kss.core.interfaces import IAzaxView
+from kss.core.interfaces import IKSSView
 
 # Important for 2.1, in 2.5 these are defined alreadyy
 # XXX IMO AT's IBaseContent should inherit IContentish and
@@ -28,5 +28,5 @@ class IContentish(Interface):
 class IPortalObject(Interface):
     'All portal objects including AT ones'
 
-class IPloneAzaxView(IAzaxView):
+class IPloneKSSView(IKSSView):
     '''View for Plone'''

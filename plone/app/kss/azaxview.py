@@ -7,17 +7,17 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.statusmessages import STATUSMESSAGEKEY
 from Products.statusmessages.adapter import _decodeCookieValue
 
-from kss.core import AzaxBaseView as base
+from kss.core import KSSView as base
 from kss.core import force_unicode
 
-from interfaces import IPloneAzaxView
+from interfaces import IPloneKSSView
 
-class AzaxBaseView(base):
+class PloneKSSView(base):
     '''The base view that contains helpers, to be imported
     be other plone products
     '''
 
-    implements(IPloneAzaxView)
+    implements(IPloneKSSView)
     
     header_macros = ZopeTwoPageTemplateFile('browser/macro_wrapper.pt')
 

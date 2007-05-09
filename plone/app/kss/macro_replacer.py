@@ -2,16 +2,16 @@
 
 from zope.interface import implements
 
-from azaxview import AzaxBaseView
-from interfaces import IPloneAzaxView
+from azaxview import PloneKSSView
+from interfaces import IPloneKSSView
 
-class MacroView(AzaxBaseView):
+class MacroView(PloneKSSView):
 
     # --
     # Macro replacement actions
     # --
 
-    implements(IPloneAzaxView)
+    implements(IPloneKSSView)
     
     def replaceInnerByMacro(self, selector, macropath):
         content = self.macroContent(macropath)

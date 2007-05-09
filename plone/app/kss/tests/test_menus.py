@@ -124,7 +124,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
                          ])
 
     def beforeTearDown(self):
-        # Overwrite AzaxViewTestCase's method as it tears down the CA manually
+        # Overwrite KSSViewTestCase's method as it tears down the CA manually
         # and doesn't use layers yet, which doesn't play nicely with layer
         # enabled tests.
         pass

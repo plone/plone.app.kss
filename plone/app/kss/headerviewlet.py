@@ -4,12 +4,12 @@ from zope.viewlet.interfaces import IViewlet
 
 from Products.Five.browser import BrowserView
 
-class KssBaseUrlViewlet(BrowserView):
+class KSSBaseUrlViewlet(BrowserView):
     """ Renders a link rel tag with the real url of the published object. """
     implements(IViewlet)
 
     def __init__(self, context, request, view, manager):
-        super(KssBaseUrlViewlet, self).__init__(context, request)
+        super(KSSBaseUrlViewlet, self).__init__(context, request)
         self.__parent__ = view
         self.context = context
         self.request = request

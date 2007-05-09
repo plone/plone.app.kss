@@ -1,8 +1,8 @@
-from kss.core.azaxview import AzaxViewAdapter
+from kss.core.kssview import CommandSet
 from zope.component import getMultiAdapter
 from zope.contentprovider.interfaces import IContentProvider
 
-class RefreshProviderCommand(AzaxViewAdapter):
+class RefreshProviderCommand(CommandSet):
     """Refreshes the selected provider (provides IContentProvider) named name and located
     at selector in the HTML"""
 

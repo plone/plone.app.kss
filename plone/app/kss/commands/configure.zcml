@@ -6,35 +6,35 @@
 
     <kss:commandset
         name="refreshportlet"
-        for="plone.app.kss.interfaces.IPloneAzaxView"
+        for="plone.app.kss.interfaces.IPloneKSSView"
         class=".refreshportlet.RefreshPortletCommand"
         provides=".interfaces.IRefreshPortletCommand"
         />
 
     <kss:commandset 
         name="plone-portlets"
-        for="plone.app.kss.interfaces.IPloneAzaxView"
+        for="plone.app.kss.interfaces.IPloneKSSView"
         class=".portlets.KSSPortletCommands"
         provides=".interfaces.IKSSPlonePortletCommands"
         />
 
     <kss:commandset
         name="portalmessage"
-        for="plone.app.kss.interfaces.IPloneAzaxView"
+        for="plone.app.kss.interfaces.IPloneKSSView"
         class=".issueportalmessage.IssuePortalMessageCommand"
         provides=".interfaces.IIssuePortalMessageCommand"
         />
 
     <kss:commandset
         name="replacecontentmenu"
-        for="plone.app.kss.interfaces.IPloneAzaxView"
+        for="plone.app.kss.interfaces.IPloneKSSView"
         class=".replacecontentmenu.ReplaceContentMenuCommand"
         provides=".interfaces.IReplaceContentMenuCommand"
         />
 
     <kss:commandset
         name="refreshprovider"
-        for="plone.app.kss.interfaces.IPloneAzaxView"
+        for="plone.app.kss.interfaces.IPloneKSSView"
         class=".refreshprovider.RefreshProviderCommand"
         provides=".interfaces.IRefreshProviderCommand"
         />

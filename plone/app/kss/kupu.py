@@ -1,16 +1,16 @@
 # -*- coding: UTF-8 -*-
 from zope.interface import implements
-from azaxview import AzaxBaseView
+from azaxview import PloneKSSView
 from kss.core import force_unicode, kssaction
-from interfaces import IPloneAzaxView
+from interfaces import IPloneKSSView
 
-class KupuSaveView(AzaxBaseView):
+class KupuSaveView(PloneKSSView):
 
     # --
     # Calendar in-place refreshment
     # --
 
-    implements(IPloneAzaxView)
+    implements(IPloneKSSView)
 
     @kssaction
     def save(self, text, fieldname):

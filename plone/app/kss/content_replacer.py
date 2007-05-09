@@ -6,9 +6,9 @@ from zope.interface import implements
 from Acquisition import Implicit
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from azaxview import AzaxBaseView
-from kss.core import kssaction, KssExplicitError
-from interfaces import IPloneAzaxView
+from azaxview import PloneKSSView
+from kss.core import kssaction, KSSExplicitError
+from interfaces import IPloneKSSView
 from zope.interface import alsoProvides
 from plone.app.layout.globals.interfaces import IViewView
 
@@ -32,9 +32,9 @@ def getCurrentContext(context):
     return context
 
 
-class ContentView(Implicit, AzaxBaseView):
+class ContentView(Implicit, PloneKSSView):
 
-    implements(IPloneAzaxView)
+    implements(IPloneKSSView)
     
     # --
     # Replacing content region
@@ -76,7 +76,7 @@ class ContentView(Implicit, AzaxBaseView):
 
         '''
         # REMARK on error handling: 
-        # If KssExplicitError is raised, the control will be passed
+        # If KSSExplicitError is raised, the control will be passed
         # to the error handler defined on the client. I.e. for this rule,
         # the static plone-followLink should be activated. This means that
         # if this method decides it cannot handle the situation, it
@@ -86,7 +86,7 @@ class ContentView(Implicit, AzaxBaseView):
         # This could be solved with not using the tabs or doing server side quirks.
         # This affect management screens, for example, that are not real actions.
         if not tabid or tabid == 'content':
-            raise KssExplicitError, 'No tabid on the tab'
+            raise KSSExplicitError, 'No tabid on the tab'
         if not tabid.startswith('contentview-'):
             raise RuntimeError, 'Not a valid contentview id "%s"' % tabid
         # Split the url into it's components
@@ -94,7 +94,7 @@ class ContentView(Implicit, AzaxBaseView):
         # if the url doesn't use http(s) or has a query string or anchor
         # specification, don't bother
         if query or anchor or proto not in ('http', 'https'):
-            raise KssExplicitError, 'Unhandled protocol on the tab'
+            raise KSSExplicitError, 'Unhandled protocol on the tab'
         # make the wrapping for the context, to overwrite main_template
         # note we have to use aq_chain[0] *not* aq_base.
         # XXX however just context would be good too? Hmmm
@@ -112,7 +112,7 @@ class ContentView(Implicit, AzaxBaseView):
             # appropriate template
             utils = getToolByName(self.context, 'plone_utils')
             if utils.getDefaultPage(self.context) is not None:
-                raise KssExplicitError, 'no default page on the tab'
+                raise KSSExplicitError, 'no default page on the tab'
             viewobj, viewpath = utils.browserDefault(self.context)
             if len(viewpath) == 1:
                 viewpath = viewpath[0]
@@ -122,7 +122,7 @@ class ContentView(Implicit, AzaxBaseView):
             # url is like: ['http:', '', 'localhost:9777', 'kukitportlets', 'prefs_users_overview']
             # physical path is like: ('', 'kukitportlets')
             if path[:-1] != obj_path:
-                raise KssExplicitError, 'cannot reload since the tab visits a different context'
+                raise KSSExplicitError, 'cannot reload since the tab visits a different context'
             method = path[-1]
             # Action method may be a method alias: Attempt to resolve to a template.
             try:
@@ -155,9 +155,9 @@ class ContentView(Implicit, AzaxBaseView):
             alsoProvides(self, IViewView)
         self.getCommandSet('replacecontentmenu').replaceMenu()
 
-class ContentMenuView(Implicit, AzaxBaseView):
+class ContentMenuView(Implicit, PloneKSSView):
 
-    implements(IPloneAzaxView, IViewView)
+    implements(IPloneKSSView, IViewView)
     
     @kssaction
     def cutObject(self):
@@ -233,7 +233,7 @@ class ContentMenuView(Implicit, AzaxBaseView):
     def changeWorkflowState(self, url):
         (proto, host, path, query, anchor) = urlsplit(url)
         if not path.endswith('content_status_modify'):
-            raise KssExplicitError, 'content_status_modify is not handled'
+            raise KSSExplicitError, 'content_status_modify is not handled'
         action = query.split("workflow_action=")[-1].split('&')[0]
         context = self.context
         context.content_status_modify(action)

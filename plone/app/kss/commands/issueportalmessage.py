@@ -1,8 +1,8 @@
-from kss.core.azaxview import AzaxViewAdapter
+from kss.core.kssview import CommandSet
 
 from Products.statusmessages.message import Message
 
-class IssuePortalMessageCommand(AzaxViewAdapter):
+class IssuePortalMessageCommand(CommandSet):
 
     __allow_access_to_unprotected_subobjects__ = 1
 

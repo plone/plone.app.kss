@@ -260,14 +260,19 @@ kss_addBookmark.py
 
 ::
 
-    from plone.app.kss import AzaxBaseView
-    
+    from kss.core.ttwapi import startKSSCommands
+    from kss.core.ttwapi import getKSSCommandSet
+    from kss.core.ttwapi import renderKSSCommands
     from Products.CMFPlone import PloneMessageFactory as _
+    
     message = _('test')
-
-    view = AzaxBaseView(context, context.REQUEST)
-    view.getCommandSet('portalmessage').issuePortalMessage(message)
-    return view.render()
+    
+    startKSSCommands(context, context.REQUEST)
+    
+    pm = getKSSCommandSet('portalmessage')
+    pm.issuePortalMessage(message)
+    
+    return renderKSSCommands()
     
 When clicking the link now, I'll get a portal message saying ``test``.
 
@@ -329,13 +334,18 @@ kss_addBookmark.py (2)
 We can now actually call the bookmarking code and issue the computed portal
 message. ::
 
-    from plone.app.kss import AzaxBaseView
-                                                                                  
+    from kss.core.ttwapi import startKSSCommands
+    from kss.core.ttwapi import getKSSCommandSet
+    from kss.core.ttwapi import renderKSSCommands
+    
     message = context.doBookmark()
-
-    commands = AzaxBaseView(context, context.REQUEST)
-    commands.getCommandSet().issuePortalMessage(message)
-    return view.render()
+    
+    startKSSCommands(context, context.REQUEST)
+    
+    pm = getKSSCommandSet('portalmessage')
+    pm.issuePortalMessage(message)
+    
+    return renderKSSCommands()
 
 Step 6
 ======
@@ -348,18 +358,24 @@ kss_addBookmark.py (3)
 As portlets are obvious parts of the Plone UI, there is also already a command
 available to refresh one of them. ::
 
-    from plone.app.kss import AzaxBaseView
-                                                                                  
+    from kss.core.ttwapi import startKSSCommands
+    from kss.core.ttwapi import getKSSCommandSet
+    from kss.core.ttwapi import renderKSSCommands
+    
     message = context.doBookmark()
+    
+    startKSSCommands(context, context.REQUEST)
+    
+    pm = getKSSCommandSet('portalmessage')
+    pm.issuePortalMessage(message)
+    
+    rp = getKSSCommandSet('refreshportlet')
+    rp.refreshPortlet('bookmarks')
 
-    commands = AzaxBaseView(context, context.REQUEST)
-    commands.getCommandSet('portalmessage').issuePortalMessage(message)
-    commands.getCommandSet('refreshportlet').refreshPortlet('bookmarks')
-    return view.render()
+    return renderKSSCommands()
 
 All this development was done TTW in order to avoid all skeleton code crufts.
 It should be obvious that all this can (should) happen on the file system. In
 particular, KSS responses can be built with Z3 tools available in the ``kss``
-product. BTW, as good readers have found out by themselves, ``AzaxBaseView`` is a
-Five view.
+product. 
 
