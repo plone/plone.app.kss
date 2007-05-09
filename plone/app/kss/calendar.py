@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from zope.interface import implements
-from azaxview import PloneKSSView
+from plonekssview import PloneKSSView
 from kss.core import force_unicode, kssaction
 from interfaces import IPloneKSSView
 

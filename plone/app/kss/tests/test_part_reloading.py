@@ -2,7 +2,7 @@ import unittest
 from Products.PloneTestCase import PloneTestCase
 
 import plone
-from plone.app.kss.azaxview import PloneKSSView
+from plone.app.kss.plonekssview import PloneKSSView
 from plone.app.kss.interfaces import IPortalObject
 from plone.app.kss.portlets import attributesTriggerNavigationPortletReload
 from plone.app.kss.portlets import attributesTriggerRecentPortletReload

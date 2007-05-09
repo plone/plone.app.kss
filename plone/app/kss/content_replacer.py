@@ -6,7 +6,7 @@ from zope.interface import implements
 from Acquisition import Implicit
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from azaxview import PloneKSSView
+from plonekssview import PloneKSSView
 from kss.core import kssaction, KSSExplicitError
 from interfaces import IPloneKSSView
 from zope.interface import alsoProvides

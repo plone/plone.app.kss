@@ -2,7 +2,7 @@
 
 from zope.interface import implements
 
-from azaxview import PloneKSSView
+from plonekssview import PloneKSSView
 from interfaces import IPloneKSSView
 
 class PortletView(PloneKSSView):
