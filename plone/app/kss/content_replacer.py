@@ -3,6 +3,8 @@
 from urlparse import urlsplit
 from kss.core.BeautifulSoup import BeautifulSoup
 from zope.interface import implements
+from zope.component import getMultiAdapter
+from zope.viewlet.interfaces import IViewletManager
 from Acquisition import Implicit
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -11,6 +13,7 @@ from kss.core import kssaction, KSSExplicitError
 from interfaces import IPloneKSSView
 from zope.interface import alsoProvides
 from plone.app.layout.globals.interfaces import IViewView
+from plone.locking.interfaces import ILockable
 
 
 class Acquirer(Implicit):
@@ -85,6 +88,10 @@ class ContentView(Implicit, PloneKSSView):
         # XXX The next checks could be left out - but we won't be able to change the tabs.
         # This could be solved with not using the tabs or doing server side quirks.
         # This affect management screens, for example, that are not real actions.
+        # and unlock XXX
+        lock = getMultiAdapter((self.context,self.request), name='plone_lock_operations')
+        lock.safe_unlock()
+
         if not tabid or tabid == 'content':
             raise KSSExplicitError, 'No tabid on the tab'
         if not tabid.startswith('contentview-'):
@@ -231,6 +238,18 @@ class ContentMenuView(Implicit, PloneKSSView):
 
     @kssaction
     def changeWorkflowState(self, url):
+        locking = ILockable(self.context)
+        if locking and not locking.can_safely_unlock():
+            manager = getMultiAdapter((self.context, self.request, self),
+                                      IViewletManager,
+                                      name='plone.abovecontent')
+            self.getCommandSet('refreshviewlet').refreshViewlet('viewlet-above-content',
+                                                                manager,
+                                                                'plone.lockinfo')
+            self.getCommandSet('contentmenu').refreshContentMenu(id='contentActionMenus', 
+                                                                 name='plone.contentmenu')
+            
+            return self.render()
         (proto, host, path, query, anchor) = urlsplit(url)
         if not path.endswith('content_status_modify'):
             raise KSSExplicitError, 'content_status_modify is not handled'
@@ -238,6 +257,8 @@ class ContentMenuView(Implicit, PloneKSSView):
         context = self.context
         context.content_status_modify(action)
         self.getCommandSet('replacecontentmenu').replaceMenu()
+        # XXX This updating has to go away, DCWorkflow has to take care of this
+        #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
         self.issueAllPortalMessages()
         self.cancelRedirect()
 
