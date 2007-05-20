@@ -7,8 +7,8 @@ class IIssuePortalMessageCommand(Interface):
     """
     
     def issuePortalMessage(message, msgtype='info'):
-        """Issue a particular portal message. Type can be 'info', 'warn'
-        or 'error'.
+        """Issue a particular portal message. Type can be any string, but
+        'info', 'warning' and 'error' have default styles associated with them.
         """
 
 class IRefreshPortletCommand(Interface):
