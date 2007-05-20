@@ -243,7 +243,7 @@ class ContentMenuView(Implicit, PloneKSSView):
             manager = getMultiAdapter((self.context, self.request, self),
                                       IViewletManager,
                                       name='plone.abovecontent')
-            self.getCommandSet('refreshviewlet').refreshViewlet('viewlet-above-content',
+            self.getCommandSet('refreshviewlet').refreshViewlet('plone-lock-status',
                                                                 manager,
                                                                 'plone.lockinfo')
             self.getCommandSet('contentmenu').refreshContentMenu(id='contentActionMenus', 

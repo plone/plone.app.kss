@@ -16,5 +16,5 @@ class KSSRefreshViewlet(CommandSet):
 
         result = renderer.render()
         ksscore = self.getCommandSet('core')
-        ksscore.replaceInnerHTML(ksscore.getHtmlIdSelector(id), result)
+        ksscore.replaceHTML(ksscore.getHtmlIdSelector(id), result)
 
