@@ -1,5 +1,63 @@
 from zope.interface import Interface
 
+# Note: We have two basic command sets here - 'zope', for basic Zope 
+# operations like refreshing viewlets and content providers, and 'plone'
+# for core Plone functionality relating to status messages, portlets
+# and the content menu.
+# 
+# Please be careful before dumping more things into these interfaces. It
+# may be more appropriate to register a new command set for specific
+# commands.
+
+class IZopeCommands(Interface):
+    """Commands for basic Zope-like operations.
+    
+    Registered as command set 'zope'
+    """
+    
+    def refreshProvider(selector, name):
+        """Refresh any IContentProvider named 'name' located in the page
+        at 'selector'.
+        
+        This can be used to refresh an entire viewlet manager.
+        """
+    
+    def refreshViewlet(selector, manager, name):
+        """Refresh any IViewlet named 'name' inside the 
+        IViewletManager 'manager', located in the page at
+        'selector'.
+        
+        The 'manager' can be the name of a manager, in which case it's
+        looked up, or an actual IViewletManager instance.
+        """
+        
+class IPloneCommands(Interface):
+    """Commands for basic Plone operations.
+    
+    Registered as command set 'plone'
+    """
+    
+    def issuePortalMessage(message, msgtype='info'):
+        """Issue a particular portal message. Type can be 'info', 'warn'
+        or 'error'.
+        """
+
+    def refreshPortlet(portlethash, **kw):
+        """Refresh a new-style portlet. The portlet hash is encoded in the
+        standard view template as a KSS parameter. It can also be calculated
+        using the functions in plone.portlets.utils. 
+        
+        Any keyword arguments are added as if they were form request
+        parameters for the portlet to parse.
+        """
+
+    def refreshContentMenu():
+        """Refresh the content menu
+        """
+
+# Deprecated commands -- will be removed in Plone 3.5
+# Do not use these.
+
 class IIssuePortalMessageCommand(Interface):
     """Commands to issue portal status messages.
     
@@ -62,8 +120,6 @@ class IReplaceContentMenuCommand(Interface):
     def replaceMenu():
         """Refresh content menu
         """
-
-# Obsolete
 
 class IKSSRefreshContentMenu(Interface):
     '''Utility command for refreshing a content menu

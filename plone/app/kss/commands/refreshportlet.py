@@ -1,3 +1,5 @@
+from zope.deprecation import deprecate
+
 from kss.core.BeautifulSoup import BeautifulSoup
 from kss.core import CommandSet
 from plone.app.portlets.utils import assignment_from_key
@@ -6,8 +8,12 @@ from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 from plone.app.portlets.interfaces import IDeferredPortletRenderer
 from zope.component import getMultiAdapter, getUtility
 
+# XXX: This is deprecated and will be removed in Plone 3.5. Use the 'plone'
+# command set instead.
 class RefreshPortletCommand(CommandSet):
     
+    @deprecate("The 'refreshportlet' command set is deprecated and will be removed in Plone 3.5. "
+               "Please use the 'plone' command set instead.")
     def refreshPortletLegacy(self, name, nodeid=None, **kw):
         'Refresh portlet by name (old portlets)'
         if name.startswith('portlet-'):
@@ -26,6 +32,8 @@ class RefreshPortletCommand(CommandSet):
         ksscore = self.getCommandSet('core')
         ksscore.replaceHTML(ksscore.getHtmlIdSelector(nodeid), result)
 
+    @deprecate("The 'refreshportlet' command set is deprecated and will be removed in Plone 3.5. "
+               "Please use the 'plone' command set instead.")
     def refreshPortlet(self, portlethash, **kw):
         'Refresh portlet by its hash (new portlets)'
         # put parameters on the request, by saving the original context

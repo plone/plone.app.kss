@@ -160,7 +160,7 @@ class ContentView(Implicit, PloneKSSView):
         # Update the content menu to show them only in the "view"
         if tabid.endswith('view'):
             alsoProvides(self, IViewView)
-        self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('plone').refreshContentMenu()
 
 class ContentMenuView(Implicit, PloneKSSView):
 
@@ -170,7 +170,7 @@ class ContentMenuView(Implicit, PloneKSSView):
     def cutObject(self):
         context = getCurrentContext(self.context)
         context.object_cut()
-        self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('plone').refreshContentMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
 	
@@ -179,7 +179,7 @@ class ContentMenuView(Implicit, PloneKSSView):
     def copyObject(self):
         context = getCurrentContext(self.context)
         context.object_copy()
-        self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('plone').refreshContentMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
 
@@ -228,7 +228,7 @@ class ContentMenuView(Implicit, PloneKSSView):
         ksscore = self.getCommandSet('core')
         ksscore.replaceHTML(ksscore.getHtmlIdSelector(replace_id), result)
 
-        self.getCommandSet('replacecontentmenu').replaceMenu()
+        self.getCommandSet('plone').refreshContentMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
         # XXX We need to take care of the URL history here,
@@ -238,25 +238,24 @@ class ContentMenuView(Implicit, PloneKSSView):
 
     @kssaction
     def changeWorkflowState(self, url):
+        ksscore = self.getCommandSet('core')
+        zopecommands = self.getCommandSet('zope')
+        plonecommands = self.getCommandSet('plone')
+        
         locking = ILockable(self.context)
         if locking and not locking.can_safely_unlock():
-            manager = getMultiAdapter((self.context, self.request, self),
-                                      IViewletManager,
-                                      name='plone.abovecontent')
-            self.getCommandSet('refreshviewlet').refreshViewlet('plone-lock-status',
-                                                                manager,
-                                                                'plone.lockinfo')
-            self.getCommandSet('contentmenu').refreshContentMenu(id='contentActionMenus', 
-                                                                 name='plone.contentmenu')
-            
+            selector = ksscore.getHtmlIdSelector('plone-lock-status')
+            zopecommands.refreshViewlet(selector, 'plone.abovecontent', 'plone.lockinfo')
+            plonecommands.refreshContentMenu()
             return self.render()
+
         (proto, host, path, query, anchor) = urlsplit(url)
         if not path.endswith('content_status_modify'):
             raise KSSExplicitError, 'content_status_modify is not handled'
         action = query.split("workflow_action=")[-1].split('&')[0]
         context = self.context
         context.content_status_modify(action)
-        self.getCommandSet('replacecontentmenu').replaceMenu()
+        plonecommands.refreshContentMenu()
         # XXX This updating has to go away, DCWorkflow has to take care of this
         #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
         self.issueAllPortalMessages()

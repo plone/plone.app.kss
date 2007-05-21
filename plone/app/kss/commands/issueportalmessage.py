@@ -1,11 +1,16 @@
+from zope.deprecation import deprecate
 from kss.core.kssview import CommandSet
 
 from Products.statusmessages.message import Message
 
+# XXX: This is deprecated and will be removed in Plone 3.5. Use the 'plone'
+# command set instead.
 class IssuePortalMessageCommand(CommandSet):
 
     __allow_access_to_unprotected_subobjects__ = 1
 
+    @deprecate("The 'portalmessage' command set is deprecated and will be removed in Plone 3.5. "
+               "Please use the 'plone' command set instead.")
     def issuePortalMessage(self, message, msgtype='info'):
         'Issue this portal message'
         if message is None:

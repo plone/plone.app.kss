@@ -15,5 +15,6 @@ class ContentMenuView(PloneKSSView):
 
     @kssaction
     def contentMenuRefresh(self, id, menu):
-        self.getCommandSet('contentmenu').refreshContentMenu(id, menu)
+        # XXX: We only know how to refresh the entire menu at this stage
+        self.getCommandSet('plone').refreshContentMenu()
 

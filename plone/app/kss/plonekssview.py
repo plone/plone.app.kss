@@ -51,5 +51,5 @@ class PloneKSSView(base):
             else:
                 statusmessages = []
             for msg in statusmessages:
-                self.getCommandSet('portalmessage').issuePortalMessage(msg)
+                self.getCommandSet('plone').issuePortalMessage(msg)
             self.request.RESPONSE.expireCookie(STATUSMESSAGEKEY, path='/')

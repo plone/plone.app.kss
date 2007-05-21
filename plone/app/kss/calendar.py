@@ -16,5 +16,4 @@ class CalendarView(PloneKSSView):
     def refreshCalendar(self, month, year, portlethash):
         'In-place refreshment of the calendar.'
         month, year = int(month), int(year)
-        # do it
-        self.getCommandSet('refreshportlet').refreshPortlet(portlethash, year=year, month=month)
+        self.getCommandSet('plone').refreshPortlet(portlethash, year=year, month=month)

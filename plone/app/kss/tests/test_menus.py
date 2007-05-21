@@ -46,7 +46,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
                          [('replaceHTML', 'region-content', 'htmlid'),
                           ('setAttribute', 'ul.contentViews li', 'css'),
                           ('setAttribute', 'contentview-edit', 'htmlid'),
-                          ('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
+                          ('replaceHTML', 'contentActionMenus', 'htmlid'),
                          ])
 
     def testChangeViewTemplate(self):
@@ -69,7 +69,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         result = view.cutObject()
 
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
-                         [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
+                         [('replaceHTML', 'contentActionMenus', 'htmlid'),
                           ('setStyle', '.portalMessage', 'css'),
                           ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
                           ('setAttribute', 'kssPortalMessage', 'htmlid'),
@@ -91,7 +91,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
 
         result = view.copyObject()
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
-                         [('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
+                         [('replaceHTML', 'contentActionMenus', 'htmlid'),
                           ('setStyle', '.portalMessage', 'css'),
                           ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
                           ('setAttribute', 'kssPortalMessage', 'htmlid'),
@@ -116,7 +116,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         result = view.changeWorkflowState(url)
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [
-                          ('replaceInnerHTML', '#portal-column-content div.contentActions', 'css'),
+                          ('replaceHTML', 'contentActionMenus', 'htmlid'),
                           ('setStyle', '.portalMessage', 'css'),
                           ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
                           ('setAttribute', 'kssPortalMessage', 'htmlid'),

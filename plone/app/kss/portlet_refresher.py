@@ -15,5 +15,5 @@ class PortletView(PloneKSSView):
     
     def refreshPortlet(self, portlethash, nodeid=None):
         'Refresh portlet by name.'
-        self.getCommandSet('refreshportlet').refreshPortlet(portlethash)
+        self.getCommandSet('plone').refreshPortlet(portlethash)
         return self.render()

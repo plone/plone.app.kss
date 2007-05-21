@@ -5,6 +5,27 @@
     >
 
     <kss:commandset
+        name="zope"
+        for="plone.app.kss.interfaces.IPloneKSSView"
+        class=".zopecommands.ZopeCommands"
+        provides=".interfaces.IZopeCommands"
+        />
+        
+    <kss:commandset
+        name="plone"
+        for="plone.app.kss.interfaces.IPloneKSSView"
+        class=".plonecommands.PloneCommands"
+        provides=".interfaces.IPloneCommands"
+        />
+
+    <!-- DEPRECATED commands - will be gone in Plone 3.5.
+    
+        This functionality exists in the 'zope' and 'plone'
+        command sets
+        
+      -->
+
+    <kss:commandset
         name="refreshportlet"
         for="plone.app.kss.interfaces.IPloneKSSView"
         class=".refreshportlet.RefreshPortletCommand"
