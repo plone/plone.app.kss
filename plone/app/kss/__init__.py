@@ -6,10 +6,6 @@ from Products.CMFCore.FSFile import FSFile
 
 __all__ = ()
 
-
-# XXX Patch zope's and five's site manager machinery
-import five_lsm_patch
-
 def initialize(context):
 
     # register directory views
