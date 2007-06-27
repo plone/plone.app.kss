@@ -58,4 +58,34 @@
         jsfile="plugin.js"
         />
 
+    <kss:action
+        name="plone-initFormProtection"
+        command_factory="selector"
+        jsfile="plugin.js"
+        />
+
+    <kss:action
+        name="plone-initShiftDetection"
+        command_factory="global"
+        jsfile="plugin.js"
+        />
+
+    <kss:action
+        name="plone-initCheckBoxSelection"
+        command_factory="global"
+        jsfile="plugin.js"
+        />
+
+    <kss:action
+        name="plone-createCheckBoxSelection"
+        command_factory="selector"
+        jsfile="plugin.js"
+        />
+
+    <kss:action
+        name="plone-initDragAndDrop"
+        command_factory="global"
+        jsfile="plugin.js"
+        />
+
 </configure>
