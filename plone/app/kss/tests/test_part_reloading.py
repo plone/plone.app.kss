@@ -54,6 +54,9 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.assertEqual(result, [])
 
     def test_update_of_nav_portlet(self):
+        # create the view on the user folder instead of the portal root,
+        # because there is no more a nav portlet on the portal root.
+        self.view = self.folder.restrictedTraverse('@@change_title')
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
         modified_event = ObjectEditedEvent(self.folder, descriptor)
         attributesTriggerNavigationPortletReload(self.folder, self.view, modified_event)
