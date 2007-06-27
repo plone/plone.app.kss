@@ -1,19 +1,25 @@
 # -*- coding: UTF-8 -*-
 
 from urlparse import urlsplit
+
+from kss.core import kssaction, KSSExplicitError
 from kss.core.BeautifulSoup import BeautifulSoup
+
+from plone.app.layout.globals.interfaces import IViewView
+from plone.locking.interfaces import ILockable
+
+from zope.interface import alsoProvides
 from zope.interface import implements
 from zope.component import getMultiAdapter
-from zope.viewlet.interfaces import IViewletManager
+
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from Acquisition import Implicit
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from plonekssview import PloneKSSView
-from kss.core import kssaction, KSSExplicitError
+
 from interfaces import IPloneKSSView
-from zope.interface import alsoProvides
-from plone.app.layout.globals.interfaces import IViewView
-from plone.locking.interfaces import ILockable
+from plonekssview import PloneKSSView
 
 
 class Acquirer(Implicit):
@@ -22,16 +28,17 @@ class Acquirer(Implicit):
     main_template = ZopeTwoPageTemplateFile('browser/main_template_standalone.pt')
 
 def acquirerFactory(context):
-    return context.aq_chain[0].__of__(Acquirer().__of__(context.aq_parent))
+    return context.aq_chain[0].__of__(Acquirer().__of__(aq_parent(context)))
 
 def getCurrentContext(context):
     """ Check if context is default page in folder and/or portal
     """
     # check if context is default page
+    context = aq_inner(context)
     context_state = context.restrictedTraverse('@@plone_context_state')
     portal = getToolByName(context, 'portal_url').getPortalObject()
     if context_state.is_default_page() and context != portal:
-        context = context.aq_inner.aq_parent
+        context = aq_parent(context)
     return context
 
 
@@ -61,10 +68,10 @@ class ContentView(Implicit, PloneKSSView):
 
         Usage::
             ul.contentViews li a:click {
-	        evt-click-preventdefault: True;
-	        action-server: replaceContentRegion;
-	        replaceContentRegion-tabid: nodeAttr(id, true);
-	        replaceContentRegion-url: nodeAttr(href);
+            evt-click-preventdefault: True;
+            action-server: replaceContentRegion;
+            replaceContentRegion-tabid: nodeAttr(id, true);
+            replaceContentRegion-url: nodeAttr(href);
             }
 
         REMARK:
@@ -89,7 +96,8 @@ class ContentView(Implicit, PloneKSSView):
         # This could be solved with not using the tabs or doing server side quirks.
         # This affect management screens, for example, that are not real actions.
         # and unlock XXX
-        lock = getMultiAdapter((self.context,self.request), name='plone_lock_operations')
+        context = aq_inner(self.context)
+        lock = getMultiAdapter((context,self.request), name='plone_lock_operations')
         lock.safe_unlock()
 
         if not tabid or tabid == 'content':
@@ -105,11 +113,11 @@ class ContentView(Implicit, PloneKSSView):
         # make the wrapping for the context, to overwrite main_template
         # note we have to use aq_chain[0] *not* aq_base.
         # XXX however just context would be good too? Hmmm
-        wrapping = acquirerFactory(self.context)
+        wrapping = acquirerFactory(context)
         # Figure out the template to render.
         # We need the physical path which we can obtain from the url
         path = list(self.request.physicalPathFromURL(url))
-        obj_path = list(self.context.getPhysicalPath())
+        obj_path = list(context.getPhysicalPath())
         if path == obj_path:
             # target is the default view of the method.
             # url is like: ['http:', '', 'localhost:9777', 'kukitportlets', 'prefs_users_overview']
@@ -117,10 +125,10 @@ class ContentView(Implicit, PloneKSSView):
             # We lookup the default view for the object, which may be
             # another object, if so we give up, otherwise we use the
             # appropriate template
-            utils = getToolByName(self.context, 'plone_utils')
-            if utils.getDefaultPage(self.context) is not None:
+            utils = getToolByName(context, 'plone_utils')
+            if utils.getDefaultPage(context) is not None:
                 raise KSSExplicitError, 'no default page on the tab'
-            viewobj, viewpath = utils.browserDefault(self.context)
+            viewobj, viewpath = utils.browserDefault(context)
             if len(viewpath) == 1:
                 viewpath = viewpath[0]
             template = viewobj.restrictedTraverse(viewpath)
@@ -133,7 +141,7 @@ class ContentView(Implicit, PloneKSSView):
             method = path[-1]
             # Action method may be a method alias: Attempt to resolve to a template.
             try:
-                method = self.context.aq_inner.getTypeInfo().queryMethodID(method, default=method)
+                method = context.getTypeInfo().queryMethodID(method, default=method)
             except AttributeError:
                 # Don't raise if we don't have a CMF 1.5 FTI
                 pass
@@ -162,6 +170,7 @@ class ContentView(Implicit, PloneKSSView):
             alsoProvides(self, IViewView)
         self.getCommandSet('plone').refreshContentMenu()
 
+
 class ContentMenuView(Implicit, PloneKSSView):
 
     implements(IPloneKSSView, IViewView)
@@ -173,7 +182,6 @@ class ContentMenuView(Implicit, PloneKSSView):
         self.getCommandSet('plone').refreshContentMenu()
         self.issueAllPortalMessages()
         self.cancelRedirect()
-	
 
     @kssaction
     def copyObject(self):
@@ -235,14 +243,14 @@ class ContentMenuView(Implicit, PloneKSSView):
         # For instance if we come from the edit page and change the view we
         # stay on the edit URL but with a view page
 
-
     @kssaction
     def changeWorkflowState(self, url):
+        context = aq_inner(self.context)
         ksscore = self.getCommandSet('core')
         zopecommands = self.getCommandSet('zope')
         plonecommands = self.getCommandSet('plone')
         
-        locking = ILockable(self.context)
+        locking = ILockable(context)
         if locking and not locking.can_safely_unlock():
             selector = ksscore.getHtmlIdSelector('plone-lock-status')
             zopecommands.refreshViewlet(selector, 'plone.abovecontent', 'plone.lockinfo')
@@ -253,11 +261,9 @@ class ContentMenuView(Implicit, PloneKSSView):
         if not path.endswith('content_status_modify'):
             raise KSSExplicitError, 'content_status_modify is not handled'
         action = query.split("workflow_action=")[-1].split('&')[0]
-        context = self.context
         context.content_status_modify(action)
         plonecommands.refreshContentMenu()
         # XXX This updating has to go away, DCWorkflow has to take care of this
         #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
         self.issueAllPortalMessages()
         self.cancelRedirect()
-
