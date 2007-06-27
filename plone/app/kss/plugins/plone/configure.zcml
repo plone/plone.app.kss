@@ -53,4 +53,9 @@
         jsfile="plugin.js"
         />
 
+    <kss:eventtype
+        name="plone-formProtectionFailed"
+        jsfile="plugin.js"
+        />
+
 </configure>
