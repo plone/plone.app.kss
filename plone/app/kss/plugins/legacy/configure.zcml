@@ -21,4 +21,10 @@
         jsfile="reload/initializeCollapsible.js"
         />
 
+    <kss:action
+        name="createTableOfContents"
+        command_factory="global"
+        jsfile="reload/createTableOfContents.js"
+        />
+
 </configure>

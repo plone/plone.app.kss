@@ -18,6 +18,13 @@
         provides=".interfaces.IPloneCommands"
         />
 
+    <kss:commandset
+        name="plone-legacy"
+        for="plone.app.kss.interfaces.IPloneKSSView"
+        class=".legacycommands.PloneLegacyCommands"
+        provides=".interfaces.IPloneLegacyCommands"
+        />
+
     <!-- DEPRECATED commands - will be gone in Plone 3.5.
     
         This functionality exists in the 'zope' and 'plone'

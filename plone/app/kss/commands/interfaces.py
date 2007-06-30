@@ -55,6 +55,17 @@ class IPloneCommands(Interface):
         """Refresh the content menu
         """
 
+class IPloneLegacyCommands(Interface):
+    """Commands for legacy Plone operations.
+    JS code done without KSS patterns
+
+    registered as command set 'plone-legacy'
+    """
+    
+    def createTableOfContents():
+        """Parse the document body and add the TOC
+        """
+
 # Deprecated commands -- will be removed in Plone 3.5
 # Do not use these.
 
