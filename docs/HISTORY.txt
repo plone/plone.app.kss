@@ -2,7 +2,7 @@ Changelog for plone.app.kss
 
     (name of developer listed in brackets)
 
-plone.app.kss - 1.2dev Unreleased
+plone.app.kss - 1.2-rc1 Released 2007-07-08
 
     - Cleaned up Acquisition usage. self.context always needs to be unwrapped
       by aq_inner before using it in Zope2.
