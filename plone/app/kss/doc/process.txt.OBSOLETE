@@ -1,9 +1,13 @@
+*** This example is now obsolete, it needs an update. ***
+*** It does not currelntly woro with Plone 3. ***
+
+
 The tool we build is a simple bookmarking tool : on a page, you get a supplementary link in the personal bar which adds a bookmark to your personal folder. The five most recents bookmarks are shown in a portlet. 
 
 As the aim of this page is to describe the development process of ajaxification, the tool itself is not much refined : it stores the bookmarks right in the personal folder as ATLinks.
 
 Step 0
-======
+======:
 
 The *non-Ajax* tool consists of two very simple pieces of code : a script to add the
 bookmark and a portlet to display the bookmarks.
