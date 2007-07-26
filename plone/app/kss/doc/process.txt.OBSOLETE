@@ -1,5 +1,5 @@
 *** This example is now obsolete, it needs an update. ***
-*** It does not currelntly woro with Plone 3. ***
+*** It does not currently work with Plone 3. ***
 
 
 The tool we build is a simple bookmarking tool : on a page, you get a supplementary link in the personal bar which adds a bookmark to your personal folder. The five most recents bookmarks are shown in a portlet. 
