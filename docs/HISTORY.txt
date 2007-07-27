@@ -6,6 +6,11 @@ plone.app.kss - 1.2dev Unreleased
 
     - ...
 
+plone.app.kss - 1.2-rc2 Released 2007-07-27
+
+    - External links is not always loaded anymore
+      [gotcha]
+
 plone.app.kss - 1.2-rc1.1 Released 2007-07-12
 
     - Prepare for release
