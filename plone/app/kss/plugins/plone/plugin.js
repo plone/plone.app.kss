@@ -249,14 +249,16 @@ kukit.actionsGlobalRegistry.register("plone-initDragAndDrop", function(oper) {
         return;
     ploneDnDReorder.rows = cssQuery(table + " > tr," +
                                     table + " > tbody > tr");
-    var targets = cssQuery(table + " > tr > td," +
-                           table + " > tbody > tr > td");
+    var targets = cssQuery(table + " > tr > td.draggable," +
+                           table + " > tbody > tr > td.draggable");
     for (var i=0; i<targets.length; i++) {
         if (hasClassName(targets[i], 'notDraggable'))
             continue;
-        targets[i].onmousedown=ploneDnDReorder.doDown;
-        targets[i].onmouseup=ploneDnDReorder.doUp;
-        addClassName(targets[i], "draggingHook");
+	var target = targets[i];
+        target.onmousedown=ploneDnDReorder.doDown;
+        target.onmouseup=ploneDnDReorder.doUp;
+        addClassName(target, "draggingHook");
+	target.innerHTML = '::'
     }
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initDragAndDrop', kukit.cr.makeSelectorCommand);
