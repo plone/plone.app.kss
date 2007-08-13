@@ -29,8 +29,13 @@ class TestPortletReloading(KSSAndPloneTestCase):
         @classmethod
         def setUp(cls):
             load_config('configure-part_reloading.zcml',
-                        package=plone.app.kss.tests)            
+                        package=plone.app.kss.tests)
 
+        @classmethod
+        def tearDown(cls):
+            # XXX: tear down whatever was set up in configure-part_reloading
+            pass
+            
     def afterSetUp(self):
         PloneTestCase.PloneTestCase.afterSetUp(self)
         self.setDebugRequest()
