@@ -1,7 +1,6 @@
 import unittest
 from Products.PloneTestCase import PloneTestCase
 
-import plone
 from plone.app.kss.plonekssview import PloneKSSView
 from plone.app.kss.interfaces import IPortalObject
 from plone.app.kss.portlets import attributesTriggerNavigationPortletReload
@@ -12,7 +11,6 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope import lifecycleevent
 
 from Products.Archetypes.event import ObjectEditedEvent
-from Products.Five.zcml import load_config
 
 PloneTestCase.setupPloneSite()
 
@@ -23,26 +21,14 @@ class SampleView(PloneKSSView):
         self.handle(ObjectModifiedEvent(self.context))
         return self.render()
 
-
 class TestPortletReloading(KSSAndPloneTestCase):
-    class layer(KSSAndPloneTestCase.layer):
-        @classmethod
-        def setUp(cls):
-            load_config('configure-part_reloading.zcml',
-                        package=plone.app.kss.tests)
-
-        @classmethod
-        def tearDown(cls):
-            # XXX: tear down whatever was set up in configure-part_reloading
-            pass
             
     def afterSetUp(self):
-        PloneTestCase.PloneTestCase.afterSetUp(self)
+        KSSAndPloneTestCase.afterSetUp(self)
         self.setDebugRequest()
         self.loginAsPortalOwner()
         self.setRoles(['Manager',])
         # register the sample view
-
         self.view = self.portal.restrictedTraverse('@@change_title')
 
     def test_no_update_of_nav_portlet_when_unhooked(self):

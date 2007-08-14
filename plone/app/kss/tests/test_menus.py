@@ -27,9 +27,7 @@ PloneTestCase.setupPloneSite()
 class ContentActionMenusTestCase(KSSAndPloneTestCase):
 
     def afterSetUp(self):
-        PloneTestCase.PloneTestCase.afterSetUp(self)
-        self.loadCoreConfig(kss_core=False)
-        # commands will be rendered as data structures,
+        KSSAndPloneTestCase.afterSetUp(self)
         self.setDebugRequest()
         self.loginAsPortalOwner()
         self.fpage = self.portal['front-page']
@@ -134,4 +132,3 @@ def test_suite():
     return unittest.TestSuite((
         unittest.makeSuite(ContentActionMenusTestCase),
         ))
-
