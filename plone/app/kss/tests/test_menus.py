@@ -61,9 +61,10 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         self.assertEqual(resh['status'], '200 OK')
         self.failUnless(req.RESPONSE.cookies['statusmessages'].has_key('expires'), 'cookies not expired')
 
-    def testKukitCutObject(self):
+    def testKssCutObject(self):
         req = self.portal.REQUEST
-        view = content_replacer.ContentMenuView(self.fpage, req)
+        # XXX This menu is missing from front page, so we test them on the user folder.
+        view = content_replacer.ContentMenuView(self.folder, req)
         result = view.cutObject()
 
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
@@ -77,15 +78,17 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
     def testCutObject(self):
         req = self.portal.REQUEST
         self.failIf(req.RESPONSE.cookies.has_key('__cp'), 'has cut cookie')
-        view = content_replacer.ContentMenuView(self.fpage, req)
+        # XXX This menu is missing from front page, so we test them on the user folder.
+        view = content_replacer.ContentMenuView(self.folder, req)
         result = view.cutObject()
         resh = req.RESPONSE.headers
         self.assertEqual(resh['status'], '200 OK')
         self.failUnless(req.RESPONSE.cookies.has_key('__cp'), 'no cut cookie')
         
-    def testKukitCopyObject(self):
+    def testKssCopyObject(self):
         req = self.portal.REQUEST
-        view = content_replacer.ContentMenuView(self.fpage, req)
+        # XXX This menu is missing from front page, so we test them on the user folder.
+        view = content_replacer.ContentMenuView(self.folder, req)
 
         result = view.copyObject()
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
@@ -99,7 +102,8 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
     def testCopyObject(self):
         req = self.portal.REQUEST
         self.failIf(req.RESPONSE.cookies.has_key('__cp'), 'has copy cookie')
-        view = content_replacer.ContentMenuView(self.fpage, req)
+        # XXX This menu is missing from front page, so we test them on the user folder.
+        view = content_replacer.ContentMenuView(self.folder, req)
         result = view.copyObject()
         resh = req.RESPONSE.headers
         self.assertEqual(resh['status'], '200 OK')
@@ -120,13 +124,6 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
                           ('setAttribute', 'kssPortalMessage', 'htmlid'),
                           ('setStyle', 'kssPortalMessage', 'htmlid'),
                          ])
-
-    def beforeTearDown(self):
-        # Overwrite KSSViewTestCase's method as it tears down the CA manually
-        # and doesn't use layers yet, which doesn't play nicely with layer
-        # enabled tests.
-        pass
-
 
 def test_suite():
     return unittest.TestSuite((
