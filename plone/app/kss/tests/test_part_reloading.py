@@ -12,6 +12,10 @@ from zope import lifecycleevent
 
 from Products.Archetypes.event import ObjectEditedEvent
 
+from plone.app.portlets.portlets.recent import Assignment as RecentAssignment
+from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
+from zope.component import getUtility, getMultiAdapter
+
 PloneTestCase.setupPloneSite()
 
 class SampleView(PloneKSSView):
@@ -65,7 +69,19 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.failUnless(command.has_key('selectorType'))
         self.assertEqual(command['selectorType'], 'htmlid')
 
+    def create_portlet(self, name, portlet):
+        leftColumn = getUtility(IPortletManager, name=u'plone.leftcolumn',
+                            context=self.portal)
+        left = getMultiAdapter((self.portal, leftColumn,), IPortletAssignmentMapping,
+                            context=self.portal)
+        assert name not in left, 'Portlet is already there, no need to create it - fix me'
+        left[name] = portlet
+
     def test_update_of_recent_portlet(self):
+        # there is no recent portlet now at all, so we need to create one
+        # in the front page so we can test it.
+        self.create_portlet(u'recent', RecentAssignment())
+        #
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
         modified_event = ObjectEditedEvent(self.folder, descriptor)
         attributesTriggerRecentPortletReload(self.folder, self.view, modified_event)
