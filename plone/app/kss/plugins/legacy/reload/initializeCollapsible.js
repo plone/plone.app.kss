@@ -6,5 +6,5 @@ kukit.actionsGlobalRegistry.register("initializeCollapsible", function (oper) {
         activateCollapsibles();
     });
 
-kukit.log('actions for Plone legacy js registered (initialize collapsible)');
+kukit.log('Plone legacy [initializeCollapsible] action registered.');
 

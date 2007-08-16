@@ -8,5 +8,5 @@ kukit.actionsGlobalRegistry.register("createTableOfContents", function (oper) {
     });
 kukit.commandsGlobalRegistry.registerFromAction('createTableOfContents', kukit.cr.makeGlobalCommand);
 
-kukit.log('actions for Plone legacy js registered (create TOC)');
+kukit.log('Plone [createTableOfContents] action registered.');
 

@@ -7,5 +7,5 @@ kukit.actionsGlobalRegistry.register("bindActionMenus", function (oper) {
         kukit.logDebug('Plone menus initialized');
     });
 
-kukit.log('actions for Plone legacy js registered (bind menus)');
+kukit.log('Plone legacy [initializeMenus] action registered.');
 

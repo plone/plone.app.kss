@@ -14,10 +14,10 @@ else {
 
 kukit.actionsGlobalRegistry.register("bindExternalLinks", function (oper) {
         kukit.plonelegacy.bindExternalLinks();
-        kukit.logDebug('Plone external links marker registered');
+        kukit.logDebug('Plone external links bound.');
     });
 
-kukit.log('actions for Plone legacy js registered (mark external links)');
+kukit.log('Plone legacy [bindExternalLinks] action registered.');
 
 
 

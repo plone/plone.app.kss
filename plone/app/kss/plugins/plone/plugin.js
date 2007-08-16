@@ -15,28 +15,35 @@ kukit.plone = {};
 if (typeof(addDOMLoadEvent) != 'undefined') {
 
     var f = function() {
-        kukit.log('KSS initialized by Plone DOMLoad event.');
+        kukit.log('KSS started by Plone DOMLoad event.');
         kukit.bootstrapFromDOMLoad();
     };
     addDOMLoadEvent(f);
-    kukit.log('Installed KSS bootstrap in Plone DOMLoad event.');
+;;; kukit.log('KSS bootstrap set up in Plone DOMLoad event.');
 } else {
-    kukit.logWarning('Plone addDOMLoadEvent not found by KSS, DOMLoad activation skipped (you might want to add event-registration.js to ResourceRegistries)');
+;;; var msg = 'Plone addDOMLoadEvent not found by KSS, DOMLoad activation';
+;;; msg += ' skipped (you might want to add event-registration.js to ';
+;;; msg += ' ResourceRegistries).';
+;;; kukit.logWarning(msg);
 }
 
 /* Base kukit plugins for Plone*/
 
 kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
     kukit.logDebug('Enter plone-initKupu');
-    oper.completeParms([], {}, 'plone-initKupu action');
+    oper.evaluateParameters([], {}, 'plone-initKupu action');
     // we start from the iframe node...
     if (oper.node.tagName.toLowerCase() != 'iframe') {
-        throw 'The plone-initKupu action can only be setup on an iframe node.';
+;;;     kukit.E = 'The plone-initKupu action can only be setup on an iframe';
+;;;     kukit.E += ' node.';
+        throw kukit.E;
     }
     var divnode = oper.node.parentNode.parentNode.parentNode.parentNode;
     var id = divnode.id;
     if (! id) {
-        throw 'The plone-initKupu action did not find the editor id from the iframe node.';
+;;;     kukit.E = 'The plone-initKupu action did not find the editor id from';
+;;;     kukit.E += ' the iframe node.';
+        throw kukit.E;
     }
  
     //
@@ -49,10 +56,10 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
             {editor: null,
              node: textarea,
              doInit: function() {
-                kukit.log('Setup Kupu initialization on load event');
+                kukit.log('Setup Kupu initialization on load event.');
                 var self = this;
                 initKupuOnLoad = function() {
-                    kukit.log('Initialize Kupu from onload event');
+                    kukit.log('Initialize Kupu from onload event.');
                     self.editor = initPloneKupu(id);
                 };
                 this.editor = initPloneKupu(id);
@@ -67,10 +74,11 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
              });
     kukit.logDebug('plone-initKupu action done.');
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-initKupu', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initKupu', 
+    kukit.cr.makeSelectorCommand);
 
 kukit.actionsGlobalRegistry.register("plone-followLink", function(oper) {
-    oper.completeParms([], {}, 'plone-followLink action');
+    oper.evaluateParameters([], {}, 'plone-followLink action');
     var url = oper.node.href;
     if (url.substr(0, 7) == "http://") {
         // redirect to it
@@ -80,21 +88,25 @@ kukit.actionsGlobalRegistry.register("plone-followLink", function(oper) {
         eval(url.substr(13));
     }
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-followLink', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-followLink',
+    kukit.cr.makeSelectorCommand);
 
 kukit.actionsGlobalRegistry.register("plone-submitCurrentForm", function (oper) {
-    oper.completeParms([], {}, 'plone-submitCurrentForm action');
+    oper.evaluateParameters([], {}, 'plone-submitCurrentForm action');
     // disable the onbeforeunload event since we want to submit now.
     window.onbeforeunload = null;
     var form = new kukit.fo.CurrentFormLocator(oper.node).getForm();
     form.submit();
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-submitCurrentForm', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-submitCurrentForm',
+    kukit.cr.makeSelectorCommand);
 
 kukit.actionsGlobalRegistry.register("plone-initFormTabs", function(oper) {
-    oper.completeParms([], {}, 'plone-initFormTabs action');
+    oper.evaluateParameters([], {}, 'plone-initFormTabs action');
     if (oper.node.tagName.toLowerCase() != 'form') {
-        throw 'The plone-initFormTabs action can only execute on a form node as a target.';
+;;;     kukit.E = 'The plone-initFormTabs action can only execute on a form';
+;;;     kukit.E += ' node as a target.';
+        throw kukit.E;
     }
     var form = oper.node;  
     ploneFormTabbing.initializeForm(form);
@@ -102,9 +114,11 @@ kukit.actionsGlobalRegistry.register("plone-initFormTabs", function(oper) {
 kukit.commandsGlobalRegistry.registerFromAction('plone-initFormTabs', kukit.cr.makeSelectorCommand);
 
 kukit.actionsGlobalRegistry.register("plone-initFormProtection", function(oper) {
-    oper.completeParms([], {}, 'plone-initFormProtection action');
+    oper.evaluateParameters([], {}, 'plone-initFormProtection action');
     if (oper.node.tagName.toLowerCase() != 'form') {
-        throw 'The plone-initFormProtection action can only execute on a form node as a target.';
+;;;     kukit.E = 'The plone-initFormProtection action can only execute on';
+;;;     kukit.E += ' a form node as a target.';
+        throw kukit.E;
     }
     var form = oper.node;  
     if (! window.onbeforeunload) {
@@ -114,15 +128,20 @@ kukit.actionsGlobalRegistry.register("plone-initFormProtection", function(oper) 
     // We add the new tool to the 
     tool.addForm(form);
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-initFormProtection', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initFormProtection',
+    kukit.cr.makeSelectorCommand);
 
-kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", function(oper) {
-    oper.completeParms([], {}, 'plone-formProtectionCheck action');
-    // Find the binderinstance of the switcher.
-    // (since we are in an action and not in the event, we don't have it at hand.
+kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", 
+    function(oper) {
+    oper.evaluateParameters([], {}, 'plone-formProtectionCheck action');
+    // Find the binderInstance of the switcher.
+    // (since we are in an action and not in the event,
+    // we don't have it at hand.
     // Note that we would not necessarily need the singleton)
-    var binderinfo = kukit.engine.binderInfoRegistry.getSingletonBinderInfoByName('plone', 'formProtectionChecked');
-    var binderinstance = binderinfo.getBinderInstance();
+    var binderInfo =
+        kukit.engine.binderInfoRegistry.getSingletonBinderInfoByName('plone',
+        'formProtectionChecked');
+    var binderInstance = binderInfo.getBinderInstance();
     // check if the form has change
     var message;
     if ( window.onbeforeunload) {
@@ -132,94 +151,118 @@ kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", function(oper)
     // Do we need the popup?
     var result = true;
     if (message) {
-        result = confirm('Are you sure you want to navigate away from this page?\n\n' + message + 
-            '\n\nPress OK to countinue, or Cancel to stay on the current page.');
+        var confirmMsg = 'Are you sure you want to navigate away from this';
+        confirmMsg += ' page?\n\n' + message + '\n\nPress OK to continue,';
+        confirmMsg += ' or Cancel to stay on the current page.';
+        result = confirm(confirmMsg);
     }
     // arrange the continuation events
     if (result) {
         // Continue with the real action.
-        binderinstance.__continue_event__('formProtectionChecked', oper.node, {});
+        var action = 'formProtectionChecked';
     } else {
         // Continue with the cancel action.
-        binderinstance.__continue_event__('formProtectionFailed', oper.node, {});
+        var action = 'formProtectionFailed';
     }
+    binderInstance.__continueEvent__(action, oper.node, {});
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-formProtectionCheck', kukit.cr.makeSelectorCommand);
+
+kukit.commandsGlobalRegistry.registerFromAction('plone-formProtectionCheck',
+    kukit.cr.makeSelectorCommand);
 
 kukit.plone.FormProtectionCheckedEvents = function() {
 };
-kukit.plone.FormProtectionCheckedEvents.prototype.__default_failed__ = function(name, oper) {
+
+kukit.plone.FormProtectionCheckedEvents.prototype.__default_failed__ = 
+    function(name, oper) {
 };
-kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked', kukit.plone.FormProtectionCheckedEvents, null, null);
-kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed', kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
+
+kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked',
+    kukit.plone.FormProtectionCheckedEvents, null, null);
+
+kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed',
+    kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
 
 // Form Locking
 
-kukit.actionsGlobalRegistry.register("plone-initLockingProtection", function(oper) {
-    oper.completeParms([], {}, 'plone-initLockingProtection action');
+kukit.actionsGlobalRegistry.register("plone-initLockingProtection",
+    function(oper) {
+    oper.evaluateParameters([], {}, 'plone-initLockingProtection action');
     if (oper.node.tagName.toLowerCase() != 'form') {
-        throw 'The plone-initLockingProtection action can only execute on a form node as a target.';
+;;;     kukit.E = 'The plone-initLockingProtection action can only execute';
+;;;     kukit.E += ' on a form node as a target.';
+        throw kukit.E;
     }
     if (! window.onunload) {
         var handler = new plone.UnlockHandler().execute;
         window.onunload = handler;
     }
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-initLockingProtection', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initLockingProtection',
+    kukit.cr.makeSelectorCommand);
 
 
-kukit.actionsGlobalRegistry.register("plone-removeLockProtection", function(oper) {
-    oper.completeParms([], {}, 'plone-removeLockProtection action');
+kukit.actionsGlobalRegistry.register("plone-removeLockProtection",
+    function(oper) {
+    oper.evaluateParameters([], {}, 'plone-removeLockProtection action');
     if ( window.onunload) {
         window.onunload = null;
     }
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-removeLockProtection', kukit.cr.makeGlobalCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-removeLockProtection',
+    kukit.cr.makeGlobalCommand);
 
 // Folder contents shift click selection
-kukit.actionsGlobalRegistry.register("plone-initShiftDetection", function(oper) {
-    oper.completeParms([], {}, 'plone-initShiftDetection action');
+kukit.actionsGlobalRegistry.register("plone-initShiftDetection",
+    function(oper) {
+    oper.evaluateParameters([], {}, 'plone-initShiftDetection action');
 
-    kukit.engine.statevars['plone-shiftdown'] = false;
+    kukit.engine.stateVariables['plone-shiftdown'] = false;
     document.onkeydown = function(e) {
         var evt = e || window.event;
         if(evt.keyCode == 16){
-            kukit.engine.statevars['plone-shiftdown'] = true;
+            kukit.engine.stateVariables['plone-shiftdown'] = true;
         }
     };
 
     document.onkeyup = function(e) {
         var evt = e || window.event;
         if(evt.keyCode == 16){
-            kukit.engine.statevars['plone-shiftdown'] = false;
+            kukit.engine.stateVariables['plone-shiftdown'] = false;
         }
     };
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-initShiftDetection', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initShiftDetection',
+    kukit.cr.makeSelectorCommand);
 
 
-kukit.actionsGlobalRegistry.register("plone-initCheckBoxSelection", function(oper) {
-    oper.completeParms([], {}, 'plone-initCheckBoxSelection action');
-    kukit.engine.statevars['plone-foldercontents-firstcheckeditem'] = null;
+kukit.actionsGlobalRegistry.register("plone-initCheckBoxSelection",
+    function(oper) {
+    oper.evaluateParameters([], {}, 'plone-initCheckBoxSelection action');
+    kukit.engine.stateVariables['plone-foldercontents-firstcheckeditem'] = null;
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-initCheckBoxSelection', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initCheckBoxSelection',
+    kukit.cr.makeSelectorCommand);
 
 
-kukit.actionsGlobalRegistry.register("plone-createCheckBoxSelection", function(oper) {
-    oper.completeParms(['group'], {}, 'plone-createCheckBoxSelection action');
+kukit.actionsGlobalRegistry.register("plone-createCheckBoxSelection",
+    function(oper) {
+    var actionMsg = 'plone-createCheckBoxSelection action';
+    oper.evaluateParameters(['group'], {}, actionMsg);
 
     var node = oper.node;
-    var firstitem = kukit.engine.statevars['plone-foldercontents-firstcheckeditem'];
-    if(firstitem && kukit.engine.statevars['plone-shiftdown']) {
+    var firstItemVarName = 'plone-foldercontents-firstcheckeditem';
+    var firstItem = kukit.engine.stateVariables[firstItemVarName];
+    if(firstItem && kukit.engine.stateVariables['plone-shiftdown']) {
         var group = oper.parms.group;
-        var allnodes = kukit.dom.cssQuery(group);
+        var allNodes = kukit.dom.cssQuery(group);
         var start = null;
         var end = null;
-        for(var i=0; i < allnodes.length; i++){
-            if(allnodes[i] == firstitem){
+        for(var i=0; i < allNodes.length; i++){
+            if(allNodes[i] == firstItem){
                 start = i;
             }
-            else if(allnodes[i] == node){
+            else if(allNodes[i] == node){
                 end = i;
             }
         }
@@ -230,19 +273,20 @@ kukit.actionsGlobalRegistry.register("plone-createCheckBoxSelection", function(o
         }
 
         for(var i=start; i <= end; i++){
-            allnodes[i].checked = firstitem.checked;
+            allNodes[i].checked = firstItem.checked;
         }
     }
     else {
-        kukit.engine.statevars['plone-foldercontents-firstcheckeditem'] = node;
+        kukit.engine.stateVariables[firstItemVarName] = node;
     }
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-createCheckBoxSelection', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-createCheckBoxSelection',
+    kukit.cr.makeSelectorCommand);
 
 
-kukit.actionsGlobalRegistry.register("plone-initDragAndDrop", function(oper) {
-    oper.completeParms(['table'], {}, 'plone-initDragAndDrop action');
-
+kukit.actionsGlobalRegistry.register("plone-initDragAndDrop",
+    function(oper) {
+    oper.evaluateParameters(['table'], {}, 'plone-initDragAndDrop action');
     var table = oper.parms.table;
     ploneDnDReorder.table = cssQuery(table)[0];
     if (!ploneDnDReorder.table)
@@ -261,4 +305,5 @@ kukit.actionsGlobalRegistry.register("plone-initDragAndDrop", function(oper) {
 	target.innerHTML = '::'
     }
 });
-kukit.commandsGlobalRegistry.registerFromAction('plone-initDragAndDrop', kukit.cr.makeSelectorCommand);
+kukit.commandsGlobalRegistry.registerFromAction('plone-initDragAndDrop',
+    kukit.cr.makeSelectorCommand);
