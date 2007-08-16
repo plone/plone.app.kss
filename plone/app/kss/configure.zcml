@@ -172,6 +172,7 @@
     <subscriber handler=".globalui.attributesTriggerPortalTabsReload"/>
     <subscriber handler=".globalui.attributesTriggerBreadcrumbsReload"/>
     <subscriber handler=".globalui.attributesTriggerHeadTitleReload"/>
+    <subscriber handler=".globalui.attributesTriggerDocumentBylineReload"/>
     <subscriber handler=".portlets.workflowTriggersNavigationPortletReload"/>
     <subscriber handler=".portlets.workflowTriggersRecentPortletReload"/>
 

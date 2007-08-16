@@ -17,6 +17,15 @@ def attributesTriggerPortalTabsReload(obj, view, event):
             withKssSetup='False')
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
+def attributesTriggerDocumentBylineReload(obj, view, event):
+    ksscore = view.getCommandSet('core')
+    selector = ksscore.getHtmlIdSelector('plone-document-byline')
+    zopecommands = view.getCommandSet('zope')
+    zopecommands.refreshViewlet(selector,
+                                'plone.belowcontenttitle',
+                                'plone.belowcontenttitle.documentbyline')
+
+@component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerBreadcrumbsReload(obj, view, event):
     triggeringAttributes = ('title', 'description')
     if attributesModified(triggeringAttributes, event):
