@@ -6,6 +6,11 @@ plone.app.kss - 1.2dev Unreleased
 
     - ...
 
+plone.app.kss - 1.2-final Released 2007-08-17
+
+    - Fix bugs and test layer
+      [ree, gotcha, jvloothuis, nouri]
+
 plone.app.kss - 1.2-rc2 Released 2007-07-27
 
     - External links is not always loaded anymore
