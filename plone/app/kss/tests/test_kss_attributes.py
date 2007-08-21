@@ -93,7 +93,7 @@ class TestForKSSInlineEditing:
         movie)
         
             >>> description = soup.find(
-            ...    'p', dict(id='parent-fieldname-description'))
+            ...    'div', dict(id='parent-fieldname-description'))
             >>> description is not None
             True
             >>> 'kssattr-atfieldname-description' in description['class']
