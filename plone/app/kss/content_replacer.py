@@ -250,7 +250,7 @@ class ContentMenuView(Implicit, PloneKSSView):
         zopecommands = self.getCommandSet('zope')
         plonecommands = self.getCommandSet('plone')
         
-        locking = queryAdapter(context, ILockable) #= ILockable(context) #
+        locking = queryAdapter(context, ILockable)
         if locking and not locking.can_safely_unlock():
             selector = ksscore.getHtmlIdSelector('plone-lock-status')
             zopecommands.refreshViewlet(selector, 'plone.abovecontent', 'plone.lockinfo')
