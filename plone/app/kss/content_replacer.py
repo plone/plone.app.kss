@@ -10,7 +10,7 @@ from plone.locking.interfaces import ILockable
 
 from zope.interface import alsoProvides
 from zope.interface import implements
-from zope.component import getMultiAdapter, queryAdapter
+from zope.component import getMultiAdapter
 
 from Acquisition import aq_inner
 from Acquisition import aq_parent
@@ -250,8 +250,8 @@ class ContentMenuView(Implicit, PloneKSSView):
         zopecommands = self.getCommandSet('zope')
         plonecommands = self.getCommandSet('plone')
         
-        locking = queryAdapter(context, ILockable)
-        if locking and not locking.can_safely_unlock():
+        locking = ILockable(context, None)
+        if locking is not None and not locking.can_safely_unlock():
             selector = ksscore.getHtmlIdSelector('plone-lock-status')
             zopecommands.refreshViewlet(selector, 'plone.abovecontent', 'plone.lockinfo')
             plonecommands.refreshContentMenu()
