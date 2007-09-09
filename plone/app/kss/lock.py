@@ -5,6 +5,7 @@ from kss.core import kssaction
 from interfaces import IPloneKSSView
 from plone.locking.interfaces import ILockable
 from Acquisition import aq_inner
+from zope.component import queryAdapter
 
 class LockView(PloneKSSView):
     """
@@ -21,8 +22,8 @@ class LockView(PloneKSSView):
         that the object wasn't locked, to be sure, we do one more
         """
         context = aq_inner(self.context)
-        locking = ILockable(context)
-        coreCmd = self.getCommandSet('core')
+        locking = queryAdapter(context, ILockable)
         if locking and not locking.locked():
+            coreCmd = self.getCommandSet('core')
             selector = coreCmd.getHtmlIdSelector('lock-icon')
             coreCmd.deleteNode(selector)
