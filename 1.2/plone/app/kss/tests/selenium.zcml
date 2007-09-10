@@ -1,0 +1,25 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:kss="http://namespaces.zope.org/kss"
+           >
+           
+     <!-- This is needed during the manual creation
+          of a site, to run selenium tests. Not needed for
+          the normal or functional unittests. 
+
+          The access control makes sure that only site
+          managers can run this method.
+
+          The method needs to be run on a newly created portal.
+      -->
+
+     <browser:page
+         for="plone.app.kss.interfaces.IPloneSiteRoot"
+         attribute="createSite"
+         class=".site_creation_view.SiteCreationView"
+         name="kss_test_create_site"
+         permission="cmf.ManagePortal"
+         />
+         
+</configure>
