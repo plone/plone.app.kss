@@ -40,7 +40,7 @@ class TestForKSSInlineEditing:
         
         We find the title tag.
         
-            >>> title = soup.find('h1', attrs=dict(id='parent-fieldname-title'))
+            >>> title = soup.find(id='parent-fieldname-title')
             >>> title is not None
             True
         
@@ -70,7 +70,7 @@ class TestForKSSInlineEditing:
         
         We find the title
         
-            >>> title = soup.find('h1', dict(id='parent-fieldname-title'))
+            >>> title = soup.find(id='parent-fieldname-title')
             >>> title is not None
             True
         
@@ -93,7 +93,7 @@ class TestForKSSInlineEditing:
         movie)
         
             >>> description = soup.find(
-            ...    'div', dict(id='parent-fieldname-description'))
+            ...    id='parent-fieldname-description')
             >>> description is not None
             True
             >>> 'kssattr-atfieldname-description' in description['class']
@@ -107,7 +107,7 @@ class TestForKSSInlineEditing:
         
         Now, time for the text
         
-            >>> text = soup.find('div', dict(id='parent-fieldname-text'))
+            >>> text = soup.find(id='parent-fieldname-text')
             >>> text is not None
             True
             >>> 'kssattr-atfieldname-text' in text['class']
