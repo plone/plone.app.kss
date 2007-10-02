@@ -262,6 +262,8 @@ class ContentMenuView(Implicit, PloneKSSView):
             raise KSSExplicitError, 'content_status_modify is not handled'
         action = query.split("workflow_action=")[-1].split('&')[0]
         context.content_status_modify(action)
+        selector = ksscore.getCssSelector('.contentViews')
+        zopecommands.refreshViewlet(selector, 'plone.contentviews', 'plone.contentviews')
         plonecommands.refreshContentMenu()
         # XXX This updating has to go away, DCWorkflow has to take care of this
         #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
