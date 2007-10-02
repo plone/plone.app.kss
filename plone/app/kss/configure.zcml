@@ -118,7 +118,7 @@
         attribute="contentMenuRefresh"
         class=".refresh_content_menu.ContentMenuView"
         name="contentmenurefresh"
-        permission="cmf.ModifyPortalContent"
+        permission="zope2.View"
         />
 
 
@@ -155,13 +155,12 @@
         permission="zope2.CopyOrMove"
         />
 
-    <!-- XXX Check for permissions here -->
     <browser:page
         for=".interfaces.IPortalObject"
         attribute="changeWorkflowState"
         class=".content_replacer.ContentMenuView"
         name="changeWorkflowState"
-        permission="cmf.ModifyPortalContent"
+        permission="zope2.View"
         />
 
     <!-- stylesheet registration -->    
