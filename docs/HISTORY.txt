@@ -4,7 +4,14 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.2dev Unreleased
 
-    - ...
+    - Change workflow permissions to zope2.View, this almost matches
+	  WorkflowTool.doActionFor which is declared public. Security checking is
+	  performed explicitly inside DCWorkflow for transitions.
+	  [ldr]
+	
+	- Make content tabs re-render on a workflow change. Workflows often change
+	  the cmf.ModifyPortalContent permissions, making the edit tab inaccessible.
+	  [ldr]
 
 plone.app.kss - 1.2.1 Released 2007-09-10
 
