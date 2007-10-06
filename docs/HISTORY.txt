@@ -4,6 +4,10 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.2dev Unreleased
 
+    - ...
+
+plone.app.kss - 1.2.2 Released 2007-10-06
+
     - Change workflow permissions to zope2.View, this almost matches
 	  WorkflowTool.doActionFor which is declared public. Security checking is
 	  performed explicitly inside DCWorkflow for transitions.
