@@ -6,21 +6,21 @@
 
     <kss:commandset
         name="zope"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".zopecommands.ZopeCommands"
         provides=".interfaces.IZopeCommands"
         />
         
     <kss:commandset
         name="plone"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".plonecommands.PloneCommands"
         provides=".interfaces.IPloneCommands"
         />
 
     <kss:commandset
         name="plone-legacy"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".legacycommands.PloneLegacyCommands"
         provides=".interfaces.IPloneLegacyCommands"
         />
@@ -34,49 +34,49 @@
 
     <kss:commandset
         name="refreshportlet"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".refreshportlet.RefreshPortletCommand"
         provides=".interfaces.IRefreshPortletCommand"
         />
 
     <kss:commandset
         name="refreshviewlet"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".refreshViewlet.KSSRefreshViewlet"
         provides=".interfaces.IKSSRefreshViewlet"
         />
 
     <kss:commandset 
         name="plone-portlets"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".portlets.KSSPortletCommands"
         provides=".interfaces.IKSSPlonePortletCommands"
         />
 
     <kss:commandset
         name="portalmessage"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".issueportalmessage.IssuePortalMessageCommand"
         provides=".interfaces.IIssuePortalMessageCommand"
         />
 
     <kss:commandset
         name="replacecontentmenu"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".replacecontentmenu.ReplaceContentMenuCommand"
         provides=".interfaces.IReplaceContentMenuCommand"
         />
 
     <kss:commandset
         name="contentmenu"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".refreshContentMenu.KSSRefreshContentMenu"
         provides=".interfaces.IKSSRefreshContentMenu"
         />
 
     <kss:commandset
         name="refreshprovider"
-        for="plone.app.kss.interfaces.IPloneKSSView"
+        for="kss.core.interfaces.IKSSView"
         class=".refreshprovider.RefreshProviderCommand"
         provides=".interfaces.IRefreshProviderCommand"
         />
