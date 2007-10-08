@@ -8,6 +8,10 @@ from plone.app.kss.portlets import attributesModified
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerPortalTabsReload(obj, view, event):
+    import logging
+    logger = logging.getLogger('KSS')
+    logger.error('attributesTriggerPortalTabsReload event is buggy, need to fix')
+    return
     triggeringAttributes = ('title', 'description')
     if attributesModified(triggeringAttributes, event):
         ksscore = view.getCommandSet('core')
@@ -27,6 +31,10 @@ def attributesTriggerDocumentBylineReload(obj, view, event):
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerBreadcrumbsReload(obj, view, event):
+    import logging
+    logger = logging.getLogger('KSS')
+    logger.error('attributesTriggerBreadcrumbsReload event is buggy, need to fix')
+    return
     triggeringAttributes = ('title', 'description')
     if attributesModified(triggeringAttributes, event):
         ksscore = view.getCommandSet('core')
