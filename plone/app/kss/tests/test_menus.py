@@ -118,6 +118,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         result = view.changeWorkflowState(url)
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
                          [
+                          ('replaceHTML', '.contentViews', 'css'),
                           ('replaceHTML', 'contentActionMenus', 'htmlid'),
                           ('setStyle', '.portalMessage', 'css'),
                           ('replaceInnerHTML', 'kssPortalMessage', 'htmlid'),
