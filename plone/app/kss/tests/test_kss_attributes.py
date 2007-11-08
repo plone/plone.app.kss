@@ -39,8 +39,10 @@ class TestForKSSInlineEditing:
             >>> soup = self.BeautifulSoup(self.browser.contents)
         
         We find the title tag.
+        XXX Please do _not_ look for a given tagname as the test will break
+        XXX if someone changes the template, and it happens often.
         
-            >>> title = soup.find('h1', attrs=dict(id='parent-fieldname-title'))
+            >>> title = soup.find(id='parent-fieldname-title')
             >>> title is not None
             True
         
@@ -68,9 +70,11 @@ class TestForKSSInlineEditing:
             >>> self.browser.open(self.page.absolute_url())
             >>> soup = self.BeautifulSoup(self.browser.contents)
         
-        We find the title
+        We find the title.
+        XXX Please do _not_ look for a given tagname as the test will break
+        XXX if someone changes the template, and it happens often.
         
-            >>> title = soup.find('h1', dict(id='parent-fieldname-title'))
+            >>> title = soup.find(id='parent-fieldname-title')
             >>> title is not None
             True
         
@@ -91,9 +95,11 @@ class TestForKSSInlineEditing:
 
         Rerun, description now! (which is not a Francis Ford Coppola's
         movie)
-        
+        XXX Please do _not_ look for a given tagname as the test will break
+        XXX if someone changes the template, and it happens often.
+
             >>> description = soup.find(
-            ...    'div', dict(id='parent-fieldname-description'))
+            ...    id='parent-fieldname-description')
             >>> description is not None
             True
             >>> 'kssattr-atfieldname-description' in description['class']
@@ -106,8 +112,10 @@ class TestForKSSInlineEditing:
             True
         
         Now, time for the text
+        XXX Please do _not_ look for a given tagname as the test will break
+        XXX if someone changes the template, and it happens often.
         
-            >>> text = soup.find('div', dict(id='parent-fieldname-text'))
+            >>> text = soup.find(id='parent-fieldname-text')
             >>> text is not None
             True
             >>> 'kssattr-atfieldname-text' in text['class']
