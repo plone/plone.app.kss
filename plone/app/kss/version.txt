@@ -1,1 +1,1 @@
-1.2dev unreleased
+1.2.4 Released 2007-12-06
