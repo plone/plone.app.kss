@@ -6,6 +6,8 @@ plone.app.kss - 1.2dev Unreleased
 
     - ...
 
+plone.app.kss - 1.2.5 Released 2008-01-03
+
 plone.app.kss - 1.2.4 Released 2007-12-06
 
 plone.app.kss - 1.2.3 Released 2007-11-08
