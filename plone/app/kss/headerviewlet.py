@@ -21,4 +21,7 @@ class KSSBaseUrlViewlet(BrowserView):
         pass
 
     def render(self):
-        return u'<link rel="kss-base-url" href="%s" />' % self.context_state.object_url()
+        if self.context_state.is_default_page():
+            return u'<link rel="kss-base-url" href="%s/" />' % self.context_state.object_url()
+        else:
+            return u''
