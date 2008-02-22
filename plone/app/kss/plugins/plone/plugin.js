@@ -2,30 +2,14 @@
 /* Use onDOMLoad event to initialize kukit
    earlier then the document is fully loaded,
    but after the DOM is at its place already.
-
-   This functionality is missing from Plone 2.1,
-   the script is present in >=2.5, but it is not
-   always added to RR - it needs to be added manually.
-
-   If it's present we use it.
 */
 
 kukit.plone = {};
 
-if (typeof(addDOMLoadEvent) != 'undefined') {
-
-    var f = function() {
-        kukit.log('KSS started by Plone DOMLoad event.');
-        kukit.bootstrapFromDOMLoad();
-    };
-    addDOMLoadEvent(f);
-;;; kukit.log('KSS bootstrap set up in Plone DOMLoad event.');
-} else {
-;;; var msg = 'Plone addDOMLoadEvent not found by KSS, DOMLoad activation';
-;;; msg += ' skipped (you might want to add event-registration.js to ';
-;;; msg += ' ResourceRegistries).';
-;;; kukit.logWarning(msg);
-}
+jq(function() {
+    kukit.log('KSS started by jQuery DOMLoad event.');
+    kukit.bootstrapFromDOMLoad();
+});
 
 /* Base kukit plugins for Plone*/
 
@@ -63,7 +47,7 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
                     self.editor = initPloneKupu(id);
                 };
                 this.editor = initPloneKupu(id);
-                registerEventListener(window, "load", initKupuOnLoad);
+                jq(window).load(initKupuOnLoad);
                 },
              doUpdate: function() {
                 this.editor.saveDataToField(this.node.form, this.node);
@@ -193,10 +177,7 @@ kukit.actionsGlobalRegistry.register("plone-initLockingProtection",
 ;;;     kukit.E += ' on a form node as a target.';
         throw kukit.E;
     }
-    if (! window.onunload) {
-        var handler = new plone.UnlockHandler().execute;
-        window.onunload = handler;
-    }
+    plone.UnlockHandler.init();
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initLockingProtection',
     kukit.cr.makeSelectorCommand);
@@ -205,9 +186,7 @@ kukit.commandsGlobalRegistry.registerFromAction('plone-initLockingProtection',
 kukit.actionsGlobalRegistry.register("plone-removeLockProtection",
     function(oper) {
     oper.evaluateParameters([], {}, 'plone-removeLockProtection action');
-    if ( window.onunload) {
-        window.onunload = null;
-    }
+    jq.unbind('unload', plone.UnlockHandler.execute);
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-removeLockProtection',
     kukit.cr.makeGlobalCommand);
@@ -218,19 +197,15 @@ kukit.actionsGlobalRegistry.register("plone-initShiftDetection",
     oper.evaluateParameters([], {}, 'plone-initShiftDetection action');
 
     kukit.engine.stateVariables['plone-shiftdown'] = false;
-    document.onkeydown = function(e) {
-        var evt = e || window.event;
-        if(evt.keyCode == 16){
+    jq(document).keydown(function(e) {
+        if(e.keyCode == 16)
             kukit.engine.stateVariables['plone-shiftdown'] = true;
-        }
-    };
+    });
 
-    document.onkeyup = function(e) {
-        var evt = e || window.event;
-        if(evt.keyCode == 16){
+    jq(document).keyup(function(e) {
+        if(e.keyCode == 16)
             kukit.engine.stateVariables['plone-shiftdown'] = false;
-        }
-    };
+    });
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initShiftDetection',
     kukit.cr.makeSelectorCommand);
@@ -255,26 +230,15 @@ kukit.actionsGlobalRegistry.register("plone-createCheckBoxSelection",
     var firstItem = kukit.engine.stateVariables[firstItemVarName];
     if(firstItem && kukit.engine.stateVariables['plone-shiftdown']) {
         var group = oper.parms.group;
-        var allNodes = kukit.dom.cssQuery(group);
-        var start = null;
-        var end = null;
-        for(var i=0; i < allNodes.length; i++){
-            if(allNodes[i] == firstItem){
-                start = i;
-            }
-            else if(allNodes[i] == node){
-                end = i;
-            }
-        }
+        var allNodes = jq(group);
+        var start = allNodes.index(firstItem);
+        var end = allNodes.index(firstItem);
         if(start>end){
             var temp = start;
             start = end;
             end = temp;
         }
-
-        for(var i=start; i <= end; i++){
-            allNodes[i].checked = firstItem.checked;
-        }
+        allNodes.slice(start, end).attr('checked', firstItem.checked);
     }
     else {
         kukit.engine.stateVariables[firstItemVarName] = node;
@@ -288,22 +252,18 @@ kukit.actionsGlobalRegistry.register("plone-initDragAndDrop",
     function(oper) {
     oper.evaluateParameters(['table'], {}, 'plone-initDragAndDrop action');
     var table = oper.parms.table;
-    ploneDnDReorder.table = cssQuery(table)[0];
-    if (!ploneDnDReorder.table)
+    ploneDnDReorder.table = jq(table);
+    if (!ploneDnDReorder.table.length)
         return;
-    ploneDnDReorder.rows = cssQuery(table + " > tr," +
-                                    table + " > tbody > tr");
-    var targets = cssQuery(table + " > tr > td.draggable," +
-                           table + " > tbody > tr > td.draggable");
-    for (var i=0; i<targets.length; i++) {
-        if (hasClassName(targets[i], 'notDraggable'))
-            continue;
-	var target = targets[i];
-        target.onmousedown=ploneDnDReorder.doDown;
-        target.onmouseup=ploneDnDReorder.doUp;
-        addClassName(target, "draggingHook");
-	target.innerHTML = '::'
-    }
+    ploneDnDReorder.rows = jq(table + " > tr," +
+                              table + " > tbody > tr");
+     jq(table + " > tr > td.draggable," +
+        table + " > tbody > tr > td.draggable")
+        .not('.notDraggable')
+        .mousedown(ploneDnDReorder.doDown)
+        .mouseup(ploneDnDReorder.doUp)
+        .addClass("draggingHook")
+        .html('::');
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initDragAndDrop',
     kukit.cr.makeSelectorCommand);
