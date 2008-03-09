@@ -2,9 +2,14 @@ Changelog for plone.app.kss
 
     (name of developer listed in brackets)
 
-plone.app.kss - 1.2dev Unreleased
+plone.app.kss - 1.4dev Unreleased
 
     - ...
+
+plone.app.kss - 1.4-alpha1 Released 2008-03-09
+
+   - Prepare for release
+     [ree]
 
 plone.app.kss - 1.2.5 Released 2008-01-03
 
