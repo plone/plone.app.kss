@@ -265,7 +265,5 @@ class ContentMenuView(Implicit, PloneKSSView):
         selector = ksscore.getCssSelector('.contentViews')
         zopecommands.refreshViewlet(selector, 'plone.contentviews', 'plone.contentviews')
         plonecommands.refreshContentMenu()
-        # XXX This updating has to go away, DCWorkflow has to take care of this
-        #self.getCommandSet('refreshportlet').refreshPortlet('navigation', 'portlet-navigation-tree')
         self.issueAllPortalMessages()
         self.cancelRedirect()

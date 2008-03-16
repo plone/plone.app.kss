@@ -11,10 +11,11 @@ def attributesTriggerPortalTabsReload(obj, view, event):
     triggeringAttributes = ('title', 'description')
     if attributesModified(triggeringAttributes, event):
         ksscore = view.getCommandSet('core')
-        ksscore.replaceHTML(
-            ksscore.getHtmlIdSelector('portal-globalnav'),
-            view.macroContent('global_sections/macros/portal_tabs'),
-            withKssSetup='False')
+        selector = ksscore.getHtmlIdSelector('portal-globalnav')
+        zopecommands = view.getCommandSet('zope')
+        zopecommands.refreshViewlet(selector,
+                                    'plone.portalheader',
+                                    'plone.global_sections')
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerDocumentBylineReload(obj, view, event):
@@ -30,10 +31,11 @@ def attributesTriggerBreadcrumbsReload(obj, view, event):
     triggeringAttributes = ('title', 'description')
     if attributesModified(triggeringAttributes, event):
         ksscore = view.getCommandSet('core')
-        ksscore.replaceHTML(
-            ksscore.getHtmlIdSelector('portal-breadcrumbs'),
-            view.macroContent('global_pathbar/macros/path_bar'),
-            withKssSetup='False')
+        selector = ksscore.getHtmlIdSelector('portal-breadcrumbs')
+        zopecommands = view.getCommandSet('zope')
+        zopecommands.refreshViewlet(selector,
+                                    'plone.portaltop',
+                                    'plone.path_bar')
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerHeadTitleReload(obj, view, event):
