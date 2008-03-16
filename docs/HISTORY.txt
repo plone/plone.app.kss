@@ -6,6 +6,10 @@ plone.app.kss - 1.4dev Unreleased
 
     - ...
 
+    - use refreshViewlet instead of macroContent in subscribers
+      (closes #7879)
+      [gotcha)
+
 plone.app.kss - 1.4-alpha1 Released 2008-03-09
 
    - Prepare for release
