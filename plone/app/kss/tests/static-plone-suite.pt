@@ -17,6 +17,27 @@
           <tr>
             <td><a tal:attributes="href string:${base_href}/changeWorkflowState.html">Change workflow state</a></td>
           </tr>
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/contentmenu_change_tab.html">Change tab</a></td>
+          </tr>
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/contentmenu_change_workflow.html">Change workflow (?)</a></td>
+          </tr>
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/contentmenu_presence.html">Content menu presence</a></td>
+          </tr>
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/selenium_test_breadcrumbs.html">Breadcrumbs</a></td>
+          </tr>
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/selenium_test_folder_contents.html">Folder contents</a></td>
+          </tr>
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/selenium_test_portlets.html">Portlets</a></td>
+          </tr>
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/plone_inline_editing.html">Inline editing</a></td>
+          </tr>
         
               
       </tbody>
