@@ -4,6 +4,9 @@
            xmlns:kss="http://namespaces.zope.org/kss"
            >
 
+    <!-- temporary: plone static resources for selenium tests -->
+    <include package=".tests" file="selenium.zcml" />
+
     <!-- Include command macro definitions -->
     <include package=".commands"/> 
     <include package=".plugins"/>

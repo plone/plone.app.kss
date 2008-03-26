@@ -15,11 +15,30 @@
       -->
 
      <browser:page
-         for="plone.app.kss.interfaces.IPloneSiteRoot"
+         for="kss.demo.interfaces.ISimpleContent"
          attribute="createSite"
          class=".site_creation_view.SiteCreationView"
          name="kss_test_create_site"
          permission="cmf.ManagePortal"
          />
          
+     <!-- XXX temporary: selenium test zuite resources -->
+     <browser:resourceDirectory
+         name="static-plone-tests"
+         directory="selenium_tests"
+         />
+
+     <browser:resource
+         name="test-create-site-suite.html"
+         file="test-create-site-suite.html"
+         />
+
+     <browser:page
+         for="kss.demo.interfaces.ISimpleContent"
+         template="static-plone-suite.pt"
+         name="static-plone-suite.html"
+         permission="zope2.View"
+         />
+ 
+
 </configure>

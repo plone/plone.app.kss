@@ -1,0 +1,25 @@
+<html><head></head><body>
+    <table id="suiteTable" class="selenium" border="1" cellpadding="1" cellspacing="1"
+          tal:define="base_href string:${context/@@absolute_url}/++resource++static-plone-tests">
+      <tbody>
+        <tr><td><b>Test Suite</b></td></tr>
+        <tr>
+          <td>
+            <h4>
+              <a tal:attributes="href string:${context/@@absolute_url}/++resource++test-create-site-suite.html">Create the test site (setup)</a>
+            </h4>
+          </td>
+        </tr>
+        
+
+
+
+          <tr>
+            <td><a tal:attributes="href string:${base_href}/changeWorkflowState.html">Change workflow state</a></td>
+          </tr>
+        
+              
+      </tbody>
+    </table>
+  
+</body></html>
