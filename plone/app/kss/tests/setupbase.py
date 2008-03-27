@@ -1,4 +1,8 @@
-from Products.Five.browser import BrowserView
+try:
+    from Products.Five import BrowserView
+except ImportError:
+    from zope.publisher.browser import BrowserView
+
 from Acquisition import aq_parent
 from OFS.interfaces import IApplication
 
