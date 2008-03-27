@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:kukit="http://www.kukit.org/commands/1.0"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <head>
+
+  	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    <!-- To achieve an uniform look, we apply the same css as the kss_devel_mode ui. -->
+    <link rel="stylesheet" type="text/css"
+          tal:attributes="href string:${context/@@absolute_url}/@@kss_devel_mode/ui_css"/>
+
+</head>
+  <body tal:define="has_credentials python: request.get('username', None) and request.get('passwd', None)">
+
+    <h2>Creation of Plone test site (SETUP)</h2>
+    
+    <tal:condition condition="has_credentials">
+
+      <p>
+        By clicking of the following button, the <code>ksstestportal</code> will be
+        created in the Zope root. If there is an existing site (or object) with this id,
+        it will be removed first, without any further question.
+      </p>
+
+      <p class="help">
+        The site recreation will happen with full Manager rights. You do not need
+        to log in or otherwise supply a password for this, because this page 
+        already holds the necessary credentials for becoming Manager, when the button is clicked.
+      </p>
+
+      
+      <form name="create"
+          tal:attributes="action string:${context/@@absolute_url}/@@kss_test_create_site">
+        <fieldset>
+          <h3>
+            Create Plone test site
+          </h3>
+
+          <p class="help">
+              If the site creation succeeds, you will receive an OK message as a response.
+              If there was an error, the script will tell you details about the error happened.
+              Otherwise, you need consult the event logs of your server.
+          </p>
+
+          <div>
+            <input type="hidden" name="username" 
+                   tal:attributes="value request/username" />
+            <input type="hidden" name="passwd" 
+                   tal:attributes="value request/passwd" />
+            <input type="submit" id="create" name="create" class="clickable"
+                 value="Create"  />
+          </div>
+
+        </fieldset>
+      </form>
+      
+    </tal:condition>
+
+    <tal:condition condition="not: has_credentials">
+
+      <p>
+        The page does not contain the credentials needed to become a Manager, required
+        to achieve the site creation. There is chance that you have arrived to this page
+        by mistake. This page is normally run from a selenium testsuite, where this
+        imformation is provided through the <code>username</code> and <code>passwd</code>
+        parameters.
+      </p>
+
+    </tal:condition>
+
+  </body>
+</html>

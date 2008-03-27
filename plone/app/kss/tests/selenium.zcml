@@ -19,9 +19,16 @@
          attribute="createSite"
          class=".site_creation_view.SiteCreationView"
          name="kss_test_create_site"
-         permission="cmf.ManagePortal"
+         permission="zope2.View"
          />
          
+     <browser:page
+         for="kss.demo.interfaces.ISimpleContent"
+         template="plone-site-creation-ui.pt"
+         name="plone-site-creation-ui.html"
+         permission="zope2.View"
+         />
+ 
      <!-- XXX temporary: selenium test zuite resources -->
      <browser:resourceDirectory
          name="static-plone-tests"
