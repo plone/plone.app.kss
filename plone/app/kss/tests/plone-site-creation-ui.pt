@@ -32,7 +32,7 @@
       </p>
 
       
-      <form name="create"
+      <form name="create" method="post"
           tal:attributes="action string:${context/@@absolute_url}/@@kss_test_create_site">
         <fieldset>
           <h3>

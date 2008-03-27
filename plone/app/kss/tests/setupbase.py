@@ -23,25 +23,27 @@ class SetupBase(BrowserView):
                 parent = parent.aq_parent
             except AttributeError:
                 break
-        self.zoperoot = parent
+        self.zoperoot = [parent]
 
-    def checkPermission(self):
+    def checkPermission(self, zoperoot):
+        # The form must be submitted by POST, and authenticate correctly.
         method = self.request.get("REQUEST_METHOD", "GET").upper()
         username = self.request.get("username", None)
         password = self.request.get("password", None)
         if method == "POST" and username is not None and password is not None:
-            admin = self.zoperoot.acl_users.authenticate(username, password, None)
+            admin = zoperoot.acl_users.authenticate(username, password, None)
             if self._required_role in admin.getRoles():
                 return True
         return False
     
-    def run(self):
+    def run(self, zoperoot):
         """Just override me"""
         raise Exception("Functionality not implemented")
 
     def start(self):
-        if self.checkPermission():
-            return self.run()
+        zoperoot = self.zoperoot[0]
+        if self.checkPermission(zoperoot):
+            return self.run(zoperoot)
         else:
             raise Exception("You are trying to run potentially disruptive code without providing a good auth")
 

@@ -1,18 +1,19 @@
 import logging
-from Products.Archetypes.utils import addStatusMessage
 from setupbase import SetupBase
 
 logger=logging.getLogger('kss')
 
-# objects_tree defines the tree of kss contents used in our tests
-# You can add your objects used in kss tests and generic attributes
-objects_tree = [{'id':'kssfolder', 
+class SiteCreationView(SetupBase):
+
+    # objects_tree defines the tree of kss contents used in our tests
+    # You can add your objects used in kss tests and generic attributes
+    objects_tree = [{'id':'kssfolder', 
                  'portal_type':'Folder',
                  'attrs':{
                           'title':'KssFolder',
                           'description':'Folder for KSS contents',
                          },
-                 'children':[{'id':'documentitem',
+                 'children': [{'id':'documentitem',
                               'portal_type':'Document',
                               'children':[],
                               'attrs':{
@@ -47,42 +48,48 @@ objects_tree = [{'id':'kssfolder',
                                                      """,
                                       }
                              },
-                            ]
+                            ],
                 }]
+ 
+    def createSite(self, root):
+        site_id = 'ksstestportal'
+        if hasattr(root, site_id):
+            logger.info('Deleting previous site "%s".' % (site_id, ))
+            root.manage_delObjects([site_id])
+        logger.info('Adding new site "%s".' % (site_id, ))
+        factory = root.manage_addProduct['CMFPlone']
+        factory.addPloneSite(id=site_id, extension_ids=[])
+        return root[site_id]
 
-class SiteCreationView(SetupBase):
-  
-  def createNodes(self, node=None, objs_tree=[]):
-      """ Recursive method that create the tree structure of content types used for kss tests """
-      for item in objs_tree:
-          obj_id = item.get('id')
-          obj_pt = item.get('portal_type')
-          obj_attrs = item.get('attrs')
-          obj_children = item.get('children')
-          if hasattr(node, obj_id):
-              # if the object exists, we'll delete it
-              node.manage_delObjects([obj_id])
-          node.invokeFactory(obj_pt, obj_id)
-          new_obj = getattr(node, obj_id, None)
-          # writing object attributes
-          new_obj.update(**obj_attrs)
+    def createNodes(self, node, objs_tree):
+        """Recursive method that create the tree structure of content types used for kss tests."""
+        for item in objs_tree:
+            obj_id = item.get('id')
+            obj_pt = item.get('portal_type')
+            obj_attrs = item.get('attrs')
+            obj_children = item.get('children')
+            if hasattr(node, obj_id):
+                # if the object exists, we'll delete it
+                node.manage_delObjects([obj_id])
+            node.invokeFactory(obj_pt, obj_id)
+            new_obj = getattr(node, obj_id, None)
+            # writing object attributes
+            new_obj.update(**obj_attrs)
           
-          # recursive call for creating other nodes
-          self.createNodes(new_obj, obj_children)
+            # recursive call for creating other nodes
+            self.createNodes(new_obj, obj_children)
 
-  def run(self):
-      """ This method invokes the recursive method createNodes which creates the tree structure of
-          objects used by """
-      context = self.context.aq_inner
+    def run(self, zoperoot):
+        """This method invokes the recursive method createNodes which creates the tree structure of
+        objects used by.
+        """
+        site = self.createSite(zoperoot)
+     
+        self.createNodes(site, self.objects_tree)
 
-      while getattr(context, 'aq_parent', None):
-          context = context.aq_parent
+        status_message='Selenium Test Site has been created'
+        logger.info(status_message)
 
-      self.createNodes(context, objects_tree)
-
-      status_message='Selenium Test Site has been created'
-      logger.info(status_message)
-
-      url = context.absolute_url()
-      addStatusMessage(context.REQUEST, status_message)
-      context.request.RESPONSE.redirect(url)
+        # The method must return a tag with id "ok", containing the text "OK".
+        # to signal success to the testsuite. 
+        return '<html><body><div id="OK">OK</div><div>Site creation succesful.</div></body></html>'
