@@ -27,6 +27,13 @@
          name="plone-site-creation-ui.html"
          permission="zope2.View"
          />
+         
+     <browser:page
+         for="OFS.interfaces.IApplication"
+         class=".bootstrap.Bootstrap"
+         name="kss_test_bootstrap"
+         permission="zope2.View"
+         />
  
      <!-- XXX temporary: selenium test zuite resources -->
      <browser:resourceDirectory
