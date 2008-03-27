@@ -16,7 +16,6 @@
 
      <browser:page
          for="kss.demo.interfaces.ISimpleContent"
-         attribute="createSite"
          class=".site_creation_view.SiteCreationView"
          name="kss_test_create_site"
          permission="zope2.View"

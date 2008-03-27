@@ -1,6 +1,6 @@
-from Products.Five import BrowserView
 import logging
 from Products.Archetypes.utils import addStatusMessage
+from setupbase import SetupBase
 
 logger=logging.getLogger('kss')
 
@@ -50,7 +50,7 @@ objects_tree = [{'id':'kssfolder',
                             ]
                 }]
 
-class SiteCreationView(BrowserView):
+class SiteCreationView(SetupBase):
   
   def createNodes(self, node=None, objs_tree=[]):
       """ Recursive method that create the tree structure of content types used for kss tests """
@@ -70,10 +70,14 @@ class SiteCreationView(BrowserView):
           # recursive call for creating other nodes
           self.createNodes(new_obj, obj_children)
 
-  def createSite(self):
+  def run(self):
       """ This method invokes the recursive method createNodes which creates the tree structure of
           objects used by """
-      context = self.context
+      context = self.context.aq_inner
+
+      while getattr(context, 'aq_parent', None):
+          context = context.aq_parent
+
       self.createNodes(context, objects_tree)
 
       status_message='Selenium Test Site has been created'

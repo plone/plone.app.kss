@@ -13,7 +13,7 @@
           tal:attributes="href string:${context/@@absolute_url}/@@kss_devel_mode/ui_css"/>
 
 </head>
-  <body tal:define="has_credentials python: request.get('username', None) and request.get('passwd', None)">
+  <body tal:define="has_credentials python: request.get('username', None) and request.get('password', None)">
 
     <h2>Creation of Plone test site (SETUP)</h2>
     
@@ -48,8 +48,8 @@
           <div>
             <input type="hidden" name="username" 
                    tal:attributes="value request/username" />
-            <input type="hidden" name="passwd" 
-                   tal:attributes="value request/passwd" />
+            <input type="hidden" name="password" 
+                   tal:attributes="value request/password" />
             <input type="submit" id="create" name="create" class="clickable"
                  value="Create"  />
           </div>
@@ -65,7 +65,7 @@
         The page does not contain the credentials needed to become a Manager, required
         to achieve the site creation. There is chance that you have arrived to this page
         by mistake. This page is normally run from a selenium testsuite, where this
-        imformation is provided through the <code>username</code> and <code>passwd</code>
+        imformation is provided through the <code>username</code> and <code>password</code>
         parameters.
       </p>
 

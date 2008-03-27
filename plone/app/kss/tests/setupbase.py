@@ -1,12 +1,13 @@
 try:
     from Products.Five import BrowserView
+    BrowserView = BrowserView   # satisfy pyflakes
 except ImportError:
     from zope.publisher.browser import BrowserView
 
 from Acquisition import aq_parent
 from OFS.interfaces import IApplication
 
-class SetUpBase(BrowserView):
+class SetupBase(BrowserView):
     """This class provides the basic bootstrap set for every
     test suite bootstrapping. You must inherit from this class
     and override just the run method"""
@@ -14,7 +15,7 @@ class SetUpBase(BrowserView):
     _required_role = 'Manager'
 
     def __init__(self, context, request):
-        super(BootstrapBase, self).__init__(context, request)
+        super(SetupBase, self).__init__(context, request)
         #go up to the root
         parent = aq_parent(self.context.aq_inner)
         while not IApplication.providedBy(parent):
@@ -26,17 +27,17 @@ class SetUpBase(BrowserView):
 
     def checkPermission(self):
         method = self.request.get("REQUEST_METHOD", "GET").upper()
-        userid = self.request.get("userid", None)
+        username = self.request.get("username", None)
         password = self.request.get("password", None)
-        if method == "POST" and userid is not None and password is not None:
-            admin = self.zoperoot.acl_users.authenticate(userid, password, None)
+        if method == "POST" and username is not None and password is not None:
+            admin = self.zoperoot.acl_users.authenticate(username, password, None)
             if self._required_role in admin.getRoles():
                 return True
         return False
     
     def run(self):
         """Just override me"""
-        raise Excpetion("Functionality not implemented")
+        raise Exception("Functionality not implemented")
 
     def start(self):
         if self.checkPermission():
