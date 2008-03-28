@@ -6,7 +6,9 @@
         <tr>
           <td>
             <h4>
-              <a tal:attributes="href string:${context/@@absolute_url}/++resource++test-create-site-suite.html">Create the test site (setup)</a>
+              <a tal:attributes="href string:${context/@@absolute_url}/kss-selenium-create-sandbox-test.html?method_name=@@kss_test_create_site&admin_username=admin&admin_password=admin">Create the test site (setup)</a>
+
+
             </h4>
           </td>
         </tr>

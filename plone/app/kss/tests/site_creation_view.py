@@ -1,5 +1,6 @@
 import logging
-from setupbase import SetupBase
+#from setupbase import SetupBase
+from kss.demo.browser.setupbase import SetupBase
 from Products.CMFPlone.factory import addPloneSite
 
 logger=logging.getLogger('kss')
