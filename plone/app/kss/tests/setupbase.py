@@ -47,7 +47,8 @@ class SetupBase(BrowserView):
         user = self.checkPermission(zoperoot)
         if user is not None:
             old_sm = getSecurityManager()
-            newSecurityManager(self.request, user)
+            wrapped_user = user.__of__(zoperoot.acl_users)
+            newSecurityManager(self.request, wrapped_user)
             result = self.run(zoperoot)
             setSecurityManager(old_sm)
             return result
