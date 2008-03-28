@@ -13,9 +13,11 @@ class SiteCreationView(SetupBase):
                           'title':'KssFolder',
                           'description':'Folder for KSS contents',
                          },
+                 'transitions': ('publish',),
                  'children': [{'id':'documentitem',
                               'portal_type':'Document',
                               'children':[],
+                              'transitions': ('publish',),
                               'attrs':{
                                        'title':'KssDocument',
                                        'text':"""
@@ -44,12 +46,25 @@ class SiteCreationView(SetupBase):
                                               content export-import, and much more.
                                               """,
                                        'description':"""
-                                                     Sorrento sprint
+                                                 a    Sorrento sprint
                                                      """,
                                       }
                              },
                             ],
                 }]
+
+    users = [ { 'username': 'testuser',
+                'password': 'secret',
+                'roles': [ 'Member' ]
+              },
+              { 'username': 'testmanager',
+                'password': 'secret',
+                'roles': [ 'Manager', 'Member' ]
+              } ]
+
+    def addUsers(self, site):
+        for user in self.users:
+            site.acl_users._doAddUser(user['username'], user['password'], user['roles'], [])
  
     def createSite(self, root):
         site_id = 'ksstestportal'
@@ -61,13 +76,14 @@ class SiteCreationView(SetupBase):
         factory.addPloneSite(id=site_id, extension_ids=[])
         return root[site_id]
 
-    def createNodes(self, node, objs_tree):
+    def createNodes(self, node, objs_tree, portal):
         """Recursive method that create the tree structure of content types used for kss tests."""
         for item in objs_tree:
             obj_id = item.get('id')
             obj_pt = item.get('portal_type')
             obj_attrs = item.get('attrs')
             obj_children = item.get('children')
+            obj_transitions = item.get('transitions', ())
             if hasattr(node, obj_id):
                 # if the object exists, we'll delete it
                 node.manage_delObjects([obj_id])
@@ -75,17 +91,22 @@ class SiteCreationView(SetupBase):
             new_obj = getattr(node, obj_id, None)
             # writing object attributes
             new_obj.update(**obj_attrs)
+            # applying the transitions in order
+            for transition in obj_transitions:
+                portal.portal_workflow.doActionFor(new_obj, transition)
           
             # recursive call for creating other nodes
-            self.createNodes(new_obj, obj_children)
+            self.createNodes(new_obj, obj_children, portal)
 
     def run(self, zoperoot):
         """This method invokes the recursive method createNodes which creates the tree structure of
         objects used by.
         """
         site = self.createSite(zoperoot)
-     
-        self.createNodes(site, self.objects_tree)
+        
+        self.addUsers(site)
+        
+        self.createNodes(site, self.objects_tree, site)
 
         status_message='Selenium Test Site has been created'
         logger.info(status_message)
