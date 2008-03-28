@@ -1,5 +1,6 @@
 import logging
 from setupbase import SetupBase
+from Products.CMFPlone.factory import addPloneSite
 
 logger=logging.getLogger('kss')
 
@@ -62,9 +63,9 @@ class SiteCreationView(SetupBase):
                 'roles': [ 'Manager', 'Member' ]
               } ]
 
-    def addUsers(self, site):
+    def addUsers(self, portal):
         for user in self.users:
-            site.acl_users._doAddUser(user['username'], user['password'], user['roles'], [])
+            portal.acl_users._doAddUser(user['username'], user['password'], user['roles'], [])
  
     def createSite(self, root):
         site_id = 'ksstestportal'
@@ -72,8 +73,7 @@ class SiteCreationView(SetupBase):
             logger.info('Deleting previous site "%s".' % (site_id, ))
             root.manage_delObjects([site_id])
         logger.info('Adding new site "%s".' % (site_id, ))
-        factory = root.manage_addProduct['CMFPlone']
-        factory.addPloneSite(id=site_id, extension_ids=[])
+        addPloneSite(dispatcher=root, id=site_id, extension_ids=())
         return root[site_id]
 
     def createNodes(self, node, objs_tree, portal):
