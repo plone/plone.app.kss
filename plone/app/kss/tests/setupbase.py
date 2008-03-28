@@ -6,6 +6,8 @@ except ImportError:
 
 from Acquisition import aq_parent
 from OFS.interfaces import IApplication
+from AccessControl import getSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager, newSecurityManager
 
 class SetupBase(BrowserView):
     """This class provides the basic bootstrap set for every
@@ -33,8 +35,8 @@ class SetupBase(BrowserView):
         if method == "POST" and username is not None and password is not None:
             admin = zoperoot.acl_users.authenticate(username, password, None)
             if self._required_role in admin.getRoles():
-                return True
-        return False
+                return admin
+        return None
     
     def run(self, zoperoot):
         """Just override me"""
@@ -42,8 +44,13 @@ class SetupBase(BrowserView):
 
     def start(self):
         zoperoot = self.zoperoot[0]
-        if self.checkPermission(zoperoot):
-            return self.run(zoperoot)
+        user = self.checkPermission(zoperoot)
+        if user is not None:
+            old_sm = getSecurityManager()
+            newSecurityManager(self.request, user)
+            result = self.run(zoperoot)
+            setSecurityManager(old_sm)
+            return result
         else:
             raise Exception("You are trying to run potentially disruptive code without providing a good auth")
 
