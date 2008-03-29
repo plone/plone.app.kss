@@ -5,15 +5,8 @@
            xmlns:zcml="http://namespaces.zope.org/zcml"
            >
            
-     <!-- This is needed during the manual creation
-          of a site, to run selenium tests. Not needed for
-          the normal or functional unittests. 
-
-          The access control makes sure that only site
-          managers can run this method.
-
-          The method needs to be run on a newly created portal.
-      -->
+     <!-- Define the method for the site creation (setup)      
+     -->
 
      <browser:page
          for="kss.demo.interfaces.ISimpleContent"
@@ -22,14 +15,6 @@
          permission="zope2.View"
          />
          
-         
-     <browser:page
-         for="OFS.interfaces.IApplication"
-         class=".bootstrap.Bootstrap"
-         name="kss_test_bootstrap"
-         permission="zope2.View"
-         />
-
     <!-- Set up the demo utility -->
     <configure zcml:condition="have kss_demo_version_1_2">
       <utility
