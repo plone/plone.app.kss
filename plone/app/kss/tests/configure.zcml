@@ -6,8 +6,10 @@
            >
            
      <!-- Define the method for the site creation (setup)      
-     -->
 
+     There is no need (and no possibility) to control access
+     to this element, because it does access control internally.
+     -->
      <browser:page
          for="kss.demo.interfaces.ISimpleContent"
          class=".site_creation_view.SiteCreationView"

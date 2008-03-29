@@ -4,12 +4,15 @@
            xmlns:kss="http://namespaces.zope.org/kss"
            >
 
-    <!-- temporary: plone static resources for selenium tests -->
-    <include package=".tests" file="selenium.zcml" />
 
     <!-- Include command macro definitions -->
     <include package=".commands"/> 
     <include package=".plugins"/>
+
+    <!-- Utilities and site creation view for selenium testing
+         (It is safe to include this any time, even in production.
+    -->
+    <include package=".tests" />
 
     <!-- Bind interfaces a'la 2.5 -->
 
