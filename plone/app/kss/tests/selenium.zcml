@@ -2,6 +2,7 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:kss="http://namespaces.zope.org/kss"
+           xmlns:zcml="http://namespaces.zope.org/zcml"
            >
            
      <!-- This is needed during the manual creation
@@ -53,5 +54,17 @@
          permission="zope2.View"
          />
  
+
+    <!-- Set up the demo utility -->
+    <configure zcml:condition="have kss_demo_version_1_2">
+      <utility
+        name="plone.app.kss.tests"
+        factory=".zopeconfig.PloneDemos"
+        provides="kss.demo.interfaces.IKSSDemoResource"
+        permission="zope.Public"
+        />
+    </configure>
+
+
 
 </configure>
