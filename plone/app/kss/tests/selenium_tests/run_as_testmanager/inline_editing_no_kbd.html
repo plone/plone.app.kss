@@ -11,38 +11,6 @@
 <thead>
 <tr><td rowspan="1" colspan="3">plone_inline_editing_no_kbd</td></tr>
 </thead><tbody>
-<!--Login -- necessary to actually access the inline editing-->
-<tr>
-	<td>open</td>
-	<td>/ksstestportal/login_form</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForEditable</td>
-	<td>__ac_name</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>__ac_name</td>
-	<td>testmanager</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>__ac_password</td>
-	<td>secret</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=input[name='submit']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertText</td>
-	<td>css=h1.documentFirstHeading</td>
-	<td>You are now logged in</td>
-</tr>
-<!--Okay, now we do the real test-->
 <tr>
 	<td>open</td>
 	<td>/ksstestportal/kssfolder/documentitem</td>
@@ -148,17 +116,6 @@
 	<td>waitForText</td>
 	<td>parent-fieldname-title</td>
 	<td>KssDocument</td>
-</tr>
-<!--Logging out...-->
-<tr>
-	<td>open</td>
-	<td>/ksstestportal/logout</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForText</td>
-	<td>css=h1.documentFirstHeading</td>
-	<td>You are now logged out</td>
 </tr>
 
 </tbody></table>
