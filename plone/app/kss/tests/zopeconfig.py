@@ -8,6 +8,8 @@ from kss.demo.resource import (
     KSSSeleniumTestDirectory,
     KSSSeleniumTestLayerBase,
     KSSSandboxCreationTestCase,
+    KSSSeleniumTestCaseList,
+    KSSSeleniumTestCase,
     )
 from zope.interface import implements
      
@@ -17,8 +19,13 @@ class IResource(IKSSDemoResource, IKSSSeleniumTestResource):
     pass
 
 
-class myLayer(KSSSeleniumTestLayerBase):
+class PloneSiteLayer(KSSSeleniumTestLayerBase):
     setup = KSSSandboxCreationTestCase('@@kss_test_create_site')
+
+class LoggedInManagerLayer(PloneSiteLayer):
+    setup = KSSSeleniumTestCaseList(KSSSandboxCreationTestCase('@@kss_test_create_site'),
+            KSSSeleniumTestCase('log-in-manager.html'))
+    teardown = KSSSeleniumTestCase('log-out.html')
 
 class PloneDemos(object):
     implements(IResource)
@@ -26,8 +33,15 @@ class PloneDemos(object):
     selenium_tests = (
         KSSSeleniumTestSuite(
             tests = KSSSeleniumTestDirectory('selenium_tests'),
-            layer = myLayer,
+            layer = PloneSiteLayer,
             component = 'plone.app.kss',
             application = 'Plone',
             ),
+        KSSSeleniumTestSuite(
+            tests = KSSSeleniumTestDirectory('selenium_tests/run_as_testmanager'),
+            layer = LoggedInManagerLayer,
+            component = 'plone.app.kss',
+            application = 'Plone',
+            ),
+
         )
