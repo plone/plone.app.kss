@@ -22,12 +22,6 @@
          permission="zope2.View"
          />
          
-     <browser:page
-         for="kss.demo.interfaces.ISimpleContent"
-         template="plone-site-creation-ui.pt"
-         name="plone-site-creation-ui.html"
-         permission="zope2.View"
-         />
          
      <browser:page
          for="OFS.interfaces.IApplication"
@@ -35,25 +29,6 @@
          name="kss_test_bootstrap"
          permission="zope2.View"
          />
- 
-     <!-- XXX temporary: selenium test zuite resources -->
-     <browser:resourceDirectory
-         name="static-plone-tests"
-         directory="selenium_tests"
-         />
-
-     <browser:resource
-         name="test-create-site-suite.html"
-         file="test-create-site-suite.html"
-         />
-
-     <browser:page
-         for="kss.demo.interfaces.ISimpleContent"
-         template="static-plone-suite.pt"
-         name="static-plone-suite.html"
-         permission="zope2.View"
-         />
- 
 
     <!-- Set up the demo utility -->
     <configure zcml:condition="have kss_demo_version_1_2">
