@@ -18,7 +18,7 @@ class IResource(IKSSDemoResource, IKSSSeleniumTestResource):
 
 
 class myLayer(KSSSeleniumTestLayerBase):
-    setup = KSSSandboxCreationTestCase('@@create_test_site')
+    setup = KSSSandboxCreationTestCase('@@kss_test_create_site')
 
 class PloneDemos(object):
     implements(IResource)
