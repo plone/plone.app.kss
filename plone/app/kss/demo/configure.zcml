@@ -20,13 +20,33 @@
     <!-- Set up the demo utility -->
     <configure zcml:condition="have kss_demo_version_1_2">
       <utility
-        name="plone.app.kss.tests"
+        name="plone.app.kss.demo"
         factory=".zopeconfig.PloneDemos"
         provides="kss.demo.interfaces.IKSSDemoResource"
         permission="zope.Public"
         />
     </configure>
 
+ 
+  <!-- follow link -->
+  <browser:page
+      for="kss.demo.interfaces.ISimpleContent"
+      template="follow_link.pt"
+      name="follow_link.html"
+      permission="zope.View"
+      />
 
+  <browser:resource
+    file="follow_link.kss"
+    name="follow_link.kss"
+  />
+
+  <browser:page
+      for="kss.demo.interfaces.ISimpleContent"
+      class=".demoview.KSSPloneDemoView"
+      attribute="followLinkClick"
+      name="followLinkClick"
+      permission="zope.View"
+      />
 
 </configure>

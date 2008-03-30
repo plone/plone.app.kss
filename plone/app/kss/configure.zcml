@@ -12,7 +12,7 @@
     <!-- Utilities and site creation view for selenium testing
          (It is safe to include this any time, even in production.
     -->
-    <include package=".tests" />
+    <include package=".demo" />
 
     <!-- Bind interfaces a'la 2.5 -->
 

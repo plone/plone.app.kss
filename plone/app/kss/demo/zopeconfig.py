@@ -10,6 +10,7 @@ from kss.demo.resource import (
     KSSSandboxCreationTestCase,
     KSSSeleniumTestCaseList,
     KSSSeleniumTestCase,
+    KSSDemo,
     )
 from zope.interface import implements
      
@@ -29,6 +30,10 @@ class LoggedInManagerLayer(PloneSiteLayer):
 
 class PloneDemos(object):
     implements(IResource)
+
+    demos = (
+        KSSDemo('plone.app.kss', '', "follow-link.html", "Follow link action"),
+        )
 
     selenium_tests = (
         KSSSeleniumTestSuite(
