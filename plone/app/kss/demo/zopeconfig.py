@@ -49,4 +49,11 @@ class PloneDemos(object):
             application = 'Plone',
             ),
 
+        # these are the plugin tests
+        # but for now we put them into the application suite
+        KSSSeleniumTestSuite(
+            tests = KSSSeleniumTestDirectory('selenium_tests/plugin'),
+            component = 'plone.app.kss',
+            application = 'Plone',
+            ),
         )

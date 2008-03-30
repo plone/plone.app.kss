@@ -31,14 +31,14 @@
   <!-- follow link -->
   <browser:page
       for="kss.demo.interfaces.ISimpleContent"
-      template="follow_link.pt"
-      name="follow_link.html"
+      template="follow-link.pt"
+      name="follow-link.html"
       permission="zope.View"
       />
 
   <browser:resource
-    file="follow_link.kss"
-    name="follow_link.kss"
+    file="follow-link.kss"
+    name="follow-link.kss"
   />
 
   <browser:page
