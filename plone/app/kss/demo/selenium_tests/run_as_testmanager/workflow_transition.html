@@ -18,12 +18,12 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>//dl[@id='plone-contentmenu-workflow']/dt/a/span[@class='state-private']</td>
+	<td>//dl[@id='plone-contentmenu-workflow']//a/span[@class='state-private']</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>Private</td>
+	<td>assertTextPresent</td>
+	<td>State: Private</td>
 	<td></td>
 </tr>
 <tr>
@@ -37,23 +37,28 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>workflow-transition-publish</td>
+	<td>click</td>
+	<td>//a[@id='workflow-transition-publish']/span</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyVisible</td>
+	<td>waitForVisible</td>
 	<td>kssPortalMessage</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>Published</td>
+	<td>assertTextPresent</td>
+	<td>Item state changed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>State: Published</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//dl[@id='plone-contentmenu-workflow']/dt/a/span[@class='state-public']</td>
+	<td>//dl[@id='plone-contentmenu-workflow']/dt/a/span[@class='state-published']</td>
 	<td></td>
 </tr>
 <tr>
@@ -63,17 +68,22 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>workflow-transition-reject</td>
+	<td>//a[@id='workflow-transition-reject']/span</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyVisible</td>
+	<td>waitForVisible</td>
 	<td>kssPortalMessage</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>Private</td>
+	<td>assertTextPresent</td>
+	<td>Item state changed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>State: Private</td>
 	<td></td>
 </tr>
 
