@@ -3,12 +3,11 @@ from kss.demo.interfaces import (
     IKSSDemoResource,
     IKSSSeleniumTestResource,
     )
-from kss.demo.resource import (
+from kss.demo import (
     KSSSeleniumTestSuite,
     KSSSeleniumTestDirectory,
     KSSSeleniumTestLayerBase,
-    KSSSandboxCreationTestCase,
-    KSSSeleniumTestCaseList,
+    KSSSeleniumSandboxCreationTestCase,
     KSSSeleniumTestCase,
     KSSDemo,
     )
@@ -21,11 +20,10 @@ class IResource(IKSSDemoResource, IKSSSeleniumTestResource):
 
 
 class PloneSiteLayer(KSSSeleniumTestLayerBase):
-    setup = KSSSandboxCreationTestCase('@@kss_test_create_site')
+    setup = KSSSeleniumSandboxCreationTestCase('@@kss_test_create_site')
 
 class LoggedInManagerLayer(PloneSiteLayer):
-    setup = KSSSeleniumTestCaseList(KSSSandboxCreationTestCase('@@kss_test_create_site'),
-            KSSSeleniumTestCase('log-in-manager.html'))
+    setup = KSSSeleniumTestCase('log-in-manager.html')
     teardown = KSSSeleniumTestCase('log-out.html')
 
 class PloneDemos(object):
