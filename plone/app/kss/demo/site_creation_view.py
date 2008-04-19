@@ -1,6 +1,17 @@
 import logging
-#from setupbase import SetupBase
-from kss.demo.browser.setupbase import SetupBase
+
+# XXX Make this package to run with the earlier version
+# of kss.demo (<=1.4.0)
+# where this module does not exist and this test won't
+# be used anyway
+try:
+    from kss.demo.browser.setupbase import SetupBase
+    SetupBase = SetupBase       # to satisfy pyflakes
+except:
+    # No problem.
+    class SetupBase(object):
+        pass
+
 from Products.CMFPlone.factory import addPloneSite
 
 logger=logging.getLogger('kss')

@@ -6,6 +6,9 @@ from Products.CMFCore.FSFile import FSFile
 
 __all__ = ()
 
+# Activate support for old kss.demo version
+import bbb_oldkssdemo
+
 def initialize(context):
 
     # register directory views
