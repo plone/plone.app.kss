@@ -4,9 +4,15 @@
            xmlns:kss="http://namespaces.zope.org/kss"
            >
 
+
     <!-- Include command macro definitions -->
     <include package=".commands"/> 
     <include package=".plugins"/>
+
+    <!-- Utilities and site creation view for selenium testing
+         (It is safe to include this any time, even in production.
+    -->
+    <include package=".demo" />
 
     <!-- Bind interfaces a'la 2.5 -->
 

@@ -6,6 +6,10 @@ plone.app.kss - 1.4dev Unreleased
 
     - ...
 
+    - add selenium tests that at the moment are only
+      runnable with a special branch of kss.demo,
+      available from ploneout.
+
 plone.app.kss - 1.4-rc1 Released 2008-03-25
 
     - use refreshViewlet instead of macroContent in subscribers
