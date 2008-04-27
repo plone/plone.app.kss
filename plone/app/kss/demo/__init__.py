@@ -1,3 +1,6 @@
 #
 # Activate support for old kss.demo version
-import bbb_oldkssdemo
+try:
+    import bbb_oldkssdemo
+except ImportError:
+    pass
