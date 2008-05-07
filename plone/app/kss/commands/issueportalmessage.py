@@ -30,6 +30,9 @@ class IssuePortalMessageCommand(CommandSet):
         standar_portal_message_selector = ksscore.getCssSelector('.portalMessage')
         ksscore.setStyle(standar_portal_message_selector, 'display','none')
 
+        # The Plone Portal Message expects the msgtype to be capitalized
+        msgtype = msgtype.capitalize()
+
         # Now there is always a portal message but it has to be
         # rendered visible or invisible, accordingly
         html = '<dt>%s</dt><dd>%s</dd>' % (msgtype, message)
