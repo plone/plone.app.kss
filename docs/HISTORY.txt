@@ -2,7 +2,7 @@ Changelog for plone.app.kss
 
     (name of developer listed in brackets)
 
-plone.app.kss - 1.4dev Unreleased
+plone.app.kss - 1.4.1 Released 2008-06-02
 
     - Made the kss.demo dependency optional.
       [hannosch]
