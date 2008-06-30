@@ -6,10 +6,21 @@
 
 kukit.plone = {};
 
-jq(function() {
-    kukit.log('KSS started by jQuery DOMLoad event.');
-    kukit.bootstrapFromDOMLoad();
-});
+/* This check must not result in a javascript error, even if jq is
+ * not present. Such an error would case all subsequent kss plugin
+ * (this file and any other plugins that are loaded later)
+ * fail to load.
+ *
+ * For this reason, it must be guarded by a condition.
+ */
+if (window.jq) {
+    jq(function() {
+        kukit.log('KSS started by jQuery DOMLoad event.');
+        kukit.bootstrapFromDOMLoad();
+    });
+}
+
+
 
 /* Base kukit plugins for Plone*/
 
