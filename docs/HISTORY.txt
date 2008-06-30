@@ -6,6 +6,16 @@ plone.app.kss - 1.4dev Unreleased
 
     - ...
 
+    - Make the plugin tolerant if jQuery is not present,
+      and not have a "jq" reference error in this case.
+      Previously any kss pages (for example, demos) that 
+      did not use jQuery, failed with a javascript error
+      in the presense of this plugin.
+      During this, most things seemed to be working, 
+      apart from any plugins that were missing because 
+      they were to be loaded after the error.
+      [ree]
+
 plone.app.kss - 1.4.1 Released 2008-06-02
 
     - Made the kss.demo dependency optional.
