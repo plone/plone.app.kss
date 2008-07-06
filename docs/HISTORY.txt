@@ -6,6 +6,8 @@ plone.app.kss - 1.4dev Unreleased
 
     - ...
 
+plone.app.kss - 1.4.2 Released 2008-07-06
+
     - Make the plugin tolerant if jQuery is not present,
       and not have a "jq" reference error in this case.
       Previously any kss pages (for example, demos) that 
