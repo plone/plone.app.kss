@@ -8,11 +8,11 @@ from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 from plone.app.portlets.interfaces import IDeferredPortletRenderer
 from zope.component import getMultiAdapter, getUtility
 
-# XXX: This is deprecated and will be removed in Plone 3.5. Use the 'plone'
+# XXX: This is deprecated and will be removed in Plone 4.0. Use the 'plone'
 # command set instead.
 class RefreshPortletCommand(CommandSet):
     
-    @deprecate("The 'refreshportlet' command set is deprecated and will be removed in Plone 3.5. "
+    @deprecate("The 'refreshportlet' command set is deprecated and will be removed in Plone 4.0. "
                "Please use the 'plone' command set instead.")
     def refreshPortletLegacy(self, name, nodeid=None, **kw):
         'Refresh portlet by name (old portlets)'
@@ -32,7 +32,7 @@ class RefreshPortletCommand(CommandSet):
         ksscore = self.getCommandSet('core')
         ksscore.replaceHTML(ksscore.getHtmlIdSelector(nodeid), result)
 
-    @deprecate("The 'refreshportlet' command set is deprecated and will be removed in Plone 3.5. "
+    @deprecate("The 'refreshportlet' command set is deprecated and will be removed in Plone 4.0. "
                "Please use the 'plone' command set instead.")
     def refreshPortlet(self, portlethash, **kw):
         'Refresh portlet by its hash (new portlets)'

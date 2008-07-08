@@ -66,7 +66,7 @@ class IPloneLegacyCommands(Interface):
         """Parse the document body and add the TOC
         """
 
-# Deprecated commands -- will be removed in Plone 3.5
+# Deprecated commands -- will be removed in Plone 4.0
 # Do not use these.
 
 class IIssuePortalMessageCommand(Interface):

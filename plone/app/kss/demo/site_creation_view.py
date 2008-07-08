@@ -54,7 +54,7 @@ class SiteCreationView(SetupBase):
                                        'title':'KssNews',
                                        'text':"""
                                               An early spring sprint at a beautiful location on the Italian coast. 
-                                              The sprint will focus on topics of interest for Plone 3.5. Potential 
+                                              The sprint will focus on topics of interest for Plone 4.0. Potential 
                                               topics include custom membership, extending Plone's use of AJAX, 
                                               content export-import, and much more.
                                               """,

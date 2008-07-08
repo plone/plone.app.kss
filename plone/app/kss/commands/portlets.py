@@ -8,12 +8,12 @@ from zope import component
 from kss.core.kssview import CommandSet
 from zope.interface import implements
 
-# XXX: This is deprecated and will be removed in Plone 3.5. Use the 'plone'
+# XXX: This is deprecated and will be removed in Plone 4.0. Use the 'plone'
 # command set instead.
 class KSSPortletCommands(CommandSet):
     implements(IKSSPlonePortletCommands)
 
-    @deprecate("The 'plone-portlets' command set is deprecated and will be removed in Plone 3.5. "
+    @deprecate("The 'plone-portlets' command set is deprecated and will be removed in Plone 4.0. "
                "Please use the 'plone' command set instead.")
     def reload_classic_portlet(self, css_selector, column,
                                template, portlet_macro='portlet'):

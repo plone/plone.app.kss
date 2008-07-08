@@ -25,7 +25,7 @@
         provides=".interfaces.IPloneLegacyCommands"
         />
 
-    <!-- DEPRECATED commands - will be gone in Plone 3.5.
+    <!-- DEPRECATED commands - will be gone in Plone 4.0.
     
         This functionality exists in the 'zope' and 'plone'
         command sets

@@ -4,7 +4,9 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.4dev Unreleased
 
-    - ...
+    - Adjusted deprecation warnings to point to Plone 4.0 instead of Plone 3.5
+      since we changed the version numbering again.
+      [hannosch]
 
 plone.app.kss - 1.4.2 Released 2008-07-06
 

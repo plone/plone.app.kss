@@ -3,13 +3,13 @@ from kss.core.kssview import CommandSet
 from zope.component import getMultiAdapter
 from zope.contentprovider.interfaces import IContentProvider
 
-# XXX: This is deprecated and will be removed in Plone 3.5. Use the 'zope'
+# XXX: This is deprecated and will be removed in Plone 4.0. Use the 'zope'
 # command set instead.
 class RefreshProviderCommand(CommandSet):
     """Refreshes the selected provider (provides IContentProvider) named name and located
     at selector in the HTML"""
 
-    @deprecate("The 'refreshprovider' command set is deprecated and will be removed in Plone 3.5. "
+    @deprecate("The 'refreshprovider' command set is deprecated and will be removed in Plone 4.0. "
                "Please use the 'zope' command set instead.")
     def refreshProvider(self, name, selector):
         # Cleaned out all the old code pre-provider menus (supposed safe, we are in Plone 3.0)
