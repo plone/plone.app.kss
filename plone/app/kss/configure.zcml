@@ -17,57 +17,10 @@
         <include package=".demo" />
     </configure>
 
-    <!-- Bind interfaces a'la 2.5 -->
-
-    <five:implements
-        class="Products.CMFPlone.Portal.PloneSite"
-        interface=".interfaces.IPloneSiteRoot"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalContent.PortalContent"
-        interface=".interfaces.IContentish"
-        />
-
-    <five:implements
-        class="Products.Archetypes.BaseContent.BaseContent"
-        interface=".interfaces.IContentish"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalFolder.PortalFolder"
-        interface=".interfaces.IFolderish"
-        />
-
-    <five:implements
-        class="Products.Archetypes.BaseFolder.BaseFolder"
-        interface=".interfaces.IFolderish"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalContent.PortalContent"
-        interface=".interfaces.IPortalObject"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalFolder.PortalFolder"
-        interface=".interfaces.IPortalObject"
-        />
-
-    <five:implements
-        class="Products.Archetypes.BaseContent.BaseContent"
-        interface=".interfaces.IPortalObject"
-        />
- 
-    <five:implements
-        class="Products.Archetypes.BaseFolder.BaseFolder"
-        interface=".interfaces.IPortalObject"
-        />
-
     <!-- the kukitresponse methods -->
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="replaceByMacro"
         class=".macro_replacer.MacroView"
         name="replaceByMacro"
@@ -75,7 +28,7 @@
         />
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="replaceInnerByMacro"
         class=".macro_replacer.MacroView"
         name="replaceInnerByMacro"
@@ -83,7 +36,7 @@
         />
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="replaceContentRegion"
         class=".content_replacer.ContentView"
         name="replaceContentRegion"
@@ -91,7 +44,7 @@
         />
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="refreshPortlet"
         class=".portlet_refresher.PortletView"
         name="refreshPortlet"
@@ -99,7 +52,7 @@
         />
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="refreshCalendar"
         class=".calendar.CalendarView"
         name="refreshCalendar"
@@ -115,7 +68,7 @@
         />
 
     <browser:page
-        for=".interfaces.IContentish"
+        for="OFS.interfaces.ISimpleItem"
         attribute="save"
         class=".kupu.KupuSaveView"
         name="savekupu"
@@ -123,7 +76,7 @@
         />
 
     <browser:page
-        for=".interfaces.IContentish"
+        for="OFS.interfaces.ISimpleItem"
         attribute="contentMenuRefresh"
         class=".refresh_content_menu.ContentMenuView"
         name="contentmenurefresh"
@@ -131,9 +84,9 @@
         />
 
 
-	<!-- deprecate this -->
+    <!-- deprecate this -->
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="replaceMacro"
         class=".macro_replacer.MacroView"
         name="replaceMacro"
@@ -149,7 +102,7 @@
         />
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="cutObject"
         class=".content_replacer.ContentMenuView"
         name="cutObject"
@@ -157,7 +110,7 @@
         />
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="copyObject"
         class=".content_replacer.ContentMenuView"
         name="copyObject"
@@ -165,7 +118,7 @@
         />
 
     <browser:page
-        for=".interfaces.IPortalObject"
+        for="OFS.interfaces.IItem"
         attribute="changeWorkflowState"
         class=".content_replacer.ContentMenuView"
         name="changeWorkflowState"

@@ -2,10 +2,10 @@ import unittest
 from Products.PloneTestCase import PloneTestCase
 
 from plone.app.kss.plonekssview import PloneKSSView
-from plone.app.kss.interfaces import IPortalObject
 from plone.app.kss.portlets import attributesTriggerNavigationPortletReload
 from plone.app.kss.portlets import attributesTriggerRecentPortletReload
 from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase
+from OFS.interfaces import IItem
 
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope import lifecycleevent
@@ -52,7 +52,7 @@ class TestPortletReloading(KSSAndPloneTestCase):
         # create the view on the user folder instead of the portal root,
         # because there is no more a nav portlet on the portal root.
         self.view = self.folder.restrictedTraverse('@@change_title')
-        descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
+        descriptor = lifecycleevent.Attributes(IItem, 'title')
         modified_event = ObjectEditedEvent(self.folder, descriptor)
         attributesTriggerNavigationPortletReload(self.folder, self.view, modified_event)
         result = self.view.render()
@@ -82,7 +82,7 @@ class TestPortletReloading(KSSAndPloneTestCase):
         # in the front page so we can test it.
         self.create_portlet(u'recent', RecentAssignment())
         #
-        descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
+        descriptor = lifecycleevent.Attributes(IItem, 'title')
         modified_event = ObjectEditedEvent(self.folder, descriptor)
         attributesTriggerRecentPortletReload(self.folder, self.view, modified_event)
         result = self.view.render()

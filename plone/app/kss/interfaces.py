@@ -1,32 +1,31 @@
-
-from zope.interface import Interface
 from kss.core.interfaces import IKSSView
+import zope.deferredimport
 
-# Important for 2.1, in 2.5 these are defined alreadyy
-# XXX IMO AT's IBaseContent should inherit IContentish and
-# AT's IBaseFolder IFolderish but it's not so, however we
-# provide our contentish and folderish interfaces in a way
-# to include these already
+zope.deferredimport.deprecated(
+    "It has moved to Products.CMFPlone.interfaces.IPloneSiteRoot "
+    "This reference will be gone in plone.app.kss 1.6",
+    IPloneSiteRoot = 'Products.CMFPlone.interfaces:IPloneSiteRoot',
+    )
 
-# Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot
-class IPloneSiteRoot(Interface):
-    'The portal root'
-        
-#Products.CMFCore.interfaces._content.IFolderish
-#Products.Archetypes.interfaces._base.IBaseFolder
-class IFolderish(Interface):
-    'All folderish objects including AT ones'
+zope.deferredimport.deprecated(
+    "You better use OFS.interfaces.IFolder"
+    "This reference will be gone in plone.app.kss 1.6",
+    IFolderish = 'OFS.interfaces:IFolder',
+    )
 
-#Products.CMFCore.interfaces._content.IContentish
-#Products.Archetypes.interfaces._base.IBaseContent
-class IContentish(Interface):
-    'All contentish objects including AT ones'
 
-# this is not found in 2.5
+zope.deferredimport.deprecated(
+    "You better use OFS.interfaces.ISimpleItem"
+    "This reference will be gone in plone.app.kss 1.6",
+    IContentish = 'OFS.interfaces:ISimpleItem',
+    )
 
-# contentish + folderish (incl. site root)
-class IPortalObject(Interface):
-    'All portal objects including AT ones'
+zope.deferredimport.deprecated(
+    "You better use OFS.interfaces.IItem"
+    "This reference will be gone in plone.app.kss 1.6",
+    IPortalObject = 'OFS.interfaces:IItem',
+    )
+
 
 class IPloneKSSView(IKSSView):
     '''View for Plone'''
