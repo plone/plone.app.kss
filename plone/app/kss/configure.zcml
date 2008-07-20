@@ -68,7 +68,7 @@
         />
 
     <browser:page
-        for="OFS.interfaces.ISimpleItem"
+        for="Products.CMFCore.interfaces._content.IContentish"
         attribute="save"
         class=".kupu.KupuSaveView"
         name="savekupu"
