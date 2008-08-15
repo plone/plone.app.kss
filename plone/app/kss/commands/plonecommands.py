@@ -43,8 +43,8 @@ class PloneCommands(CommandSet):
         selector = ksscore.getHtmlIdSelector('kssPortalMessage')
 
         # We hide the standard Plone Portal Message
-        standar_portal_message_selector = ksscore.getCssSelector('.portalMessage')
-        ksscore.setStyle(standar_portal_message_selector, 'display','none')
+        standard_portal_message_selector = ksscore.getCssSelector('.portalMessage')
+        ksscore.setStyle(standard_portal_message_selector, 'display','none')
 
         # Now there is always a portal message but it has to be
         # rendered visible or invisible, accordingly
