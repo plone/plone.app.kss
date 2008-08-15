@@ -4,6 +4,10 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.5dev Unreleased
 
+    - Translate message and message type passed to
+      PloneCommands.issuePortalMessage.  This fixes #7282.
+      [maurits]
+
     - Make the plugin tolerant if jQuery is not present,
       and not have a "jq" reference error in this case.
       Previously any kss pages (for example, demos) that 

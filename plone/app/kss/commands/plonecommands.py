@@ -1,5 +1,7 @@
 from zope.interface import implements
 from zope.component import getMultiAdapter, getUtility
+from zope.i18n import translate
+from zope.i18nmessageid.message import Message as i18nmessage
 
 from Products.statusmessages.message import Message
 
@@ -21,7 +23,19 @@ class PloneCommands(CommandSet):
 
         if isinstance(message, Message):
             msgtype = message.type
-            message = message.message
+            # The translation domain of the message is not known.  We
+            # can only assume that it is 'plone'.
+            message = translate(message.message, domain='plone',
+                                context=self.request)
+        elif isinstance(message, i18nmessage):
+            # Here the message has a domain itself, which is good.
+            message = translate(message, context=self.request)
+
+        # The 'dt' of the definition list we generate should contain
+        # something like Info, Warning or Error.  Those messages are
+        # available in the plone domain.
+        msgtype_name = translate(msgtype.capitalize(), domain='plone',
+                                 context=self.request)
 
         # XXX The macro has to take in account that there might be more than
         # one status message.
@@ -29,12 +43,12 @@ class PloneCommands(CommandSet):
         selector = ksscore.getHtmlIdSelector('kssPortalMessage')
 
         # We hide the standard Plone Portal Message
-        standar_portal_message_selector = ksscore.getCssSelector('.portalMessage')
-        ksscore.setStyle(standar_portal_message_selector, 'display','none')
+        standard_portal_message_selector = ksscore.getCssSelector('.portalMessage')
+        ksscore.setStyle(standard_portal_message_selector, 'display','none')
 
         # Now there is always a portal message but it has to be
         # rendered visible or invisible, accordingly
-        html = '<dt>%s</dt><dd>%s</dd>' % (msgtype, message)
+        html = '<dt>%s</dt><dd>%s</dd>' % (msgtype_name, message)
         ksscore.replaceInnerHTML(selector, html)
         ksscore.setAttribute(selector, 'class', "portalMessage %s" % msgtype)
         ksscore.setStyle(selector, 'display', message and 'block' or 'none')
