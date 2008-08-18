@@ -4,6 +4,10 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.4dev Unreleased
 
+    - ...
+
+plone.app.kss - 1.4.3 Released 2008-08-18
+
     - Translate message and message type passed to
       PloneCommands.issuePortalMessage.
       This fixes http://dev.plone.org/plone/ticket/7282
