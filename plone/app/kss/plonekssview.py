@@ -2,7 +2,12 @@
 
 from zope.interface import implements
 
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+try:
+    from Products.Five.browser.pagetemplatefile import BoundPageTemplate
+    ZOPE2_12 = True
+except ImportError:
+    ZOPE2_12 = False
 
 from Products.statusmessages import STATUSMESSAGEKEY
 from Products.statusmessages.adapter import _decodeCookieValue
@@ -12,6 +17,8 @@ from kss.core import force_unicode
 
 from interfaces import IPloneKSSView
 
+header_macros = ViewPageTemplateFile('browser/macro_wrapper.pt')
+
 class PloneKSSView(base):
     '''The base view that contains helpers, to be imported
     be other plone products
@@ -19,8 +26,6 @@ class PloneKSSView(base):
 
     implements(IPloneKSSView)
     
-    header_macros = ZopeTwoPageTemplateFile('browser/macro_wrapper.pt')
-
     def macroContent(self, macropath, **kw):
         'Renders a macro and returns its text'
         path = macropath.split('/')
@@ -36,7 +41,10 @@ class PloneKSSView(base):
         #  
         # put parameters on the request, by saving the original context
         self.request.form, orig_form = kw, self.request.form
-        content = self.header_macros.__of__(macroobj.aq_parent)(the_macro=the_macro)
+        if ZOPE2_12:
+            content = BoundPageTemplate(header_macros, macroobj.aq_parent)(the_macro=the_macro)
+        else:
+            content = header_macros.__of__(macroobj.aq_parent)(the_macro=the_macro)
         self.request.form = orig_form
         # Always encoded as utf-8
         content = force_unicode(content, 'utf')
