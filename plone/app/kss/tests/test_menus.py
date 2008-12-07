@@ -30,7 +30,8 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         KSSAndPloneTestCase.afterSetUp(self)
         self.setDebugRequest()
         self.loginAsPortalOwner()
-        self.fpage = self.portal['front-page']
+        self.portal.invokeFactory('Document', 'testpage')
+        self.fpage = self.portal['testpage']
 
     # --
     # test the Kss methods
@@ -48,14 +49,13 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
                          ])
 
     def testChangeViewTemplate(self):
-        # Let's set the default page on front-page,
-        # should set default layout of portal
+        # Let's set the default page on our test page
         req = self.portal.REQUEST
-        self.assertEqual(self.portal.getLayout(), 'folder_listing')
+        self.assertEqual(self.fpage.getLayout(), 'document_view')
         view = content_replacer.ContentMenuView(self.fpage, req)
         url = self.fpage.absolute_url() + '?templateId=atct_album_view'
         result = view.changeViewTemplate(url)
-        self.assertEqual(self.portal.getLayout(), 'atct_album_view')
+        self.assertEqual(self.fpage.getLayout(), 'atct_album_view')
         
         resh = req.RESPONSE.headers
         self.assertEqual(resh['status'], '200 OK')

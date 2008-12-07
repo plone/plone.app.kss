@@ -4,13 +4,16 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.5dev Unreleased
 
+    - Made the tests independent of any default content in the site.
+      [hannosch]
+
     - Make the macroContent helper work on Zope 2.12 by
       using a BoundPageTemplate instead of an acquisition-
       wrapped ViewPageTemplateFile.
       [davisagli]
 
     - Translate message and message type passed to
-      PloneCommands.issuePortalMessage.  This fixes #7282.
+      PloneCommands.issuePortalMessage. This fixes #7282.
       [maurits]
 
     - Make the plugin tolerant if jQuery is not present,

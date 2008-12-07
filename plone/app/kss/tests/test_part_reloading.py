@@ -12,6 +12,7 @@ from zope import lifecycleevent
 
 from Products.Archetypes.event import ObjectEditedEvent
 
+from plone.app.portlets.portlets.navigation import Assignment as NavigationAssignment
 from plone.app.portlets.portlets.recent import Assignment as RecentAssignment
 from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
 from zope.component import getUtility, getMultiAdapter
@@ -49,12 +50,16 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.assertEqual(result, [])
 
     def test_update_of_nav_portlet(self):
-        # create the view on the user folder instead of the portal root,
-        # because there is no more a nav portlet on the portal root.
-        self.view = self.folder.restrictedTraverse('@@change_title')
+        self.loginAsPortalOwner()
+        self.portal.invokeFactory('Folder', 'testfolder')
+        folder = self.portal.testfolder
+        self.create_portlet(u'navigation',
+            NavigationAssignment(topLevel=0),
+            context=folder)
+        self.view = folder.restrictedTraverse('@@change_title')
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
-        modified_event = ObjectEditedEvent(self.folder, descriptor)
-        attributesTriggerNavigationPortletReload(self.folder, self.view, modified_event)
+        modified_event = ObjectEditedEvent(folder, descriptor)
+        attributesTriggerNavigationPortletReload(folder, self.view, modified_event)
         result = self.view.render()
         command = result[0]
         self.failUnless(command.has_key('selector'))
@@ -69,11 +74,13 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.failUnless(command.has_key('selectorType'))
         self.assertEqual(command['selectorType'], 'htmlid')
 
-    def create_portlet(self, name, portlet):
+    def create_portlet(self, name, portlet, context=None):
+        if context == None:
+            context = self.portal
         leftColumn = getUtility(IPortletManager, name=u'plone.leftcolumn',
-                            context=self.portal)
-        left = getMultiAdapter((self.portal, leftColumn,), IPortletAssignmentMapping,
-                            context=self.portal)
+                            context=context)
+        left = getMultiAdapter((context, leftColumn,), IPortletAssignmentMapping,
+                            context=context)
         assert name not in left, 'Portlet is already there, no need to create it - fix me'
         left[name] = portlet
 
