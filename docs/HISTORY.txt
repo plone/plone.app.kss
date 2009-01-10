@@ -4,6 +4,9 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.5dev Unreleased
 
+    - Specified package dependencies.
+      [hannosch]
+
     - Made the tests independent of any default content in the site.
       [hannosch]
 

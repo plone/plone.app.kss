@@ -1,14 +1,11 @@
 from setuptools import setup, find_packages
-import sys, os
 
 version = '1.5'
 
 setup(name='plone.app.kss',
       version=version,
       description="KSS (Kinetic Style Sheets) for Plone",
-      long_description="""\
-""",
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+      long_description="",
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
@@ -25,10 +22,31 @@ setup(name='plone.app.kss',
       namespace_packages=['plone', 'plone.app'],
       include_package_data=True,
       zip_safe=False,
+      extras_require=dict(
+        test=[
+            'Products.PloneTestCase',
+        ]
+      ),
       install_requires=[
         'setuptools',
+        'kss.core',
+        'plone.portlets',
+        'plone.app.layout',
+        'plone.app.portlets',
+        'plone.locking',
+        'zope.component',
+        'zope.contentprovider',
+        'zope.deprecation',
+        'zope.i18n',
+        'zope.i18nmessageid',
+        'zope.interface',
+        'zope.lifecycleevent',
+        'zope.viewlet',
+        'Products.Archetypes',
+        'Products.CMFCore',
+        'Products.DCWorkflow',
+        'Products.statusmessages',
+        # 'Acquisition',
+        # 'Zope2',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )
