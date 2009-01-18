@@ -4,6 +4,9 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.5dev Unreleased
 
+    - Removed interface BBB code for old Plone versions.
+      [hannosch]
+
     - Specified package dependencies.
       [hannosch]
 

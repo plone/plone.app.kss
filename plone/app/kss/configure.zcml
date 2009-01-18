@@ -17,53 +17,6 @@
         <include package=".demo" />
     </configure>
 
-    <!-- Bind interfaces a'la 2.5 -->
-
-    <five:implements
-        class="Products.CMFPlone.Portal.PloneSite"
-        interface=".interfaces.IPloneSiteRoot"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalContent.PortalContent"
-        interface=".interfaces.IContentish"
-        />
-
-    <five:implements
-        class="Products.Archetypes.BaseContent.BaseContent"
-        interface=".interfaces.IContentish"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalFolder.PortalFolder"
-        interface=".interfaces.IFolderish"
-        />
-
-    <five:implements
-        class="Products.Archetypes.BaseFolder.BaseFolder"
-        interface=".interfaces.IFolderish"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalContent.PortalContent"
-        interface=".interfaces.IPortalObject"
-        />
-
-    <five:implements
-        class="Products.CMFCore.PortalFolder.PortalFolder"
-        interface=".interfaces.IPortalObject"
-        />
-
-    <five:implements
-        class="Products.Archetypes.BaseContent.BaseContent"
-        interface=".interfaces.IPortalObject"
-        />
- 
-    <five:implements
-        class="Products.Archetypes.BaseFolder.BaseFolder"
-        interface=".interfaces.IPortalObject"
-        />
-
     <!-- the kukitresponse methods -->
 
     <browser:page
@@ -115,7 +68,7 @@
         />
 
     <browser:page
-        for=".interfaces.IContentish"
+        for="Products.CMFCore.interfaces.IContentish"
         attribute="save"
         class=".kupu.KupuSaveView"
         name="savekupu"
@@ -123,7 +76,7 @@
         />
 
     <browser:page
-        for=".interfaces.IContentish"
+        for="Products.CMFCore.interfaces.IContentish"
         attribute="contentMenuRefresh"
         class=".refresh_content_menu.ContentMenuView"
         name="contentmenurefresh"
