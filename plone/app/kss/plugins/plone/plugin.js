@@ -197,7 +197,7 @@ kukit.commandsGlobalRegistry.registerFromAction('plone-initLockingProtection',
 kukit.actionsGlobalRegistry.register("plone-removeLockProtection",
     function(oper) {
     oper.evaluateParameters([], {}, 'plone-removeLockProtection action');
-    jq.unbind('unload', plone.UnlockHandler.execute);
+    plone.UnlockHandler.cleanup();
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-removeLockProtection',
     kukit.cr.makeGlobalCommand);

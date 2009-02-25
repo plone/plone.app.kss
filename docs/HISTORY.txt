@@ -4,7 +4,8 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.4dev Unreleased
 
-    - ...
+    - Correct invalid use of jq.unbind
+      [davisagli]
 
 plone.app.kss - 1.4.3 Released 2008-08-18
 
