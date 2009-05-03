@@ -33,9 +33,7 @@ class PloneKSSView(base):
     '''
 
     implements(IPloneKSSView)
-
-    local_header_macros = ZopeTwoPageTemplateFile('browser/macro_wrapper.pt')
-
+  
     def _macroContent(self, provider, macro_name, context=None, **kw):
         """
         """
@@ -77,7 +75,7 @@ class PloneKSSView(base):
         if context is not None:
             extra_context['context'] = context
 
-        content = self.local_header_macros.__of__(render_context).pt_render(
+        content = header_macros.__of__(self).__of__(render_context).pt_render(
                         extra_context=extra_context)
 
         # IE6 has problems with whitespace at the beginning of content
