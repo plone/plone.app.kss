@@ -36,6 +36,25 @@ class PloneKSSView(base):
   
     def _macroContent(self, provider, macro_name, context=None, **kw):
         """
+        Called by viewletMacroContent, portletMacroContent and classic
+        macroContent.
+
+        provider can be either;
+            1. a string, eg. 'mytemplate', or '@@my-browser-view'
+            2. an object that implements IViewlet
+            3. an object that implements IPortletRenderer
+
+        macro_name is the name of the macro in the page template, eg. 
+        main_macro
+
+        context overrides the calling context. This means when the template 
+        operates on context it is not neccessarily the context of the 
+        view that subclasses this class.
+
+        kw injects variables as local variables for the page template. Setting 
+        foo=1 means you can do <span tal:replace="foo"/> in the page template.
+        You can override the request by specifying it as a keyword argument.
+        You can override options by specifying eg. options={'bar':1}.
         """
 
         # Determine context to use for rendering
@@ -71,7 +90,7 @@ class PloneKSSView(base):
         # ensures that code calling this method cannot override the_macro.
         extra_context['options']['the_macro'] = the_macro
 
-        # If context is explicitly passed in then make available
+        # If context is explicitly passed in then make available        
         if context is not None:
             extra_context['context'] = context
 
