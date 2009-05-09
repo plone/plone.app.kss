@@ -4,7 +4,10 @@ Changelog for plone.app.kss
 
 plone.app.kss - 1.4dev Unreleased
 
-    - ...
+    - Made kss attribute tests pass on both Plone 3.2 and 3.3.
+      Difference: on 3.3 contentview-history was removed and inline
+      editing has been disabled by default.
+      [maurits]
 
 plone.app.kss - 1.4.4 Released 2009-03-01
 
