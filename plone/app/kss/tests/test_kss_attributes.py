@@ -20,6 +20,10 @@ class TestKSSAttributes(ptc.FunctionalTestCase):
         self.user = ptc.default_user
         self.password = ptc.default_password
         self.browser = Browser()
+        props = self.portal.portal_properties.site_properties
+        # In Plone 3.3 inline editing is switched off by default; for
+        # the tests we turn it on.
+        props._updateProperty('enable_inline_editing', True)
 
 class TestForKSSInlineEditing:
       
