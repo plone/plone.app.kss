@@ -20,6 +20,10 @@ class TestKSSAttributes(ptc.FunctionalTestCase):
         self.user = ptc.default_user
         self.password = ptc.default_password
         self.browser = Browser()
+        props = self.portal.portal_properties.site_properties
+        # In Plone 3.3 inline editing is switched off by default; for
+        # the tests we turn it on.
+        props._updateProperty('enable_inline_editing', True)
 
 class TestForKSSInlineEditing:
       
@@ -147,8 +151,6 @@ class TestContentsTabs:
             True
             >>> soup.find('li', dict(id='contentview-local_roles')) is not None
             True
-            >>> soup.find('li', dict(id='contentview-history')) is not None
-            True
         """
 
     def test_ul_id():
@@ -167,12 +169,13 @@ class TestContentsTabs:
             >>> content_ul_tag is not None
             True 
           
-        a tags inside of the li tags shouldn't have ids; li tags should have id attributes
+        a tags inside of the li tags shouldn't have ids; li tags should have id attributes.
+        There may be three or four tags (contentview-history was removed in Plone 3.3).
 
-            >>> [a.get('id') for a in content_ul_tag.findAll('a')]
-            [None, None, None, None]
-            >>> [li.get('id') for li in content_ul_tag.findAll('li')]
-            [u'contentview-view', u'contentview-edit', u'contentview-local_roles', u'contentview-history']
+            >>> [a.get('id') for a in content_ul_tag.findAll('a') if a.get('id')]
+            []
+            >>> [li.get('id') for li in content_ul_tag.findAll('li')][:3]
+            [u'contentview-view', u'contentview-edit', u'contentview-local_roles']
 
         """
     
