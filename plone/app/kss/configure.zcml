@@ -13,9 +13,11 @@
     <!-- Utilities and site creation view for selenium testing
          (It is safe to include this any time, even in production.
     -->
+    <!--
     <configure zcml:condition="installed kss.demo">
         <include package=".demo" />
     </configure>
+    -->
 
     <!-- the kukitresponse methods -->
 

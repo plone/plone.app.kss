@@ -176,6 +176,7 @@ class PloneKSSView(base):
         content = self._macroContent(
                     provider=jointpath, 
                     macro_name=path[-1],                  
+                    **kw
                     )
         self.request.form = orig_form
 
