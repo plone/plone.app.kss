@@ -75,6 +75,8 @@ class PloneKSSView(base):
             pt_or_view = render_context.restrictedTraverse(provider)
             if provider.startswith('@@'):            
                 the_macro = pt_or_view.index.macros[macro_name]
+                if not extra_context.has_key('view'):
+                    extra_context['view'] = pt_or_view                
             else:          
                 the_macro = pt_or_view.macros[macro_name]
 
