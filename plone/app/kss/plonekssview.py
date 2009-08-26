@@ -131,7 +131,7 @@ class PloneKSSView(base):
         target = None
         for order, (name, viewlet) in enumerate(viewlets):
             if name == viewlet_name:               
-                return self._macroContent(viewlet, macro_name, context, **kw)
+                return self._macroContent(viewlet, macro_name, context, view=viewlet, **kw)
 
         # Raise on lookup error
         msg = "No viewlet %s registered with manager %s" % \
