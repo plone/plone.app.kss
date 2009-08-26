@@ -94,7 +94,14 @@ class PloneKSSView(base):
         if context is not None:
             extra_context['context'] = context
 
-        content = header_macros.__of__(self).__of__(render_context).pt_render(
+        if hasattr(self, 'header_macros'):
+            # plone.app.kss <= 1.4.3
+            content = self.header_macros.__of__(render_context).pt_render(
+                        extra_context=extra_context)
+        else:
+            # plone.app.kss > 1.4.3
+            from plone.app.kss.plonekssview import header_macros
+            content = header_macros.__of__(self).__of__(render_context).pt_render(
                         extra_context=extra_context)
 
         # IE6 has problems with whitespace at the beginning of content
