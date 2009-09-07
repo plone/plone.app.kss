@@ -17,6 +17,28 @@
         <include package=".demo" />
     </configure>
 
+    <!-- bind interfaces -->
+
+    <five:implements
+        class="Products.CMFCore.PortalContent.PortalContent"
+        interface=".interfaces.IPortalObject"
+        />
+
+    <five:implements
+        class="Products.CMFCore.PortalFolder.PortalFolder"
+        interface=".interfaces.IPortalObject"
+        />
+
+    <five:implements
+        class="Products.Archetypes.BaseContent.BaseContent"
+        interface=".interfaces.IPortalObject"
+        />
+ 
+    <five:implements
+        class="Products.Archetypes.BaseFolder.BaseFolder"
+        interface=".interfaces.IPortalObject"
+        />
+
     <!-- the kukitresponse methods -->
 
     <browser:page
