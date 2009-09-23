@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from zope.interface import implements
 from plonekssview import PloneKSSView
-from kss.core import force_unicode, kssaction
+from kss.core import kssaction
 from interfaces import IPloneKSSView
 
 class KupuSaveView(PloneKSSView):
