@@ -1,8 +1,8 @@
 Changelog for plone.app.kss
 ===========================
 
-1.5dev (Unreleased)
--------------------
+1.6.0a1 (2009-11-19)
+--------------------
 
     - Fixed tests (portal-column-content is a div)
       [gotcha]
