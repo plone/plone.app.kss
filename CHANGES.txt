@@ -1,6 +1,12 @@
 Changelog for plone.app.kss
 ===========================
 
+1.6.0a2 (unreleased)
+--------------------
+
+- Nothing changed yet.
+
+
 1.6.0a1 (2009-11-19)
 --------------------
 
