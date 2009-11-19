@@ -4,6 +4,13 @@ Changelog for plone.app.kss
 1.5dev (Unreleased)
 ===================
 
+    - Fixed tests (portal-column-content is a div)
+      [gotcha]
+
+    - Fixed refrehProvider zope command : providers do not need to inherit
+      from Acquisition.Explicit anymore
+      [gotcha]
+
     - Removed interface BBB code for old Plone versions.
       [hannosch]
 
