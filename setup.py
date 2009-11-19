@@ -5,7 +5,8 @@ version = '1.5'
 setup(name='plone.app.kss',
       version=version,
       description="KSS (Kinetic Style Sheets) for Plone",
-      long_description="",
+      long_description=open("README.txt").read() + "\n" +
+          open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
@@ -25,8 +26,7 @@ setup(name='plone.app.kss',
       extras_require=dict(
         test=[
             'Products.PloneTestCase',
-        ]
-      ),
+        ]),
       install_requires=[
         'setuptools',
         'kss.core',
