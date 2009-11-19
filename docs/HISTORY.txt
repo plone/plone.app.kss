@@ -1,8 +1,8 @@
 Changelog for plone.app.kss
+===========================
 
-    (name of developer listed in brackets)
-
-plone.app.kss - 1.5dev Unreleased
+1.5dev (Unreleased)
+===================
 
     - Removed interface BBB code for old Plone versions.
       [hannosch]
@@ -18,19 +18,22 @@ plone.app.kss - 1.5dev Unreleased
       wrapped ViewPageTemplateFile.
       [davisagli]
 
-plone.app.kss - 1.4.5 Released 2009-05-11
+1.4.5 (2009-05-11)
+------------------
 
     - Made kss attribute tests pass on both Plone 3.2 and 3.3.
       Difference: on 3.3 contentview-history was removed and inline
       editing has been disabled by default.
       [maurits]
 
-plone.app.kss - 1.4.4 Released 2009-03-01
+1.4.4 (2009-03-01)
+------------------
 
     - Correct invalid use of jq.unbind
       [davisagli]
 
-plone.app.kss - 1.4.3 Released 2008-08-18
+1.4.3 (2008-08-18)
+------------------
 
     - Translate message and message type passed to
       PloneCommands.issuePortalMessage.
@@ -41,7 +44,8 @@ plone.app.kss - 1.4.3 Released 2008-08-18
       since we changed the version numbering again.
       [hannosch]
 
-plone.app.kss - 1.4.2 Released 2008-07-06
+1.4.2 (2008-07-06)
+------------------
 
     - Make the plugin tolerant if jQuery is not present,
       and not have a "jq" reference error in this case.
@@ -53,12 +57,14 @@ plone.app.kss - 1.4.2 Released 2008-07-06
       they were to be loaded after the error.
       [ree]
 
-plone.app.kss - 1.4.1 Released 2008-06-02
+1.4.1 (2008-06-02)
+------------------
 
     - Made the kss.demo dependency optional.
       [hannosch]
 
-plone.app.kss - 1.4 Released 2008-04-21
+1.4 (2008-04-21)
+----------------
 
     - add selenium tests that at the moment are only
       runnable with a special branch of kss.demo,
@@ -69,33 +75,39 @@ plone.app.kss - 1.4 Released 2008-04-21
       (closes #7879)
       [gotcha)
 
-plone.app.kss - 1.2 Released 2007-08-17
+1.2 (2007-08-17)
+----------------
 
     - Fix bugs and test layer
       [ree, gotcha, jvloothuis, nouri]
 
-plone.app.kss - 1.2-rc2 Released 2007-07-27
+1.2-rc2 (2007-07-27)
+--------------------
 
     - External links is not always loaded anymore
       [gotcha]
 
-plone.app.kss - 1.2-rc1.1 Released 2007-07-12
+1.2-rc1.1 (2007-07-12)
+----------------------
 
     - Prepare for release
       [ree]
 
-plone.app.kss - 1.2-rc1 Released 2007-07-08
+1.2-rc1 (2007-07-08)
+--------------------
 
     - Cleaned up Acquisition usage. self.context always needs to be unwrapped
       by aq_inner before using it in Zope2.
       [hannosch]
 
-plone.app.kss - 1.2-beta2 Released 2007-04-30
+1.2-beta2 (2007-04-30)
+----------------------
 
    - Prepare for release
      [ree]
 
-plone.app.kss - 1.2-beta1.2 Released 2007-03-23
+1.2-beta1.2 (2007-03-23)
+------------------------
 
     - Add monkeypatch to offer a temporary workaround to
       five.localsitemanager. This is actually not a kss issue,
@@ -110,12 +122,14 @@ plone.app.kss - 1.2-beta1.2 Released 2007-03-23
       place at the moment.
 	  [ree]
 
-plone.app.kss - 1.2-beta1 Released 2007-03-04
+1.2-beta1 (2007-03-04)
+----------------------
 
     - prepare for release
 	  [ree]
 
-plone.app.kss - 1.2-alpha2 Released 2007.02.10
+1.2-alpha2 (2007-02-10)
+-----------------------
 
     - adjust for release
 	  [ree]
