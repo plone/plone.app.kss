@@ -42,7 +42,7 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         view = content_replacer.ContentView(self.fpage, req)
         result = view.replaceContentRegion(self.fpage.absolute_url(), tabid='contentview-edit')
         self.assertEqual([(r['name'], r['selector'], r['selectorType']) for r in result],
-                         [('replaceHTML', 'region-content', 'htmlid'),
+                         [('replaceHTML', 'content', 'htmlid'),
                           ('setAttribute', 'ul.contentViews li', 'css'),
                           ('setAttribute', 'contentview-edit', 'htmlid'),
                           ('replaceHTML', 'contentActionMenus', 'htmlid'),

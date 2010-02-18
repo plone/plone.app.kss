@@ -153,7 +153,7 @@ class ContentView(Implicit, PloneKSSView):
         # actually used main_template! In that case we would have
         # the *whole* html which is wrong.
         soup = BeautifulSoup(content)
-        replace_id = 'region-content'
+        replace_id = 'content'
         tag = soup.find('div', id=replace_id)
         if tag is None:
             raise RuntimeError, 'Result content did not contain <div id="%s">' % replace_id
@@ -227,7 +227,7 @@ class ContentMenuView(Implicit, PloneKSSView):
         # the *whole* html which is wrong.
 
         soup = BeautifulSoup(content)
-        replace_id = 'region-content'
+        replace_id = 'content'
         tag = soup.find('div', id=replace_id)
         if tag is None:
             raise RuntimeError, 'Result content did not contain <div id="%s">' % replace_id
