@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.6.0a2dev'
+version = '1.6.0a2'
 
 setup(name='plone.app.kss',
       version=version,

@@ -1,1 +1,1 @@
-1.5dev unreleased
+1.6.0a2
