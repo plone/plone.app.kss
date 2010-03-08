@@ -1,8 +1,6 @@
 plone.app.kss Package Readme
 ============================
 
-KSS (Kinetic Style Sheets) for Plone
-
 Overview
 --------
 This product gives generic KSS support for Plone. It depends on the product
@@ -11,7 +9,7 @@ This product gives generic KSS support for Plone. It depends on the product
 Installation
 ------------
 
-Compatible with Zope 2.10, and Plone 3.0.
+Compatible with Zope 2.12, and Plone 4.0.
 
 Features implemented
 --------------------
