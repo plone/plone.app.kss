@@ -274,7 +274,8 @@ kukit.actionsGlobalRegistry.register("plone-initDragAndDrop",
         .mousedown(ploneDnDReorder.doDown)
         .mouseup(ploneDnDReorder.doUp)
         .addClass("draggingHook")
-        .html('::');
+        .css("cursor","ns-resize")
+        .html('&#x28ff;');
 });
 kukit.commandsGlobalRegistry.registerFromAction('plone-initDragAndDrop',
     kukit.cr.makeSelectorCommand);
