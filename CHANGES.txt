@@ -1,8 +1,11 @@
 Changelog for plone.app.kss
 ===========================
 
-1.6.0a3 (Unreleased)
+1.6.0a3 (2010-04-09)
 --------------------
+
+    - Better unicode character for dragging, better cursor.
+      [limi]
 
 1.6.0a2 (2010-02-18)
 --------------------
