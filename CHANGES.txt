@@ -4,6 +4,12 @@ Changelog for plone.app.kss
 1.6.0a4 (Unreleased)
 --------------------
 
+    - Add RefreshViewletByClass command to ``zopecommands`` command set.
+      This allow to fix event handlers that were broken because they were 
+      relying on viewlet (and manager) names
+      instead of relying on their semantic.
+      This refs http://dev.plone.org/plone/ticket/9703
+      [gotcha]
 
 1.6.0a3 (2010-04-09)
 --------------------

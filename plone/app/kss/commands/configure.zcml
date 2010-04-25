@@ -25,6 +25,8 @@
         provides=".interfaces.IPloneLegacyCommands"
         />
 
+    <subscriber handler=".zopecommands.addRefreshViewletCommands"/>
+
     <!-- DEPRECATED commands - will be gone in Plone 3.5.
     
         This functionality exists in the 'zope' and 'plone'

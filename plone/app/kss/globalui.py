@@ -5,45 +5,34 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from kss.core.interfaces import IKSSView
 
 from plone.app.kss.portlets import attributesModified
+from plone.app.layout.viewlets.common import PathBarViewlet
+from plone.app.layout.viewlets.content import DocumentBylineViewlet
+from plone.app.layout.viewlets.common import GlobalSectionsViewlet
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerPortalTabsReload(obj, view, event):
-    import logging
-    logger = logging.getLogger('KSS')
-    logger.error('attributesTriggerPortalTabsReload event is buggy, need to fix')
-    return
     triggeringAttributes = ('title', 'description')
     if attributesModified(triggeringAttributes, event):
         ksscore = view.getCommandSet('core')
         selector = ksscore.getHtmlIdSelector('portal-globalnav')
         zopecommands = view.getCommandSet('zope')
-        zopecommands.refreshViewlet(selector,
-                                    'plone.portalheader',
-                                    'plone.global_sections')
+        zopecommands.refreshViewletByClass(selector, GlobalSectionsViewlet)
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerDocumentBylineReload(obj, view, event):
     ksscore = view.getCommandSet('core')
     selector = ksscore.getHtmlIdSelector('plone-document-byline')
     zopecommands = view.getCommandSet('zope')
-    zopecommands.refreshViewlet(selector,
-                                'plone.belowcontenttitle',
-                                'plone.belowcontenttitle.documentbyline')
+    zopecommands.refreshViewletByClass(selector, DocumentBylineViewlet)
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerBreadcrumbsReload(obj, view, event):
-    import logging
-    logger = logging.getLogger('KSS')
-    logger.error('attributesTriggerBreadcrumbsReload event is buggy, need to fix')
-    return
     triggeringAttributes = ('title', 'description')
     if attributesModified(triggeringAttributes, event):
         ksscore = view.getCommandSet('core')
         selector = ksscore.getHtmlIdSelector('portal-breadcrumbs')
         zopecommands = view.getCommandSet('zope')
-        zopecommands.refreshViewlet(selector,
-                                    'plone.portaltop',
-                                    'plone.path_bar')
+        zopecommands.refreshViewletByClass(selector, PathBarViewlet)
 
 @component.adapter(None, IKSSView, IObjectModifiedEvent)
 def attributesTriggerHeadTitleReload(obj, view, event):
@@ -57,4 +46,3 @@ def attributesTriggerHeadTitleReload(obj, view, event):
             'head title',
             headtitle.render(),
             withKssSetup='False')
-
