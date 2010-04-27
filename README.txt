@@ -4,7 +4,7 @@ plone.app.kss Package Readme
 Overview
 --------
 This product gives generic KSS support for Plone. It depends on the product
-"kss.core".
+``kss.core``.
 
 Installation
 ------------
@@ -23,10 +23,6 @@ Features implemented
   we replace the main_template in the rendering context, this may or may not
   have an effect depending on the template. If we cannot find a template at
   all, we fall back to submit.
-
-  Missing/TODOS:
-
-  - ...
 
 - Portlet refresher
 

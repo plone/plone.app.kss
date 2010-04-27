@@ -10,171 +10,171 @@ Changelog for plone.app.kss
 1.6.0a4 (2010-04-28)
 --------------------
 
-    - Add RefreshViewletByClass command to ``zopecommands`` command set.
-      This allow to fix event handlers that were broken because they were 
-      relying on viewlet (and manager) names
-      instead of relying on their semantic.
-      This refs http://dev.plone.org/plone/ticket/9703
-      [gotcha]
+- Add RefreshViewletByClass command to ``zopecommands`` command set.
+  This allow to fix event handlers that were broken because they were 
+  relying on viewlet (and manager) names
+  instead of relying on their semantic.
+  This refs http://dev.plone.org/plone/ticket/9703
+  [gotcha]
 
 1.6.0a3 (2010-04-09)
 --------------------
 
-    - Better unicode character for dragging, better cursor.
-      [limi]
+- Better unicode character for dragging, better cursor.
+  [limi]
 
 1.6.0a2 (2010-02-18)
 --------------------
 
-    - Changed replace_id in content_replacer.changeViewTemplate and 
-      content_replacer.replaceContentRegion to replace#content instead of 
-      redundant #region-content that is not in Plone anymore.
-      [spliter]
+- Changed replace_id in content_replacer.changeViewTemplate and 
+  content_replacer.replaceContentRegion to replace#content instead of 
+  redundant #region-content that is not in Plone anymore.
+  [spliter]
 
-    - Updated markup to not use .documentContent.
-      This refs http://dev.plone.org/plone/ticket/10231
-      [limi]
+- Updated markup to not use .documentContent.
+  This refs http://dev.plone.org/plone/ticket/10231
+  [limi]
 
 1.6.0a1 (2009-11-19)
 --------------------
 
-    - Fixed tests (portal-column-content is a div)
-      [gotcha]
+- Fixed tests (portal-column-content is a div)
+  [gotcha]
 
-    - Fixed refrehProvider zope command : providers do not need to inherit
-      from Acquisition.Explicit anymore
-      [gotcha]
+- Fixed refrehProvider zope command : providers do not need to inherit
+  from Acquisition.Explicit anymore
+  [gotcha]
 
-    - Removed interface BBB code for old Plone versions.
-      [hannosch]
+- Removed interface BBB code for old Plone versions.
+  [hannosch]
 
-    - Specified package dependencies.
-      [hannosch]
+- Specified package dependencies.
+  [hannosch]
 
-    - Made the tests independent of any default content in the site.
-      [hannosch]
+- Made the tests independent of any default content in the site.
+  [hannosch]
 
-    - Make the macroContent helper work on Zope 2.12 by
-      using a BoundPageTemplate instead of an acquisition-
-      wrapped ViewPageTemplateFile.
-      [davisagli]
+- Make the macroContent helper work on Zope 2.12 by
+  using a BoundPageTemplate instead of an acquisition-
+  wrapped ViewPageTemplateFile.
+  [davisagli]
 
 1.4.5 (2009-05-11)
 ------------------
 
-    - Made kss attribute tests pass on both Plone 3.2 and 3.3.
-      Difference: on 3.3 contentview-history was removed and inline
-      editing has been disabled by default.
-      [maurits]
+- Made kss attribute tests pass on both Plone 3.2 and 3.3.
+  Difference: on 3.3 contentview-history was removed and inline
+  editing has been disabled by default.
+  [maurits]
 
 1.4.4 (2009-03-01)
 ------------------
 
-    - Correct invalid use of jq.unbind
-      [davisagli]
+- Correct invalid use of jq.unbind
+  [davisagli]
 
 1.4.3 (2008-08-18)
 ------------------
 
-    - Translate message and message type passed to
-      PloneCommands.issuePortalMessage.
-      This fixes http://dev.plone.org/plone/ticket/7282
-      [maurits]
+- Translate message and message type passed to
+  PloneCommands.issuePortalMessage.
+  This fixes http://dev.plone.org/plone/ticket/7282
+  [maurits]
 
-    - Adjusted deprecation warnings to point to Plone 4.0 instead of Plone 3.5
-      since we changed the version numbering again.
-      [hannosch]
+- Adjusted deprecation warnings to point to Plone 4.0 instead of Plone 3.5
+  since we changed the version numbering again.
+  [hannosch]
 
 1.4.2 (2008-07-06)
 ------------------
 
-    - Make the plugin tolerant if jQuery is not present,
-      and not have a "jq" reference error in this case.
-      Previously any kss pages (for example, demos) that 
-      did not use jQuery, failed with a javascript error
-      in the presense of this plugin.
-      During this, most things seemed to be working, 
-      apart from any plugins that were missing because 
-      they were to be loaded after the error.
-      [ree]
+- Make the plugin tolerant if jQuery is not present,
+  and not have a "jq" reference error in this case.
+  Previously any kss pages (for example, demos) that 
+  did not use jQuery, failed with a javascript error
+  in the presense of this plugin.
+  During this, most things seemed to be working, 
+  apart from any plugins that were missing because 
+  they were to be loaded after the error.
+  [ree]
 
 1.4.1 (2008-06-02)
 ------------------
 
-    - Made the kss.demo dependency optional.
-      [hannosch]
+- Made the kss.demo dependency optional.
+  [hannosch]
 
 1.4 (2008-04-21)
 ----------------
 
-    - add selenium tests that at the moment are only
-      runnable with a special branch of kss.demo,
-      available from ploneout.
-      [ree]
+- add selenium tests that at the moment are only
+  runnable with a special branch of kss.demo,
+  available from ploneout.
+  [ree]
 
-    - use refreshViewlet instead of macroContent in subscribers
-      (closes #7879)
-      [gotcha)
+- use refreshViewlet instead of macroContent in subscribers
+  (closes #7879)
+  [gotcha)
 
 1.2 (2007-08-17)
 ----------------
 
-    - Fix bugs and test layer
-      [ree, gotcha, jvloothuis, nouri]
+- Fix bugs and test layer
+  [ree, gotcha, jvloothuis, nouri]
 
 1.2-rc2 (2007-07-27)
 --------------------
 
-    - External links is not always loaded anymore
-      [gotcha]
+- External links is not always loaded anymore
+  [gotcha]
 
 1.2-rc1.1 (2007-07-12)
 ----------------------
 
-    - Prepare for release
-      [ree]
+- Prepare for release
+  [ree]
 
 1.2-rc1 (2007-07-08)
 --------------------
 
-    - Cleaned up Acquisition usage. self.context always needs to be unwrapped
-      by aq_inner before using it in Zope2.
-      [hannosch]
+- Cleaned up Acquisition usage. self.context always needs to be unwrapped
+  by aq_inner before using it in Zope2.
+  [hannosch]
 
 1.2-beta2 (2007-04-30)
 ----------------------
 
-   - Prepare for release
-     [ree]
+- Prepare for release
+  [ree]
 
 1.2-beta1.2 (2007-03-23)
 ------------------------
 
-    - Add monkeypatch to offer a temporary workaround to
-      five.localsitemanager. This is actually not a kss issue,
-      but the problem manifests when any other non-five site manager
-      (like kss's one) is used together fith five's one. The
-      result is, acquisition wrapping is not added in this case, and
-      tools in Plone are returned without a parent. The current patch
-      relocates the adding of the acquisition wrapping from the
-      localsitemanager of five to the level of zope3. Thus acquisition
-      will always be added.
-      This is actually not a proper solution and is added from the wrong
-      place at the moment.
-	  [ree]
+- Add monkeypatch to offer a temporary workaround to
+  five.localsitemanager. This is actually not a kss issue,
+  but the problem manifests when any other non-five site manager
+  (like kss's one) is used together fith five's one. The
+  result is, acquisition wrapping is not added in this case, and
+  tools in Plone are returned without a parent. The current patch
+  relocates the adding of the acquisition wrapping from the
+  localsitemanager of five to the level of zope3. Thus acquisition
+  will always be added.
+  This is actually not a proper solution and is added from the wrong
+  place at the moment.
+  [ree]
 
 1.2-beta1 (2007-03-04)
 ----------------------
 
-    - prepare for release
-	  [ree]
+- prepare for release
+  [ree]
 
 1.2-alpha2 (2007-02-10)
 -----------------------
 
-    - adjust for release
-	  [ree]
+- adjust for release
+  [ree]
 
-    - Initial package structure.
-      [zopeskel]
+- Initial package structure.
+  [zopeskel]
 
