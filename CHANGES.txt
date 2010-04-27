@@ -1,7 +1,7 @@
 Changelog for plone.app.kss
 ===========================
 
-1.6.0a4 (Unreleased)
+1.6.0a4 (2010-04-28)
 --------------------
 
     - Add RefreshViewletByClass command to ``zopecommands`` command set.
