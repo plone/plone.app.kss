@@ -56,10 +56,10 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         url = self.fpage.absolute_url() + '?templateId=atct_album_view'
         result = view.changeViewTemplate(url)
         self.assertEqual(self.fpage.getLayout(), 'atct_album_view')
-        
-        resh = req.RESPONSE.headers
-        self.assertEqual(resh['status'], '200 OK')
-        self.failUnless(req.RESPONSE.cookies['statusmessages'].has_key('expires'), 'cookies not expired')
+
+        resp = req.RESPONSE
+        self.assertEqual(resp.getStatus(), 200)
+        self.failUnless(resp.cookies['statusmessages'].has_key('expires'), 'cookies not expired')
 
     def testKssCutObject(self):
         req = self.portal.REQUEST
@@ -81,10 +81,10 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         # XXX This menu is missing from front page, so we test them on the user folder.
         view = content_replacer.ContentMenuView(self.folder, req)
         result = view.cutObject()
-        resh = req.RESPONSE.headers
-        self.assertEqual(resh['status'], '200 OK')
-        self.failUnless(req.RESPONSE.cookies.has_key('__cp'), 'no cut cookie')
-        
+        resp = req.RESPONSE
+        self.assertEqual(resp.getStatus(), 200)
+        self.failUnless(resp.cookies.has_key('__cp'), 'no cut cookie')
+
     def testKssCopyObject(self):
         req = self.portal.REQUEST
         # XXX This menu is missing from front page, so we test them on the user folder.
@@ -105,9 +105,9 @@ class ContentActionMenusTestCase(KSSAndPloneTestCase):
         # XXX This menu is missing from front page, so we test them on the user folder.
         view = content_replacer.ContentMenuView(self.folder, req)
         result = view.copyObject()
-        resh = req.RESPONSE.headers
-        self.assertEqual(resh['status'], '200 OK')
-        self.failUnless(req.RESPONSE.cookies.has_key('__cp'), 'no copy cookies')
+        resp = req.RESPONSE
+        self.assertEqual(resp.getStatus(), 200)
+        self.failUnless(resp.cookies.has_key('__cp'), 'no copy cookies')
 
     def testChangeWorkflowState(self):
         # change the state of the front-page to published

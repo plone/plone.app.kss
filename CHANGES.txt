@@ -4,9 +4,11 @@ Changelog for plone.app.kss
 1.6.0a5 (unreleased)
 --------------------
 
-- Avoid using the deprecated five:implements directive.
+- Use a proper API to read response headers in tests.
   [hannosch]
 
+- Avoid using the deprecated five:implements directive.
+  [hannosch]
 
 1.6.0a4 (2010-04-28)
 --------------------
