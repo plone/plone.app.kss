@@ -1,10 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five"
            xmlns:kss="http://namespaces.zope.org/kss"
-           xmlns:zcml="http://namespaces.zope.org/zcml"
-           >
-
+           xmlns:zcml="http://namespaces.zope.org/zcml">
 
     <!-- Include command macro definitions -->
     <include package=".commands"/> 
@@ -19,26 +16,22 @@
 
     <!-- bind interfaces -->
 
-    <five:implements
-        class="Products.CMFCore.PortalContent.PortalContent"
-        interface=".interfaces.IPortalObject"
-        />
+    <class class="Products.CMFCore.PortalContent.PortalContent">
+      <implements interface=".interfaces.IPortalObject" />
+    </class>
 
-    <five:implements
-        class="Products.CMFCore.PortalFolder.PortalFolder"
-        interface=".interfaces.IPortalObject"
-        />
+    <class class="Products.CMFCore.PortalFolder.PortalFolder">
+      <implements interface=".interfaces.IPortalObject" />
+    </class>
 
-    <five:implements
-        class="Products.Archetypes.BaseContent.BaseContent"
-        interface=".interfaces.IPortalObject"
-        />
+    <class class="Products.Archetypes.BaseContent.BaseContent">
+      <implements interface=".interfaces.IPortalObject" />
+    </class>
+
+    <class class="Products.Archetypes.BaseFolder.BaseFolder">
+      <implements interface=".interfaces.IPortalObject" />
+    </class>
  
-    <five:implements
-        class="Products.Archetypes.BaseFolder.BaseFolder"
-        interface=".interfaces.IPortalObject"
-        />
-
     <!-- the kukitresponse methods -->
 
     <browser:page

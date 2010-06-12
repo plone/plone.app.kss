@@ -4,7 +4,8 @@ Changelog for plone.app.kss
 1.6.0a5 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Avoid using the deprecated five:implements directive.
+  [hannosch]
 
 
 1.6.0a4 (2010-04-28)
