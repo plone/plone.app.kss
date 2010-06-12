@@ -2,8 +2,12 @@ from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import PloneSite
 from kss.core.BeautifulSoup import BeautifulSoup
-from Products.Five.testbrowser import Browser
 
+# BBB Zope 2.12
+try:
+    from Testing.testbrowser import Browser
+except ImportError:
+    from Products.Five.testbrowser import Browser
 
 # XXX should not this be like this?
 #from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase

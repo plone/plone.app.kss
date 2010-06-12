@@ -4,6 +4,9 @@ Changelog for plone.app.kss
 1.6.0a5 (unreleased)
 --------------------
 
+- Avoid deprecation warnings under Zope 2.13.
+  [hannosch]
+
 - Use a proper API to read response headers in tests.
   [hannosch]
 

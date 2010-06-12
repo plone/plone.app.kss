@@ -2,7 +2,13 @@ from Products.PloneTestCase.layer import PloneSite
 from Products.PloneTestCase import PloneTestCase as ptc
 from kss.core.tests.base import KSSViewTestCaseMixin
 import plone.app.kss.tests, kss.core.tests
-from Products.Five.zcml import load_config
+
+# BBB Zope 2.12
+try:
+    from Zope2.App.zcml import load_config
+except ImportError:
+    from Products.Five.zcml import load_config
+
 
 class KSSAndPloneLayer(PloneSite):
     '''Since Plone sets up all zcml needed for kss, we only
