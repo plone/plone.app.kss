@@ -1,8 +1,9 @@
-plone.app.kss Package Readme
-============================
+plone.app.kss
+=============
 
 Overview
 --------
+
 This product gives generic KSS support for Plone. It depends on the product
 ``kss.core``.
 
@@ -53,4 +54,3 @@ KSS extensions defined for general purpose use
 - client action for submitting to an url
 
 - client action for submitting the current form
-

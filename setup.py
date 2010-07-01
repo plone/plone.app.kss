@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.6.0a5dev'
+version = '1.6.0'
 
 setup(name='plone.app.kss',
       version=version,
@@ -10,9 +10,7 @@ setup(name='plone.app.kss',
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
-        "Framework :: Zope3",
         "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='',
       author='Plone Foundation',
@@ -42,11 +40,11 @@ setup(name='plone.app.kss',
         'zope.interface',
         'zope.lifecycleevent',
         'zope.viewlet',
+        'Acquisition',
         'Products.Archetypes',
         'Products.CMFCore',
         'Products.DCWorkflow',
         'Products.statusmessages',
-        # 'Acquisition',
-        # 'Zope2',
+        'Zope2',
       ],
       )
