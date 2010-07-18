@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6.1 (unreleased)
+1.6.1 (2010-07-18)
 ------------------
 
 - Update license to GPL version 2 only.
