@@ -6,6 +6,7 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from plone.portlets.interfaces import IPortletManager
 from plone.app.portlets.portlets.navigation import INavigationPortlet
 from plone.app.portlets.portlets.recent import IRecentPortlet
+from plone.app.portlets.portlets.review import IReviewPortlet
 from plone.app.portlets.interfaces import IDeferredPortletRenderer
 
 from kss.core.interfaces import IKSSView
@@ -46,6 +47,13 @@ def workflowTriggersRecentPortletReload(obj, view, event):
         obj.reindexObject()
         portletReloader = PortletReloader(view)
         portletReloader.reloadPortletsByInterface(IRecentPortlet)
+
+@adapter(None, IKSSView, IAfterTransitionEvent)
+def workflowTriggersReviewPortletReload(obj, view, event):
+    if not (event.old_state is event.new_state):
+        obj.reindexObject()
+        portletReloader = PortletReloader(view)
+        portletReloader.reloadPortletsByInterface(IReviewPortlet)
 
 class PortletReloader(object):
     def __init__(self, view):

@@ -4,6 +4,9 @@ Changelog
 1.6.2 (unreleased)
 ------------------
 
+- Review portlet is updated when transition is passed.
+  This refs http://dev.plone.org/plone/ticket/11337
+  [thomasdesvenain]
 
 1.6.1 (2010-07-18)
 ------------------
