@@ -27,7 +27,7 @@ Changelog
 --------------------
 
 - Add RefreshViewletByClass command to ``zopecommands`` command set.
-  This allow to fix event handlers that were broken because they were 
+  This allow to fix event handlers that were broken because they were
   relying on viewlet (and manager) names
   instead of relying on their semantic.
   This refs http://dev.plone.org/plone/ticket/9703
@@ -42,8 +42,8 @@ Changelog
 1.6.0a2 (2010-02-18)
 --------------------
 
-- Changed replace_id in content_replacer.changeViewTemplate and 
-  content_replacer.replaceContentRegion to replace#content instead of 
+- Changed replace_id in content_replacer.changeViewTemplate and
+  content_replacer.replaceContentRegion to replace#content instead of
   redundant #region-content that is not in Plone anymore.
   [spliter]
 
@@ -106,11 +106,11 @@ Changelog
 
 - Make the plugin tolerant if jQuery is not present,
   and not have a "jq" reference error in this case.
-  Previously any kss pages (for example, demos) that 
+  Previously any kss pages (for example, demos) that
   did not use jQuery, failed with a javascript error
   in the presense of this plugin.
-  During this, most things seemed to be working, 
-  apart from any plugins that were missing because 
+  During this, most things seemed to be working,
+  apart from any plugins that were missing because
   they were to be loaded after the error.
   [ree]
 
