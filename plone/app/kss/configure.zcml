@@ -4,7 +4,7 @@
            xmlns:zcml="http://namespaces.zope.org/zcml">
 
     <!-- Include command macro definitions -->
-    <include package=".commands"/> 
+    <include package=".commands"/>
     <include package=".plugins"/>
 
     <!-- Utilities and site creation view for selenium testing
@@ -31,7 +31,7 @@
     <class class="Products.Archetypes.BaseFolder.BaseFolder">
       <implements interface=".interfaces.IPortalObject" />
     </class>
- 
+
     <!-- the kukitresponse methods -->
 
     <browser:page
@@ -140,7 +140,7 @@
         permission="zope2.View"
         />
 
-    <!-- stylesheet registration -->    
+    <!-- stylesheet registration -->
 
     <!-- reload parts of page event hookup -->
     <subscriber handler=".portlets.attributesTriggerNavigationPortletReload"/>
@@ -151,13 +151,14 @@
     <subscriber handler=".globalui.attributesTriggerDocumentBylineReload"/>
     <subscriber handler=".portlets.workflowTriggersNavigationPortletReload"/>
     <subscriber handler=".portlets.workflowTriggersRecentPortletReload"/>
+    <subscriber handler=".portlets.workflowTriggersReviewPortletReload"/>
 
     <!-- proper base url in header -->
     <browser:viewlet
         name="plone.htmlhead.kss-base-url"
         manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
         class=".headerviewlet.KSSBaseUrlViewlet"
-        permission="zope2.View" 
+        permission="zope2.View"
         />
 
 </configure>
