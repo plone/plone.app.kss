@@ -113,13 +113,12 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.loginAsPortalOwner()
         portal = self.portal
         portal.portal_workflow.doActionFor(self.portal['front-page'], 'retract')
-        portal.portal_workflow.doActionFor(self.portal['front-page'], 'submit'
-                                            )
+        portal.portal_workflow.doActionFor(self.portal['front-page'], 'submit')
         self.create_portlet(u'review', ReviewAssignment())
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
         event = ActionSucceededEvent(self.folder, descriptor, None, None)
         event.old_state, event.new_state = 'private', 'pending'
-        workflowTriggersReviewPortletReload(self.folder, self.view, event)
+        workflowTriggersReviewPortletReload(self.portal, self.view, event)
         result = self.view.render()
         command = result[0]
         self.failUnless(command.has_key('selector'))
@@ -130,7 +129,7 @@ class TestPortletReloading(KSSAndPloneTestCase):
         params = result[0]['params']
         self.failUnless(params.has_key('html'))
         html = params['html']
-        self.failUnless('portletReview' in html)
+        self.failUnless('portletWorkflowReview' in html)
         self.failUnless(command.has_key('selectorType'))
         self.assertEqual(command['selectorType'], 'htmlid')
 
