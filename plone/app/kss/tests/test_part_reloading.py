@@ -3,7 +3,8 @@ from Products.PloneTestCase import PloneTestCase
 
 from plone.app.kss.plonekssview import PloneKSSView
 from plone.app.kss.interfaces import IPortalObject
-from plone.app.kss.portlets import attributesTriggerNavigationPortletReload
+from plone.app.kss.portlets import (
+    attributesTriggerNavigationPortletReload, workflowTriggersReviewPortletReload)
 from plone.app.kss.portlets import attributesTriggerRecentPortletReload
 from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase
 
@@ -14,8 +15,10 @@ from Products.Archetypes.event import ObjectEditedEvent
 
 from plone.app.portlets.portlets.navigation import Assignment as NavigationAssignment
 from plone.app.portlets.portlets.recent import Assignment as RecentAssignment
+from plone.app.portlets.portlets.review import Assignment as ReviewAssignment
 from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
 from zope.component import getUtility, getMultiAdapter
+from Products.CMFCore.WorkflowCore import ActionSucceededEvent
 
 PloneTestCase.setupPloneSite()
 
@@ -27,7 +30,7 @@ class SampleView(PloneKSSView):
         return self.render()
 
 class TestPortletReloading(KSSAndPloneTestCase):
-            
+
     def afterSetUp(self):
         KSSAndPloneTestCase.afterSetUp(self)
         self.setDebugRequest()
@@ -105,6 +108,32 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.failUnless('portletRecent' in html)
         self.failUnless(command.has_key('selectorType'))
         self.assertEqual(command['selectorType'], 'htmlid')
+
+    def test_update_of_review_portlet(self):
+        self.loginAsPortalOwner()
+        portal = self.portal
+        portal.portal_workflow.doActionFor(self.portal['front-page'], 'retract')
+        portal.portal_workflow.doActionFor(self.portal['front-page'], 'submit'
+                                            )
+        self.create_portlet(u'review', ReviewAssignment())
+        descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
+        event = ActionSucceededEvent(self.folder, descriptor, None, None)
+        event.old_state, event.new_state = 'private', 'pending'
+        workflowTriggersReviewPortletReload(self.folder, self.view, event)
+        result = self.view.render()
+        command = result[0]
+        self.failUnless(command.has_key('selector'))
+        self.failUnless(command['selector'].startswith('portletwrapper'))
+        self.failUnless(command.has_key('name'))
+        self.assertEqual(command['name'], 'replaceInnerHTML')
+        self.failUnless(command.has_key('params'))
+        params = result[0]['params']
+        self.failUnless(params.has_key('html'))
+        html = params['html']
+        self.failUnless('portletReview' in html)
+        self.failUnless(command.has_key('selectorType'))
+        self.assertEqual(command['selectorType'], 'htmlid')
+
 
 def test_suite():
     suites = []
