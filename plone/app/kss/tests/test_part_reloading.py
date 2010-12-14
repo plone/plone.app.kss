@@ -115,8 +115,7 @@ class TestPortletReloading(KSSAndPloneTestCase):
         portal.portal_workflow.doActionFor(self.portal['front-page'], 'retract')
         portal.portal_workflow.doActionFor(self.portal['front-page'], 'submit')
         self.create_portlet(u'review', ReviewAssignment())
-        descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
-        event = ActionSucceededEvent(self.folder, descriptor, None, None)
+        event = ActionSucceededEvent(self.folder, None, None, None)
         event.old_state, event.new_state = 'private', 'pending'
         workflowTriggersReviewPortletReload(self.portal, self.view, event)
         result = self.view.render()
