@@ -4,6 +4,11 @@ Changelog
 1.6.2 (unreleased)
 ------------------
 
+- Portlet is removed if it have lost its availability
+  during kss action.
+  This refs https://dev.plone.org/plone/ticket/11343
+  [thomasdesvenain]
+
 - Review portlet is updated when transition is passed.
   This refs http://dev.plone.org/plone/ticket/11337
   [thomasdesvenain]

@@ -29,6 +29,7 @@ class SampleView(PloneKSSView):
         self.handle(ObjectModifiedEvent(self.context))
         return self.render()
 
+
 class TestPortletReloading(KSSAndPloneTestCase):
 
     def afterSetUp(self):
@@ -131,6 +132,21 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.failUnless('portletWorkflowReview' in html)
         self.failUnless(command.has_key('selectorType'))
         self.assertEqual(command['selectorType'], 'htmlid')
+
+    def test_portlet_remove(self):
+        self.loginAsPortalOwner()
+        portal = self.portal
+        self.create_portlet(u'review', ReviewAssignment())
+
+        event = ActionSucceededEvent(self.folder, None, None, None)
+        event.old_state, event.new_state = 'pending', 'published'
+        workflowTriggersReviewPortletReload(self.portal, self.view, event)
+        result = self.view.render()
+        command = result[0]
+        self.failUnless(command.has_key('selector'))
+        self.failUnless(command['selector'].startswith('portletwrapper'))
+        self.failUnless(command.has_key('name'))
+        self.assertEqual(command['name'], 'deleteNode')
 
 
 def test_suite():

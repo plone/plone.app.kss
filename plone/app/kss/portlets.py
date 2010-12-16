@@ -1,9 +1,9 @@
-from zope.component import adapter
-from zope.component import getAllUtilitiesRegisteredFor
+from zope.component import adapter, getMultiAdapter, getAllUtilitiesRegisteredFor
 
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
-from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletManager, IPortletRetriever
+from plone.portlets.utils import hashPortletInfo
 from plone.app.portlets.portlets.navigation import INavigationPortlet
 from plone.app.portlets.portlets.recent import IRecentPortlet
 from plone.app.portlets.portlets.review import IReviewPortlet
@@ -66,25 +66,57 @@ class PortletReloader(object):
             self.reloadPortletByInfo(info)
 
     def getPortletsByInterface(self, interface):
-        return [info for info in self.getAllPortletInfos() 
+        return [info for info in self.getAllPortletInfos()
                 if interface.providedBy(info['assignment'])]
-    
+
     def reloadPortletByInfo(self, info):
         renderer = info['renderer']
         renderer.update()
         if IDeferredPortletRenderer.providedBy(renderer):
             # if this is a deferred load, prepare now the data
             renderer.deferred_update()
-        result = renderer.render()
+
         portlethash = info['hash']
         wrapper_id = 'portletwrapper-%s' % portlethash
         ksscore = self.view.getCommandSet('core')
-        ksscore.replaceInnerHTML(ksscore.getHtmlIdSelector(wrapper_id), result, withKssSetup='False')
+        if info['available']:
+            result = renderer.render()
+            ksscore.replaceInnerHTML(ksscore.getHtmlIdSelector(wrapper_id),
+                                     result, withKssSetup='False')
+        else:
+            # unavailable portlets are removed
+            # manage case portlet lose its availability during kss action
+            ksscore.deleteNode(ksscore.getHtmlIdSelector(wrapper_id))
 
     def getAllPortletInfos(self):
+        """get portlet availability and info
+        """
         portletInfos = []
         for manager in getAllUtilitiesRegisteredFor(IPortletManager):
             managerRenderer = manager(self.context, self.request, self.view)
-            if managerRenderer.visible:
-                portletInfos += managerRenderer.portletsToShow()
+            retriever = getMultiAdapter((self.context, manager), IPortletRetriever)
+            items = []
+            for p in managerRenderer.filter(retriever.getPortlets()):
+                renderer = managerRenderer._dataToPortlet(p['assignment'].data)
+                info = p.copy()
+                info['manager'] = managerRenderer.manager.__name__
+                info['renderer'] = renderer
+                hashPortletInfo(info)
+                # Record metadata on the renderer
+                renderer.__portlet_metadata__ = info.copy()
+                del renderer.__portlet_metadata__['renderer']
+                try:
+                    isAvailable = renderer.available
+                except ConflictError:
+                    raise
+                except Exception, e:
+                    isAvailable = False
+                    logger.exception(
+                        "Error while determining renderer availability of portlet "
+                        "(%r %r %r): %s" % (
+                        p['category'], p['key'], p['name'], str(e)))
+
+                info['available'] = isAvailable
+                portletInfos.append(info)
+
         return portletInfos
