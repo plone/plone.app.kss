@@ -1,9 +1,8 @@
-from zope.component import adapter, getMultiAdapter, getAllUtilitiesRegisteredFor
+from zope.component import adapter, getAllUtilitiesRegisteredFor
 
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
-from plone.portlets.interfaces import IPortletManager, IPortletRetriever
-from plone.portlets.utils import hashPortletInfo
+from plone.portlets.interfaces import IPortletManager
 from plone.app.portlets.portlets.navigation import INavigationPortlet
 from plone.app.portlets.portlets.recent import IRecentPortlet
 from plone.app.portlets.portlets.review import IReviewPortlet
@@ -94,29 +93,6 @@ class PortletReloader(object):
         portletInfos = []
         for manager in getAllUtilitiesRegisteredFor(IPortletManager):
             managerRenderer = manager(self.context, self.request, self.view)
-            retriever = getMultiAdapter((self.context, manager), IPortletRetriever)
-            items = []
-            for p in managerRenderer.filter(retriever.getPortlets()):
-                renderer = managerRenderer._dataToPortlet(p['assignment'].data)
-                info = p.copy()
-                info['manager'] = managerRenderer.manager.__name__
-                info['renderer'] = renderer
-                hashPortletInfo(info)
-                # Record metadata on the renderer
-                renderer.__portlet_metadata__ = info.copy()
-                del renderer.__portlet_metadata__['renderer']
-                try:
-                    isAvailable = renderer.available
-                except ConflictError:
-                    raise
-                except Exception, e:
-                    isAvailable = False
-                    logger.exception(
-                        "Error while determining renderer availability of portlet "
-                        "(%r %r %r): %s" % (
-                        p['category'], p['key'], p['name'], str(e)))
-
-                info['available'] = isAvailable
-                portletInfos.append(info)
+            portletInfos += managerRenderer.allPortlets()
 
         return portletInfos

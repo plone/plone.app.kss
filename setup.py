@@ -31,7 +31,7 @@ setup(name='plone.app.kss',
       install_requires=[
         'setuptools',
         'kss.core',
-        'plone.portlets',
+        'plone.portlets>=2.0.1dev',
         'plone.app.layout',
         'plone.app.portlets',
         'plone.locking',
