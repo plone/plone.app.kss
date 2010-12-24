@@ -113,8 +113,8 @@ class TestPortletReloading(KSSAndPloneTestCase):
     def test_update_of_review_portlet(self):
         self.loginAsPortalOwner()
         portal = self.portal
-        portal.portal_workflow.doActionFor(self.portal['front-page'], 'retract')
-        portal.portal_workflow.doActionFor(self.portal['front-page'], 'submit')
+        self.portal.invokeFactory('Document', 'test-page')
+        portal.portal_workflow.doActionFor(self.portal['test-page'], 'submit')
         self.create_portlet(u'review', ReviewAssignment())
         event = ActionSucceededEvent(self.folder, None, None, None)
         event.old_state, event.new_state = 'private', 'pending'
