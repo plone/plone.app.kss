@@ -4,6 +4,11 @@ Changelog
 1.6.3 (Unreleased)
 ------------------
 
+- Removed plone.htmlhead.kss-base-url viewlet. KSS should pick up standard
+  <base/> tag in Plone instead.
+  References http://dev.plone.org/plone/ticket/11300
+  [spliter]
+
 1.6.2 (2011-01-03)
 ------------------
 
