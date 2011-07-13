@@ -1,8 +1,13 @@
 Changelog
 =========
 
-1.6.3 (Unreleased)
+1.7 (Unreleased)
 ------------------
+
+- Update <link /> element providing base-url for KSS with valid rel keyword
+  ('alternate') and additional HTML5 attribute data-*.
+  References http://dev.plone.org/plone/ticket/11300
+  [spliter]
 
 1.6.2 (2011-01-03)
 ------------------
