@@ -161,12 +161,4 @@
     <subscriber handler=".portlets.workflowTriggersRecentPortletReload"/>
     <subscriber handler=".portlets.workflowTriggersReviewPortletReload"/>
 
-    <!-- proper base url in header -->
-    <browser:viewlet
-        name="plone.htmlhead.kss-base-url"
-        manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
-        class=".headerviewlet.KSSBaseUrlViewlet"
-        permission="zope2.View"
-        />
-
 </configure>
