@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.7 (Unreleased)
+1.7.0 (2011-07-19)
 ------------------
 
 - Update <link /> element providing base-url for KSS with valid rel keyword
