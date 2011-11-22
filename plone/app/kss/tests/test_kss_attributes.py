@@ -2,6 +2,7 @@ from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import PloneSite
 from kss.core.BeautifulSoup import BeautifulSoup
+import re
 
 # BBB Zope 2.12
 try:
@@ -15,6 +16,7 @@ except ImportError:
 class TestKSSAttributes(ptc.FunctionalTestCase):
 
     BeautifulSoup = BeautifulSoup
+    re = re
 
     def afterSetUp(self):
         self.folder.invokeFactory('Document', 'page')
@@ -51,8 +53,8 @@ class TestForKSSInlineEditing:
         We find the title tag.
         XXX Please do _not_ look for a given tagname as the test will break
         XXX if someone changes the template, and it happens often.
-
-            >>> title = soup.find(id='parent-fieldname-title')
+            
+            >>> title = soup.find(id=self.re.compile('parent-fieldname-title-*'))
             >>> title is not None
             True
 
@@ -83,8 +85,8 @@ class TestForKSSInlineEditing:
         We find the title.
         XXX Please do _not_ look for a given tagname as the test will break
         XXX if someone changes the template, and it happens often.
-
-            >>> title = soup.find(id='parent-fieldname-title')
+         
+            >>> title = soup.find(id=self.re.compile('parent-fieldname-title-*'))
             >>> title is not None
             True
 
@@ -109,7 +111,7 @@ class TestForKSSInlineEditing:
         XXX if someone changes the template, and it happens often.
 
             >>> description = soup.find(
-            ...    id='parent-fieldname-description')
+            ...    id=self.re.compile('parent-fieldname-description-*'))
             >>> description is not None
             True
             >>> 'kssattr-atfieldname-description' in description['class']
@@ -125,7 +127,7 @@ class TestForKSSInlineEditing:
         XXX Please do _not_ look for a given tagname as the test will break
         XXX if someone changes the template, and it happens often.
 
-            >>> text = soup.find(id='parent-fieldname-text')
+            >>> text = soup.find(id=self.re.compile('parent-fieldname-text-*'))
             >>> text is not None
             True
             >>> 'kssattr-atfieldname-text' in text['class']
