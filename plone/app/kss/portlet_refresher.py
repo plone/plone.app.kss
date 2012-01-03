@@ -12,7 +12,7 @@ class PortletView(PloneKSSView):
     # --
 
     implements(IPloneKSSView)
-    
+
     def refreshPortlet(self, portlethash, nodeid=None):
         'Refresh portlet by name.'
         self.getCommandSet('plone').refreshPortlet(portlethash)

@@ -17,7 +17,7 @@ class KupuSaveView(PloneKSSView):
         "In-place saving of kupu text area's."
         corecommands = self.getCommandSet('core')
         self.context.getField(fieldname).set(self.context, text, mimetype='text/html')
-        
+
         selector = corecommands.getCssSelector('body')
         corecommands.insertHTMLAsLastChild(
             selector, '<div class="kupu-save-message">Document saved</div>')

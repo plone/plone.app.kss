@@ -16,7 +16,7 @@ class KSSRefreshContentMenu(CommandSet):
               "Please use the 'plone' command set instead.")
     def refreshContentMenu(self, id, name):
         alsoProvides(self.view, IViewView)
-        contentMenu = getMultiAdapter((self.context, self.request, self.view), 
+        contentMenu = getMultiAdapter((self.context, self.request, self.view),
                                       IContentProvider, name=name)
         renderer = contentMenu.__of__(self.context)
         renderer.update()

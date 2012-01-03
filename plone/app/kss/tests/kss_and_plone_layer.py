@@ -26,6 +26,6 @@ class KSSAndPloneLayer(PloneSite):
         # XXX: tear down whatever was set up in configure-part_reloading
         # XXX XXX - How? (RB)
         pass
-       
+
 class KSSAndPloneTestCase(ptc.PloneTestCase, KSSViewTestCaseMixin):
     layer = KSSAndPloneLayer

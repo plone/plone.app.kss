@@ -12,7 +12,7 @@ class MacroView(PloneKSSView):
     # --
 
     implements(IPloneKSSView)
-    
+
     def replaceInnerByMacro(self, selector, macropath):
         content = self.macroContent(macropath)
         self.getCommandSet('core').replaceInnerHTML(selector, content)
@@ -26,6 +26,6 @@ class MacroView(PloneKSSView):
     def replaceMacro(self, selector, macropath):
         import warnings, textwrap
         warnings.warn(textwrap.dedent('''\
-            The usage of the server action replaceMacro is deprecated''' 
+            The usage of the server action replaceMacro is deprecated'''
         ), DeprecationWarning, 2)
         return self.replaceInnerByMacro(selector, macropath)

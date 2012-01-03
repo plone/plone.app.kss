@@ -6,7 +6,7 @@ from kss.core.kssview import CommandSet
 class ReplaceContentMenuCommand(CommandSet):
     """Mainly exists for backward compatibility with old hooks
     """
-    
+
     @deprecate("The 'replacecontentmenu' command set is deprecated and will be removed in Plone 3.5. "
                "Please use the 'plone' command set instead.")
     def replaceMenu(self):

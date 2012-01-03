@@ -25,7 +25,7 @@ class PloneKSSView(base):
     '''
 
     implements(IPloneKSSView)
-    
+
     def macroContent(self, macropath, **kw):
         'Renders a macro and returns its text'
         path = macropath.split('/')
@@ -38,7 +38,7 @@ class PloneKSSView(base):
             the_macro = macroobj.macros[path[-1]]
         except AttributeError, IndexError:
             raise RuntimeError, 'Macro not found'
-        #  
+        #
         # put parameters on the request, by saving the original context
         self.request.form, orig_form = kw, self.request.form
         if ZOPE2_12:

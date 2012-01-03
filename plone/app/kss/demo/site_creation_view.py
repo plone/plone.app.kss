@@ -20,7 +20,7 @@ class SiteCreationView(SetupBase):
 
     # objects_tree defines the tree of kss contents used in our tests
     # You can add your objects used in kss tests and generic attributes
-    objects_tree = [{'id':'kssfolder', 
+    objects_tree = [{'id':'kssfolder',
                  'portal_type':'Folder',
                  'attrs':{
                           'title':'KssFolder',
@@ -34,15 +34,15 @@ class SiteCreationView(SetupBase):
                               'attrs':{
                                        'title':'KssDocument',
                                        'text':"""
-                                              KSS is a javascript framework that aims to allow Ajax development 
-                                              without javascript. It uses stylesheets with CSS-compliant syntax 
-                                              to setup behaviours in the client and a set of well-defined commands 
+                                              KSS is a javascript framework that aims to allow Ajax development
+                                              without javascript. It uses stylesheets with CSS-compliant syntax
+                                              to setup behaviours in the client and a set of well-defined commands
                                               that are marshalled back from the server to manipulate the DOM.
                                               We'll also add an external link also (<a href="http://www.plone.org">
                                               [bug #6343] click here to test if the external link works!</a>).
                                               """,
                                        'description':"""
-                                                     KSS is a javascript framework that aims to allow Ajax development 
+                                                     KSS is a javascript framework that aims to allow Ajax development
                                                      without javascript.
                                                      """,
                                       }
@@ -53,9 +53,9 @@ class SiteCreationView(SetupBase):
                               'attrs':{
                                        'title':'KssNews',
                                        'text':"""
-                                              An early spring sprint at a beautiful location on the Italian coast. 
-                                              The sprint will focus on topics of interest for Plone 3.5. Potential 
-                                              topics include custom membership, extending Plone's use of AJAX, 
+                                              An early spring sprint at a beautiful location on the Italian coast.
+                                              The sprint will focus on topics of interest for Plone 3.5. Potential
+                                              topics include custom membership, extending Plone's use of AJAX,
                                               content export-import, and much more.
                                               """,
                                        'description':"""
@@ -78,7 +78,7 @@ class SiteCreationView(SetupBase):
     def addUsers(self, portal):
         for user in self.users:
             portal.acl_users._doAddUser(user['username'], user['password'], user['roles'], [])
- 
+
     def createSite(self, root):
         site_id = 'ksstestportal'
         if hasattr(root, site_id):
@@ -106,7 +106,7 @@ class SiteCreationView(SetupBase):
             # applying the transitions in order
             for transition in obj_transitions:
                 portal.portal_workflow.doActionFor(new_obj, transition)
-          
+
             # recursive call for creating other nodes
             self.createNodes(new_obj, obj_children, portal)
 
@@ -115,14 +115,14 @@ class SiteCreationView(SetupBase):
         objects used by.
         """
         site = self.createSite(zoperoot)
-        
+
         self.addUsers(site)
-        
+
         self.createNodes(site, self.objects_tree, site)
 
         status_message='Selenium Test Site has been created'
         logger.info(status_message)
 
         # The method must return a tag with id "ok", containing the text "OK".
-        # to signal success to the testsuite. 
+        # to signal success to the testsuite.
         return '<html><body><div id="OK">OK</div><div>Site creation succesful.</div></body></html>'

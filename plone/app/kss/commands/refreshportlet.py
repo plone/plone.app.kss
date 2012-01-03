@@ -11,7 +11,7 @@ from zope.component import getMultiAdapter, getUtility
 # XXX: This is deprecated and will be removed in Plone 3.5. Use the 'plone'
 # command set instead.
 class RefreshPortletCommand(CommandSet):
-    
+
     @deprecate("The 'refreshportlet' command set is deprecated and will be removed in Plone 3.5. "
                "Please use the 'plone' command set instead.")
     def refreshPortletLegacy(self, name, nodeid=None, **kw):
@@ -39,10 +39,10 @@ class RefreshPortletCommand(CommandSet):
         # put parameters on the request, by saving the original context
         self.request.form, orig_form = kw, self.request.form
         # Prepare the portlet and render the data
-        info = unhashPortletInfo(portlethash) 
+        info = unhashPortletInfo(portlethash)
         manager = getUtility(IPortletManager, info['manager'])
-        assignment = assignment_from_key(context = self.context, 
-                                         manager_name = info['manager'], 
+        assignment = assignment_from_key(context = self.context,
+                                         manager_name = info['manager'],
                                          category = info['category'],
                                          key = info['key'],
                                          name = info['name'])

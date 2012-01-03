@@ -10,7 +10,7 @@
         class=".zopecommands.ZopeCommands"
         provides=".interfaces.IZopeCommands"
         />
-        
+
     <kss:commandset
         name="plone"
         for="kss.core.interfaces.IKSSView"
@@ -28,10 +28,10 @@
     <subscriber handler=".zopecommands.addRefreshViewletCommands"/>
 
     <!-- DEPRECATED commands - will be gone in Plone 3.5.
-    
+
         This functionality exists in the 'zope' and 'plone'
         command sets
-        
+
       -->
 
     <kss:commandset
@@ -48,7 +48,7 @@
         provides=".interfaces.IKSSRefreshViewlet"
         />
 
-    <kss:commandset 
+    <kss:commandset
         name="plone-portlets"
         for="kss.core.interfaces.IKSSView"
         class=".portlets.KSSPortletCommands"

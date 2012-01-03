@@ -53,7 +53,7 @@ class TestForKSSInlineEditing:
         We find the title tag.
         XXX Please do _not_ look for a given tagname as the test will break
         XXX if someone changes the template, and it happens often.
-            
+
             >>> title = soup.find(id=self.re.compile('parent-fieldname-title-*'))
             >>> title is not None
             True
@@ -85,7 +85,7 @@ class TestForKSSInlineEditing:
         We find the title.
         XXX Please do _not_ look for a given tagname as the test will break
         XXX if someone changes the template, and it happens often.
-         
+
             >>> title = soup.find(id=self.re.compile('parent-fieldname-title-*'))
             >>> title is not None
             True

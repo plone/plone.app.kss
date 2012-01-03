@@ -45,7 +45,7 @@ def getCurrentContext(context):
 class ContentView(Implicit, PloneKSSView):
 
     implements(IPloneKSSView)
-    
+
     # --
     # Replacing content region
     # --
@@ -85,7 +85,7 @@ class ContentView(Implicit, PloneKSSView):
         Warning ("Do you want to...") when we leave the page is not implemented.
 
         '''
-        # REMARK on error handling: 
+        # REMARK on error handling:
         # If KSSExplicitError is raised, the control will be passed
         # to the error handler defined on the client. I.e. for this rule,
         # the static plone-followLink should be activated. This means that
@@ -174,7 +174,7 @@ class ContentView(Implicit, PloneKSSView):
 class ContentMenuView(Implicit, PloneKSSView):
 
     implements(IPloneKSSView, IViewView)
-    
+
     @kssaction
     def cutObject(self):
         context = getCurrentContext(self.context)
@@ -194,7 +194,7 @@ class ContentMenuView(Implicit, PloneKSSView):
     @kssaction
     def changeViewTemplate(self, url):
         '''Replace content region after selecting template from drop-down.
-        
+
         Usage::
             dl#templateMenu dd a:click {
             evt-click-preventdefault: True;
@@ -249,7 +249,7 @@ class ContentMenuView(Implicit, PloneKSSView):
         ksscore = self.getCommandSet('core')
         zopecommands = self.getCommandSet('zope')
         plonecommands = self.getCommandSet('plone')
-        
+
         locking = ILockable(context, None)
         if locking is not None and not locking.can_safely_unlock():
             selector = ksscore.getHtmlIdSelector('plone-lock-status')

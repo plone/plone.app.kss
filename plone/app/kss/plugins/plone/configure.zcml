@@ -2,9 +2,9 @@
      xmlns:browser="http://namespaces.zope.org/browser"
      xmlns:kss="http://namespaces.zope.org/kss"
      >
-     
-    
-    <!-- plugin registration -->    
+
+
+    <!-- plugin registration -->
 
      <kss:action
         name="plone-removeLockProtection"

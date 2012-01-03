@@ -16,7 +16,7 @@ from interfaces import IPloneCommands
 
 class PloneCommands(CommandSet):
     implements(IPloneCommands)
-    
+
     def issuePortalMessage(self, message, msgtype='info'):
         if message is None:
             message = ''
@@ -56,13 +56,13 @@ class PloneCommands(CommandSet):
     def refreshPortlet(self, portlethash, **kw):
         # put parameters on the request, by saving the original context
         self.request.form, orig_form = kw, self.request.form
-        
+
         # Prepare the portlet and render the data
-        info = unhashPortletInfo(portlethash) 
+        info = unhashPortletInfo(portlethash)
         manager = getUtility(IPortletManager, info['manager'])
-        
-        assignment = assignment_from_key(context = self.context, 
-                                         manager_name = info['manager'], 
+
+        assignment = assignment_from_key(context = self.context,
+                                         manager_name = info['manager'],
                                          category = info['category'],
                                          key = info['key'],
                                          name = info['name'])
@@ -71,16 +71,16 @@ class PloneCommands(CommandSet):
                 IPortletRenderer
             )
         renderer = renderer.__of__(self.context)
-        
+
         renderer.update()
         if IDeferredPortletRenderer.providedBy(renderer):
             # if this is a deferred load, prepare now the data
             renderer.deferred_update()
         result = renderer.render()
-        
+
         # Revert the original request
         self.request.form = orig_form
-        
+
         # Command the replacement
         wrapper_id = 'portletwrapper-%s' % portlethash
         ksscore = self.getCommandSet('core')

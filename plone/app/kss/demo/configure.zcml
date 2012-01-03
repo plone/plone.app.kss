@@ -4,8 +4,8 @@
            xmlns:kss="http://namespaces.zope.org/kss"
            xmlns:zcml="http://namespaces.zope.org/zcml"
            >
-           
-     <!-- Define the method for the site creation (setup)      
+
+     <!-- Define the method for the site creation (setup)
 
      There is no need (and no possibility) to control access
      to this element, because it does access control internally.
@@ -16,7 +16,7 @@
          name="kss_test_create_site"
          permission="zope2.View"
          />
-         
+
     <!-- Set up the demo utility -->
     <configure zcml:condition="have kss_demo_version_1_2">
       <utility
@@ -27,7 +27,7 @@
         />
     </configure>
 
- 
+
   <!-- follow link -->
   <browser:page
       for="kss.demo.interfaces.ISimpleContent"

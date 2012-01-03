@@ -10,12 +10,12 @@ def initialize(context):
 
     # register directory views
     registerDirectory(SKINS_DIR, GLOBALS)
-    
+
     # Register kss extension to allow it used from fs skins
     registerFileExtension('kss', FSFile)
 
     # content initialization
-    content_types, constructors, ftis = process_types( 
+    content_types, constructors, ftis = process_types(
         listTypes(PROJECTNAME),
         PROJECTNAME)
 
