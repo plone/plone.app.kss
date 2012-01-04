@@ -9,7 +9,7 @@ Changelog
 ------------------
 
 - Update <link /> element providing base-url for KSS with valid rel keyword
-  ('alternate') and additional HTML5 attribute data-*.
+  ('alternate') and additional HTML5 attribute ``data-*``.
   References http://dev.plone.org/plone/ticket/11300
   [spliter]
 
