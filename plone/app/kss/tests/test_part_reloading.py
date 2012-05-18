@@ -11,8 +11,6 @@ from plone.app.kss.tests.kss_and_plone_layer import KSSAndPloneTestCase
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope import lifecycleevent
 
-from Products.Archetypes.event import ObjectEditedEvent
-
 from plone.app.portlets.portlets.navigation import Assignment as NavigationAssignment
 from plone.app.portlets.portlets.recent import Assignment as RecentAssignment
 from plone.app.portlets.portlets.review import Assignment as ReviewAssignment
@@ -48,7 +46,7 @@ class TestPortletReloading(KSSAndPloneTestCase):
     def test_no_update_of_nav_portlet_when_hooked_with_wrong_event(self):
         # nothing should happen still because we must change the title or the
         # description
-        modified_event = ObjectEditedEvent(self.folder)
+        modified_event = ObjectModifiedEvent(self.folder)
         attributesTriggerNavigationPortletReload(self.folder, self.view, modified_event)
         result = self.view.render()
         self.assertEqual(result, [])
@@ -62,7 +60,7 @@ class TestPortletReloading(KSSAndPloneTestCase):
             context=folder)
         self.view = folder.restrictedTraverse('@@change_title')
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
-        modified_event = ObjectEditedEvent(folder, descriptor)
+        modified_event = ObjectModifiedEvent(folder, descriptor)
         attributesTriggerNavigationPortletReload(folder, self.view, modified_event)
         result = self.view.render()
         command = result[0]
@@ -94,7 +92,7 @@ class TestPortletReloading(KSSAndPloneTestCase):
         self.create_portlet(u'recent', RecentAssignment())
         #
         descriptor = lifecycleevent.Attributes(IPortalObject, 'title')
-        modified_event = ObjectEditedEvent(self.folder, descriptor)
+        modified_event = ObjectModifiedEvent(self.folder, descriptor)
         attributesTriggerRecentPortletReload(self.folder, self.view, modified_event)
         result = self.view.render()
         command = result[0]
@@ -135,7 +133,6 @@ class TestPortletReloading(KSSAndPloneTestCase):
 
     def test_portlet_remove(self):
         self.loginAsPortalOwner()
-        portal = self.portal
         self.create_portlet(u'review', ReviewAssignment())
 
         event = ActionSucceededEvent(self.folder, None, None, None)
