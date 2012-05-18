@@ -37,22 +37,6 @@
         />
 
     <kss:action
-        name="plone-formProtectionCheck"
-        command_factory="selector"
-        jsfile="plugin.js"
-        />
-
-    <kss:eventtype
-        name="plone-formProtectionChecked"
-        jsfile="plugin.js"
-        />
-
-    <kss:eventtype
-        name="plone-formProtectionFailed"
-        jsfile="plugin.js"
-        />
-
-    <kss:action
         name="plone-initShiftDetection"
         command_factory="global"
         jsfile="plugin.js"

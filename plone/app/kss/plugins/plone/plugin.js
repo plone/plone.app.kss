@@ -96,58 +96,6 @@ kukit.actionsGlobalRegistry.register("plone-submitCurrentForm", function (oper) 
 kukit.commandsGlobalRegistry.registerFromAction('plone-submitCurrentForm',
     kukit.cr.makeSelectorCommand);
 
-kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", 
-    function(oper) {
-    oper.evaluateParameters([], {}, 'plone-formProtectionCheck action');
-    // Find the binderInstance of the switcher.
-    // (since we are in an action and not in the event,
-    // we don't have it at hand.
-    // Note that we would not necessarily need the singleton)
-    var binderInfo =
-        kukit.engine.binderInfoRegistry.getSingletonBinderInfoByName('plone',
-        'formProtectionChecked');
-    var binderInstance = binderInfo.getBinderInstance();
-    // check if the form has change
-    var message;
-    if ( window.onbeforeunload) {
-        var tool = window.onbeforeunload.tool;
-        message = tool.execute();
-    }
-    // Do we need the popup?
-    var result = true;
-    if (message) {
-        var confirmMsg = 'Are you sure you want to navigate away from this';
-        confirmMsg += ' page?\n\n' + message + '\n\nPress OK to continue,';
-        confirmMsg += ' or Cancel to stay on the current page.';
-        result = confirm(confirmMsg);
-    }
-    // arrange the continuation events
-    if (result) {
-        // Continue with the real action.
-        var action = 'formProtectionChecked';
-    } else {
-        // Continue with the cancel action.
-        var action = 'formProtectionFailed';
-    }
-    binderInstance.__continueEvent__(action, oper.node, {});
-});
-
-kukit.commandsGlobalRegistry.registerFromAction('plone-formProtectionCheck',
-    kukit.cr.makeSelectorCommand);
-
-kukit.plone.FormProtectionCheckedEvents = function() {
-};
-
-kukit.plone.FormProtectionCheckedEvents.prototype.__default_failed__ = 
-    function(name, oper) {
-};
-
-kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked',
-    kukit.plone.FormProtectionCheckedEvents, null, null);
-
-kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed',
-    kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
-
 // Form Locking
 
 kukit.actionsGlobalRegistry.register("plone-initLockingProtection",
