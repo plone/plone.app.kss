@@ -53,12 +53,6 @@
         />
 
     <kss:action
-        name="plone-initFormProtection"
-        command_factory="selector"
-        jsfile="plugin.js"
-        />
-
-    <kss:action
         name="plone-initShiftDetection"
         command_factory="global"
         jsfile="plugin.js"

@@ -96,24 +96,6 @@ kukit.actionsGlobalRegistry.register("plone-submitCurrentForm", function (oper) 
 kukit.commandsGlobalRegistry.registerFromAction('plone-submitCurrentForm',
     kukit.cr.makeSelectorCommand);
 
-kukit.actionsGlobalRegistry.register("plone-initFormProtection", function(oper) {
-    oper.evaluateParameters([], {}, 'plone-initFormProtection action');
-    if (oper.node.tagName.toLowerCase() != 'form') {
-;;;     kukit.E = 'The plone-initFormProtection action can only execute on';
-;;;     kukit.E += ' a form node as a target.';
-        throw kukit.E;
-    }
-    var form = oper.node;  
-    if (! window.onbeforeunload) {
-        window.onbeforeunload = new BeforeUnloadHandler().execute;
-    }
-    var tool = window.onbeforeunload.tool;
-    // We add the new tool to the 
-    tool.addForm(form);
-});
-kukit.commandsGlobalRegistry.registerFromAction('plone-initFormProtection',
-    kukit.cr.makeSelectorCommand);
-
 kukit.actionsGlobalRegistry.register("plone-formProtectionCheck", 
     function(oper) {
     oper.evaluateParameters([], {}, 'plone-formProtectionCheck action');
