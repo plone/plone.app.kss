@@ -37,12 +37,6 @@
         />
 
     <kss:action
-        name="plone-initFormTabs"
-        command_factory="selector"
-        jsfile="plugin.js"
-        />
-
-    <kss:action
         name="plone-formProtectionCheck"
         command_factory="selector"
         jsfile="plugin.js"

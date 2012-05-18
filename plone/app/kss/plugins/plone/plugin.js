@@ -96,18 +96,6 @@ kukit.actionsGlobalRegistry.register("plone-submitCurrentForm", function (oper) 
 kukit.commandsGlobalRegistry.registerFromAction('plone-submitCurrentForm',
     kukit.cr.makeSelectorCommand);
 
-kukit.actionsGlobalRegistry.register("plone-initFormTabs", function(oper) {
-    oper.evaluateParameters([], {}, 'plone-initFormTabs action');
-    if (oper.node.tagName.toLowerCase() != 'form') {
-;;;     kukit.E = 'The plone-initFormTabs action can only execute on a form';
-;;;     kukit.E += ' node as a target.';
-        throw kukit.E;
-    }
-    var form = oper.node;  
-    ploneFormTabbing.initializeForm(form);
-});
-kukit.commandsGlobalRegistry.registerFromAction('plone-initFormTabs', kukit.cr.makeSelectorCommand);
-
 kukit.actionsGlobalRegistry.register("plone-initFormProtection", function(oper) {
     oper.evaluateParameters([], {}, 'plone-initFormProtection action');
     if (oper.node.tagName.toLowerCase() != 'form') {
