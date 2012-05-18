@@ -4,6 +4,8 @@ Changelog
 1.7.1 (Unreleased)
 ------------------
 
+- Remove hard dependency on Archetypes.
+  [davisagli]
 
 1.7.0 (2011-07-19)
 ------------------

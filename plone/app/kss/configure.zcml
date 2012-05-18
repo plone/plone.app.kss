@@ -24,13 +24,17 @@
       <implements interface=".interfaces.IPortalObject" />
     </class>
 
-    <class class="Products.Archetypes.BaseContent.BaseContent">
-      <implements interface=".interfaces.IPortalObject" />
-    </class>
+    <configure zcml:condition="installed Products.Archetypes">
 
-    <class class="Products.Archetypes.BaseFolder.BaseFolder">
-      <implements interface=".interfaces.IPortalObject" />
-    </class>
+      <class class="Products.Archetypes.BaseContent.BaseContent">
+        <implements interface=".interfaces.IPortalObject" />
+      </class>
+
+      <class class="Products.Archetypes.BaseFolder.BaseFolder">
+        <implements interface=".interfaces.IPortalObject" />
+      </class>
+    
+    </configure>
 
     <!-- the kukitresponse methods -->
 
