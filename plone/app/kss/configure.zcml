@@ -79,14 +79,6 @@
         />
 
     <browser:page
-        for="*"
-        attribute="updateLockInfo"
-        class=".lock.LockView"
-        name="updateLockInfo"
-        permission="zope2.View"
-        />
-
-    <browser:page
         for="Products.CMFCore.interfaces.IContentish"
         attribute="save"
         class=".kupu.KupuSaveView"
