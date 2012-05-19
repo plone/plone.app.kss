@@ -36,6 +36,11 @@
         jsfile="plugin.js"
         />
 
+    <kss:eventtype
+        name="plone-formProtectionChecked"
+        jsfile="plugin.js"
+        />
+
     <kss:action
         name="plone-initShiftDetection"
         command_factory="global"

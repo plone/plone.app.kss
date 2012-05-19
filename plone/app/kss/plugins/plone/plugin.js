@@ -96,6 +96,19 @@ kukit.actionsGlobalRegistry.register("plone-submitCurrentForm", function (oper) 
 kukit.commandsGlobalRegistry.registerFromAction('plone-submitCurrentForm',
     kukit.cr.makeSelectorCommand);
 
+kukit.plone.FormProtectionCheckedEvents = function() {
+};
+
+kukit.plone.FormProtectionCheckedEvents.prototype.__default_failed__ = 
+    function(name, oper) {
+};
+
+kukit.eventsGlobalRegistry.register('plone', 'formProtectionChecked',
+    kukit.plone.FormProtectionCheckedEvents, null, null);
+
+kukit.eventsGlobalRegistry.register('plone', 'formProtectionFailed',
+    kukit.plone.FormProtectionCheckedEvents, null, '__default_failed__');
+
 // Form Locking
 
 kukit.actionsGlobalRegistry.register("plone-initLockingProtection",
