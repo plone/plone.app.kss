@@ -13,6 +13,8 @@
     <include package=".commands"/>
     <include package=".plugins"/>
 
+    <include package=".exportimport"/>
+
     <!-- Utilities and site creation view for selenium testing
          (It is safe to include this any time, even in production.
     -->
