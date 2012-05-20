@@ -8,6 +8,6 @@
  <javascript id="++resource++kukit.js" compression="none" authenticated="True" />
  <javascript id="++resource++kukit-devel.js" compression="none" enabled="False" />
 
- <javascript id="sarissa.js" />
+ <javascript id="++resource++sarissa.js" />
 
 </object>
