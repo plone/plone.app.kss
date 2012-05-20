@@ -4,6 +4,11 @@
            xmlns:zcml="http://namespaces.zope.org/zcml"
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
+
+    <!-- kss -->
+    <include package="kss.core" />
+    <include package="archetypes.kss" />
+
     <!-- Include command macro definitions -->
     <include package=".commands"/>
     <include package=".plugins"/>
