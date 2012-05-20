@@ -1,7 +1,8 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:kss="http://namespaces.zope.org/kss"
-           xmlns:zcml="http://namespaces.zope.org/zcml">
+           xmlns:zcml="http://namespaces.zope.org/zcml"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
     <!-- Include command macro definitions -->
     <include package=".commands"/>
@@ -156,5 +157,14 @@
     <subscriber handler=".portlets.workflowTriggersNavigationPortletReload"/>
     <subscriber handler=".portlets.workflowTriggersRecentPortletReload"/>
     <subscriber handler=".portlets.workflowTriggersReviewPortletReload"/>
+
+    <genericsetup:registerProfile
+      name="default"
+      directory="profiles/default"
+      title="Kinetic StyleSheets"
+      description="Add kinetic stylesheet functionality to Plone"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
 
 </configure>
