@@ -160,7 +160,7 @@
 
     <genericsetup:registerProfile
       name="default"
-      directory="profiles/default"
+      directory="profile/default"
       title="Kinetic StyleSheets"
       description="Add kinetic stylesheet functionality to Plone"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
