@@ -166,8 +166,8 @@
     <genericsetup:registerProfile
       name="default"
       directory="profile/default"
-      title="Kinetic StyleSheets"
-      description="Add kinetic stylesheet functionality to Plone"
+      title="plone.app.kss"
+      description="Add kinetic stylesheet (KSS) functionality to Plone"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
