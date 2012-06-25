@@ -1,9 +1,11 @@
 <configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:kss="http://namespaces.zope.org/kss"
            xmlns:zcml="http://namespaces.zope.org/zcml"
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
+    <five:registerPackage package="." initialize=".initialize" />
 
     <!-- kss -->
     <include package="kss.core" />
