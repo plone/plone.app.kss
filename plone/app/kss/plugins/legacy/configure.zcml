@@ -7,11 +7,6 @@
     <!-- reload plugin for content menus -->
 
     <kss:action
-        name="bindActionMenus"
-        jsfile="reload/bindmenus.js"
-        />
-
-    <kss:action
         name="bindExternalLinks"
         jsfile="reload/bindextlinks.js"
         />

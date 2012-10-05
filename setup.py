@@ -31,6 +31,7 @@ setup(name='plone.app.kss',
       install_requires=[
         'setuptools',
         'kss.core',
+        'archetypes.kss',
         'plone.portlets>=2.0.1dev',
         'plone.app.layout',
         'plone.app.portlets',
@@ -49,4 +50,8 @@ setup(name='plone.app.kss',
         'Products.statusmessages',
         'Zope2',
       ],
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )
