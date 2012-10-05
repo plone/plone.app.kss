@@ -1,10 +1,12 @@
 Changelog
 =========
 
-1.7.2 (unreleased)
+1.8.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Move a lot of KSS-related configuration from CMFPlone to plone.app.kss.
+  KSS is no longer a dependency of Plone.
+  [esteele]
 
 
 1.7.1 (2012-05-25)
