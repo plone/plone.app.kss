@@ -72,6 +72,18 @@ kukit.actionsGlobalRegistry.register("plone-initKupu", function(oper) {
 kukit.commandsGlobalRegistry.registerFromAction('plone-initKupu', 
     kukit.cr.makeSelectorCommand);
 
+kukit.actionsGlobalRegistry.register("init-tinymce", function(oper) {
+    var textarea = document.getElementById(oper.node.id);
+    config = jQuery.parseJSON(jQuery(textarea).attr('data-mce-config'));
+    jQuery(textarea).tinymce(config);
+});
+
+kukit.actionsGlobalRegistry.register("save-tinymce", function(oper) {
+    if(tinymce.EditorManager != undefined && tinymce.EditorManager.activeEditor != null){
+        tinymce.EditorManager.activeEditor.save();
+    }
+});
+
 kukit.actionsGlobalRegistry.register("plone-followLink", function(oper) {
     oper.evaluateParameters([], {}, 'plone-followLink action');
     var url = oper.node.href;
